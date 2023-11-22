@@ -1,0 +1,19 @@
+.preloader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preloader__title {
+    font-family: "Inter", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 2;
+    color: white;
+}
+
+.preloader__gif {
+    margin: 0;
+    padding: 0;
+}

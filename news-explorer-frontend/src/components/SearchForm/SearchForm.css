@@ -1,0 +1,40 @@
+.searchForm {
+    justify-content: center;
+    display: flex;
+
+}
+
+.searchForm__input {
+    font-family: "Inter", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1;
+    color: black;
+    min-width: 500px;
+    padding: 20px 5px;
+    border: none;
+    border-radius: 50px; 
+    padding-left: 25px;
+}
+
+.searchForm__button {
+    font-family: "Inter", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1;
+    min-width: 200px;
+    color: white;
+    background-color: rgb(53, 103, 194);
+    border: none;
+    border-radius: 50px; 
+}
+
+.searchForm__button:hover {
+    background-color: rgb(81, 124, 202);
+  }
+
+.searchForm__button:active {
+    background-color: rgb(15, 68, 167); /* Cambia el color al hacer clic */
+}

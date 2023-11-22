@@ -1,0 +1,28 @@
+.main {
+    align-items: center;
+    margin: 100px 250px;
+    max-width: 800px;
+}
+
+.main__title {
+    font-family: "Inter", Arial, sans-serif;
+    font-style: normal;
+    
+    margin-bottom: 50px;
+    font-weight: 400;
+    font-size: 80px;
+    line-height: 1;
+    color: white;
+
+}
+
+.main__subtitle {
+    font-family: "Inter", Arial, sans-serif;
+    font-style: normal;
+    margin-bottom: 100px;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 1;
+    color: white;
+
+}
