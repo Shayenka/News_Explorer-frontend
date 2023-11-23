@@ -16,6 +16,7 @@ function Footer() {
           <h3 className="footer__author_about">Texto</h3>
         </div>
       </div>
+      <div className="footer__link">
       <p className="footer__copyright">
         &copy; 2021 Supercite, Powered by News API
       </p>
@@ -33,6 +34,7 @@ function Footer() {
         >
           Practicum
         </Link>
+        </div>
     </footer>
   );
 }

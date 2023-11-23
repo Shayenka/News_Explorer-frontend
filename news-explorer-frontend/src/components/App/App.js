@@ -8,6 +8,7 @@ import Main from "../Main/Main";
 import Header from "../Header/Header";
 // import Register from "./Register";
 import Footer from "../Footer/Footer";
+import Login from "../../Login";
 
 // import Api from "../utils/api.js";
 // import { registerUser, checkTokenValidity } from "../utils/auth";
@@ -18,6 +19,7 @@ function App() {
 //     useState(false);
 
 //   // const [cards, setCards] = useState([]);
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 
   const [token, setToken] = useState(null);
 
@@ -71,21 +73,21 @@ function App() {
 //     setIsRegisterProfilePopupOpen(true);
 //   }
 
-//   async function handleRegisterUser(email, password) {
-//     try {
-//       const response = await registerUser(email, password);
-//       return response;
-//     } catch (error) {
-//       console.error("Error en el registro de usuario:", error);
-//       throw error;
-//     }
-//   }
+  async function handleRegisterUser(email, password) {
+    try {
+      const response = await registerUser(email, password);
+      return response;
+    } catch (error) {
+      console.error("Error en el registro de usuario:", error);
+      throw error;
+    }
+  }
 
-//   function handleLogin(data) {
-//     localStorage.setItem("jwt", data.token);
-//     setToken(data.token);
-//     setIsLoggedIn(true);
-//   }
+  function handleLogin(data) {
+    localStorage.setItem("jwt", data.token);
+    setToken(data.token);
+    setIsLoggedIn(true);
+  }
 
   function handleLogout() {
     console.log("Logging out...");
@@ -113,24 +115,20 @@ function App() {
 //       });
 //     }
 
-//     function closeAllPopups() {
-//       setIsLoginProfilePopupOpen(false);
-//       setIsRegisterProfilePopupOpen(false);
-//     }
 
     return (
       <div className="body">
         <div className="page">
           <CurrentUserContext.Provider value={currentUser}>
-             <Header loggedIn={isLoggedIn} onLogout={handleLogout} />
+             <Header handleLoginPopUp={() => setIsLoginPopupOpen(true)} loggedIn={isLoggedIn} onLogout={handleLogout} />
             <Routes>
-              {/* <Route
+              <Route
                 path="/signin"
                 element={
-                  <Login onLoggedIn={handleLogin} loggedIn={isLoggedIn} />
+                  <Login onLoggedIn={handleLogin} loggedIn={isLoggedIn} isOpen={isLoginPopupOpen} onClose={() => setIsLoginPopupOpen(false)}/>
                 }
               />
-              <Route
+              {/* <Route
                 path="/signup"
                 element={
                   <Register

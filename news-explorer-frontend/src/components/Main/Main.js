@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import SearchForm from "../SearchForm/SearchForm"; // Asegúrate de proporcionar la ruta correcta
 
-function Main(props) {
+function Main() {
   const currentUser = useContext(CurrentUserContext);
 
   // Función que se ejecutará cuando se envíe el formulario de búsqueda

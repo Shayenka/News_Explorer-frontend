@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Header({ isLoggedIn, onLogout }) {
+function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -28,7 +28,7 @@ function Header({ isLoggedIn, onLogout }) {
             </Link>
             <Link
               to="/"
-              className="header__link_text"
+              className="header__link_text-border"
               style={{ textDecoration: "none" }}
             >
               Elise [->;
@@ -37,8 +37,16 @@ function Header({ isLoggedIn, onLogout }) {
         ) : (
           <Link
             to="/signin"
-            className="header__link_text-signin"
-            style={{ textDecoration: "none", border: "1px solid white", padding: "1px 35px", borderRadius: "30px" }}
+            className="header__link_text-border"
+            style={{
+              textDecoration: "none",
+              border: "1px solid white",
+              padding: "1px 35px",
+              borderRadius: "30px",
+            }}
+            onClick={() => {
+              handleLoginPopUp();
+            }}
           >
             Iniciar sesión
           </Link>
