@@ -28,6 +28,9 @@ function ModalWithForm(props) {
           to="/signup"
           className="popup__link_signup"
           style={{ textDecoration: "none" }}
+          onClick={() => {
+            props.handleRegisterPopUp();
+          }}
         >
           inscribirse
         </Link>

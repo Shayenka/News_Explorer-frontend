@@ -4,7 +4,7 @@ export function ValidateEmail(email) {
     if (!email) {
       emailError = "El correo electrónico es requerido";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      emailError = "Formato de correo inválido";
+      emailError = "Formato de correo inválido.";
     }
   
     return emailError;
@@ -20,6 +20,19 @@ export function ValidateEmail(email) {
     }
   
     return passwordError;
+  }
+
+  export function ValidateName(name) {
+    let nameError = "";
+
+    if (!name.trim()) {
+        nameError = "El nombre de usuario es requerido";
+      } else if (name.length < 2) {
+        nameError = "El nombre debe contener 2 caracteres como mínimo";
+      }
+    
+      return nameError;
+
   }
 
   

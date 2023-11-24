@@ -6,12 +6,12 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import Main from "../Main/Main";
 import Header from "../Header/Header";
-// import Register from "./Register";
+import Register from "../../Register";
 import Footer from "../Footer/Footer";
 import Login from "../../Login";
 
 // import Api from "../utils/api.js";
-// import { registerUser, checkTokenValidity } from "../utils/auth";
+import { registerUser, checkTokenValidity } from "../../utils/auth";
 
 function App() {
 //   const [isLoginProfilePopupOpen, setIsLoginProfilePopupOpen] = useState(false);
@@ -20,6 +20,7 @@ function App() {
 
 //   // const [cards, setCards] = useState([]);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 
   const [token, setToken] = useState(null);
 
@@ -65,17 +66,17 @@ function App() {
 //     }
 //   }, [token]);
 
-//   function handleloginProfile() {
-//     setIsLoginProfilePopupOpen(true);
-//   }
+  function handleloginUser() {
+    setIsLoginPopupOpen(true);
+  }
 
-//   function handlelRegisterProfile() {
-//     setIsRegisterProfilePopupOpen(true);
-//   }
+  function handlelRegisterUser() {
+    setIsRegisterPopupOpen(true);
+  }
 
-  async function handleRegisterUser(email, password) {
+  async function handleRegisterUser(email, password, name) {
     try {
-      const response = await registerUser(email, password);
+      const response = await registerUser(email, password, name);
       return response;
     } catch (error) {
       console.error("Error en el registro de usuario:", error);
@@ -114,29 +115,36 @@ function App() {
 //         );
 //       });
 //     }
+function closeAllPopups() {
+    setIsLoginPopupOpen(false);
+    setIsRegisterPopupOpen(false);
+    
+  }
 
 
     return (
       <div className="body">
         <div className="page">
           <CurrentUserContext.Provider value={currentUser}>
-             <Header handleLoginPopUp={() => setIsLoginPopupOpen(true)} loggedIn={isLoggedIn} onLogout={handleLogout} />
+             <Header handleLoginPopUp={handleloginUser} loggedIn={isLoggedIn} onLogout={handleLogout} />
             <Routes>
               <Route
                 path="/signin"
                 element={
-                  <Login onLoggedIn={handleLogin} loggedIn={isLoggedIn} isOpen={isLoginPopupOpen} onClose={() => setIsLoginPopupOpen(false)}/>
+                  <Login onLoggedIn={handleLogin} loggedIn={isLoggedIn} isOpen={isLoginPopupOpen} onClose={closeAllPopups} handleRegisterPopUp={handlelRegisterUser}/>
                 }
               />
-              {/* <Route
+              <Route
                 path="/signup"
                 element={
                   <Register
                     onRegister={handleRegisterUser}
                     loggedIn={isLoggedIn}
+                    isOpen={isRegisterPopupOpen}
+                    onClose={closeAllPopups}
                   />
                 }
-              /> */}
+              />
               <Route path="/" element={<Main />} />
             </Routes>
 

@@ -4,7 +4,7 @@ import { ValidateEmail, ValidatePassword } from "./utils/validator";
 import { authorize } from "./utils/auth";
 import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js"
 
-function Login({ onLoggedIn, loggedIn, isOpen, onClose }) {
+function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -26,7 +26,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose }) {
     setPassword(newPassword);
     const error = ValidatePassword(newPassword);
     setPasswordError(error);
-    updateFormValidity(email, newPassword);;
+    updateFormValidity(email, newPassword);
   }
 
   function updateFormValidity(email, password) {
@@ -58,6 +58,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose }) {
       onClose={onClose}
       onSubmit={handleSubmit}
       isFormValid={isFormValid} //Para activar o desactivar boton "iniciar sesión"
+      handleRegisterPopUp={handleRegisterPopUp}
     >
       <div>
       <h3 className="popup__subtitle-input">Correo eléctronico</h3>

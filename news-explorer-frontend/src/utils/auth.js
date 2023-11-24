@@ -1,14 +1,14 @@
 const BASE_URL = "https://api.shayenkalvarado.com";
 
 
-export const registerUser = async (email, password) => {
+export const registerUser = async (email, password, name) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, name }),
   })
     .then((response) => {
       if (response.status === 201) {
