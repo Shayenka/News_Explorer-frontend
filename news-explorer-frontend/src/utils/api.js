@@ -1,48 +1,42 @@
-// const BASE_URL = "https://api.shayenkalvarado.com";
+const BASE_URL = "http://127.0.0.1:3000";
 
 
-// class Api {
-//   constructor({ address }) {
-//     this.address = address;
-//   }
+class Api {
+  constructor({ address }) {
+    this.address = address;
+  }
 
-//   _useFetch(token, url, method, body) {
+  _useFetch(token, url, method, body) {
     
-//     return fetch(url, {
-//       headers: {
-//         authorization: `Bearer ${token}`, 
-//         "Content-Type": "application/json",
-//       },
-//       method,
-//       body: JSON.stringify(body),
-//     }).then((res) => {
-//       if (res.ok) {
-//         return res.json();
-//       }
-//       return Promise.reject(`Error: ${res.status}`);
-//     });
-//   }
+    return fetch(url, {
+      headers: {
+        authorization: `Bearer ${token}`, 
+        "Content-Type": "application/json",
+      },
+      method,
+      body: JSON.stringify(body),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
 
-//   getUserInfo(token) {
-//     return this._useFetch(
-//       token,
-//       `${BASE_URL}/users/me`,
-//       `GET`
-//     ).then((result) => {
-//       return result;
-//     });
-//   }
+  getUserInfo(token) {
+    return this._useFetch(
+      token,
+      `${BASE_URL}/users/me`,
+      `GET`
+    ).then((result) => {
+        console.log("getUserInfo result:", result);
+      return result;
+    });
+  }
+  }
 
-//   editUserInfo(token, name, about) {
-//     return this._useFetch(
-//       token,
-//       `${BASE_URL}/users/me`,
-//       `PATCH`,
-//       { name: name, about: about }
-//     ).then((result) => {
-//       return result;
-//     });
-//   }
+export default Api;
+
 
 //   getCards(token) {
 //     return this._useFetch(
@@ -70,17 +64,6 @@
 //       token,
 //       `${BASE_URL}/cards/${cardId}`,
 //       `DELETE`
-//     ).then((result) => {
-//       return result;
-//     });
-//   }
-
-//   changeAvatarProfile(token, userAvatar) {
-//     return this._useFetch(
-//       token,
-//       `${BASE_URL}/users/me/avatar`,
-//       `PATCH`,
-//       userAvatar
 //     ).then((result) => {
 //       return result;
 //     });

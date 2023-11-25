@@ -13,7 +13,7 @@ function Register({ onRegister, loggedIn, isOpen, onClose }) {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [nameError, setNameError] = useState("");
-  const [isFormValid, setIsFormValid] = useState(false);
+//   const [isFormValid, setIsFormValid] = useState(false);
   const [showPopupSuccessfulRegister, setShowPopupSuccessfulRegister] =
     useState(false);
   const [showPopupFailedRegister, setShowPopupFailedRegister] = useState(false);
@@ -23,7 +23,7 @@ function Register({ onRegister, loggedIn, isOpen, onClose }) {
   useEffect(() => {
     setEmail(currentUser.email);
     setPassword(currentUser.password);
-    setName(currentUser.name)
+    setName(currentUser.name);
   }, [currentUser]);
 
   function handleEmailChange(evt) {

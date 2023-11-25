@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ValidateEmail, ValidatePassword } from "./utils/validator";
 import { authorize } from "./utils/auth";
 import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js"
+import { PopUpFailedLogin } from "./components/InfoTooltip/InfoTooltip"
 
 function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const [showPopupFailedLogin, setShowPopupFailedLogin] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,6 +39,10 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     if (!email || !password) {
+        setShowPopupFailedLogin(true)
+        setTimeout(() => {
+            navigate("/signin");
+          },2000)
       return;
     }
     authorize(email, password)
@@ -44,6 +50,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
         if (data.token) {
           onLoggedIn(data);
           navigate("/");
+          setShowPopupFailedLogin(false)
         }
       })
       .catch((err) => console.log(err));
@@ -91,7 +98,13 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
          <span className="popup__input-error" id="password-error">
             {passwordError}
           </span>
-      </div> 
+      </div>
+      {showPopupFailedLogin && (
+        <PopUpFailedLogin 
+          isOpen={true}
+          onClose={() => setShowPopupFailedLogin(false)}
+        />
+      )} 
     </ModalWithForm>
   );
 }

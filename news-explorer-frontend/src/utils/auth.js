@@ -1,24 +1,24 @@
-const BASE_URL = "https://api.shayenkalvarado.com";
+const BASE_URL = "http://127.0.0.1:3000";
 
 
 export const registerUser = async (email, password, name) => {
-  return fetch(`${BASE_URL}/signup`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password, name }),
-  })
-    .then((response) => {
-      if (response.status === 201) {
-        return response.json();
-      }
+    return fetch(`${BASE_URL}/signup`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password, name }),
     })
-    .then((res) => {
-      return res;
-    });
-};
+      .then((response) => {
+        if (response.status === 201) {
+          return response.json();
+        }
+      })
+      .then((res) => {
+        return res;
+      });
+  };
 
 export const authorize = async (email, password) => {
   try {
@@ -28,7 +28,7 @@ export const authorize = async (email, password) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password}),
     });
 
     if (response.ok) {

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import SearchForm from "../SearchForm/SearchForm"; // Asegúrate de proporcionar la ruta correcta
+import SearchForm from "../SearchForm/SearchForm"; 
 
 function Main() {
   const currentUser = useContext(CurrentUserContext);
@@ -17,7 +17,6 @@ function Main() {
         <h1 className="main__title">¿Qué está pasando en el mundo?</h1>
         <h2 className="main__subtitle">Encuentra las últimas noticias sobre cualquier tema y guárdalas en tu cuenta personal.</h2>
 
-        {/* Agrega el componente SearchForm */}
         <SearchForm onSearch={handleSearch} />
       </section>
     </main>
@@ -25,23 +24,3 @@ function Main() {
 }
 
 export default Main;
-
-
-      {/* <section className="elements">
-        {props.cards.map((card) => (
-          <Card
-            card={card}
-            key={card._id}
-            owner={card.owner}
-            name={card.name}
-            link={card.link}
-            onCardAdd={props.onCardAdd}
-            onCardDelete={props.onCardDelete}
-          />
-        ))}
-      </section> */}
-//     </main>
-//   );
-// }
-
-// export default Main;

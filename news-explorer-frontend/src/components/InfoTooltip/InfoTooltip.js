@@ -51,3 +51,28 @@ export function PopUpFailedRegister(props) {
     </section>
   );
 }
+
+export function PopUpFailedLogin(props) {
+    return (
+      <section
+        className={`popup__container-register ${
+          props.isOpen ? "" : "popup_closed"
+        }`}
+      >
+        <img
+          className="popup__close-icon-register"
+          src={closePopUp}
+          alt="Icono de una X para cerrar ventana emergente."
+          onClick={props.onClose}
+        />
+         <h3>¡No estas registrado!</h3>
+         <Link
+            to="/signup"
+            className="popup__link-register"
+            style={{ textDecoration: "none" }}
+          >
+            Inscribirse
+          </Link>
+      </section>
+    );
+  }

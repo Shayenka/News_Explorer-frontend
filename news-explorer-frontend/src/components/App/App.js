@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-// import ProtectedRoute from "../components/ProtectedRoute";
+// import ProtectedRoute from "";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import Main from "../Main/Main";
@@ -10,29 +10,24 @@ import Register from "../../Register";
 import Footer from "../Footer/Footer";
 import Login from "../../Login";
 
-// import Api from "../utils/api.js";
+import Api from "../../utils/api";
 import { registerUser, checkTokenValidity } from "../../utils/auth";
 
 function App() {
-//   const [isLoginProfilePopupOpen, setIsLoginProfilePopupOpen] = useState(false);
-//   const [isRegisterProfilePopupOpen, setIsRegisterProfilePopupOpen] =
-//     useState(false);
-
-//   // const [cards, setCards] = useState([]);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 
   const [token, setToken] = useState(null);
 
-//   const api = new Api({
-//     address: "http://127.0.0.1:3000",
-//   });
+  const api = new Api({
+    address: "http://127.0.0.1:3000",
+  });
 
-  const [currentUser, setCurrentUser] = useState({ email: null });
+  const [currentUser, setCurrentUser] = useState({ email: "", password: "", name: "" });
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -53,18 +48,18 @@ function App() {
     }
   }, []);
 
-//   useEffect(() => {
-//     if (token) {
-//       api
-//         .getUserInfo(token)
-//         .then((response) => {
-//           setCurrentUser(response.user);
-//         })
-//         .catch((error) => {
-//           console.log("Error al obtener los datos del usuario:", error);
-//         });
-//     }
-//   }, [token]);
+  useEffect(() => {
+    if (token) {
+      api
+        .getUserInfo(token)
+        .then((response) => {
+          setCurrentUser(response.user);
+        })
+        .catch((error) => {
+          console.log("Error al obtener los datos del usuario:", error);
+        });
+    }
+  }, [token]);
 
   function handleloginUser() {
     setIsLoginPopupOpen(true);
@@ -72,6 +67,12 @@ function App() {
 
   function handlelRegisterUser() {
     setIsRegisterPopupOpen(true);
+  }
+
+  function closeAllPopups() {
+    setIsLoginPopupOpen(false);
+    setIsRegisterPopupOpen(false);
+    
   }
 
   async function handleRegisterUser(email, password, name) {
@@ -97,30 +98,6 @@ function App() {
     setIsLoggedIn(false);
     navigate("/signin");
   }
-
-//   function handleCardAdd(card) {
-//     //     const isLiked = card.likes.some((owner) => owner === currentUser._id);
-
-//     //     api.changeLikeCardStatus(token, card._id, !isLiked).then((newCard) => {
-//     //       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-//     //     });
-//     //   }
-
-//     function handleCardDelete(card) {
-//       api.deleteCard(token, card._id).then(() => {
-//         setCards(
-//           cards.filter((item) => {
-//             return item._id !== card._id;
-//           })
-//         );
-//       });
-//     }
-function closeAllPopups() {
-    setIsLoginPopupOpen(false);
-    setIsRegisterPopupOpen(false);
-    
-  }
-
 
     return (
       <div className="body">
