@@ -1,4 +1,4 @@
-.body {
+.body, html {
     margin: 0; 
     padding: 0;
     background-image: url('../../images/InicioImage.jpg'); 
@@ -10,10 +10,8 @@
 }
 
 .page {
-    /* width: 100vw; */
-    width: auto;
-    max-width: 1280px;
-    /* height: 100vw; */
+    width: 100%;
+    /* max-width: 1280px; */
     height: auto;
     padding: 0;
     margin: 0;
