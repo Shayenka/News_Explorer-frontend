@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import savedCard from "../../images/Guardar.svg";
-import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
+// import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function NewsCard(props) {
-  const currentUser = useContext(CurrentUserContext);
+  // const currentUser = useContext(CurrentUserContext);
   const [showLoginMessage, setShowLoginMessage] = useState(false);
 
   function handleSavedCard() {
@@ -42,8 +42,8 @@ function NewsCard(props) {
       />
       <div className="card__footer-image">
         <h4 className="card__date">{props.date}</h4>
-        <h3 className="card__title">{props.name}</h3>
-        <h3 className="card__text">{props.text}</h3>
+        <h3 className="card__title">{props.title}</h3>
+        <h3 className="card__description">{props.description}</h3>
       </div>
     </div>
   );

@@ -26,9 +26,12 @@ function Main(props) {
           <NewsCard
             card={card}
             key={card._id}
+            isLoggedIn={props.isLoggedIn}
             // owner={card.owner}
-            name={card.name}
             link={card.link}
+            title={card.title}
+            date={card.date}
+            description={card.description}
             salves={card.salves}
             onCardSaved={props.onCardSaved}
             onCardDelete={props.onCardDelete}
