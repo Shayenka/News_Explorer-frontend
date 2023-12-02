@@ -1,85 +1,77 @@
 const BASE_URL = "http://127.0.0.1:3000";
 
-
 class Api {
   constructor({ address }) {
     this.address = address;
   }
 
-  _useFetch(token, url, method, body) {
-    
-    return fetch(url, {
-      headers: {
-        authorization: `Bearer ${token}`, 
-        "Content-Type": "application/json",
-      },
-      method,
-      body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
+  async _useFetch(token, url, method, body) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        method,
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(`API Error: ${error.message || "Unknown error"}`);
       }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+
+      return response.json();
+    } catch (error) {
+      throw new Error(`Network Error: ${error.message || "Unknown error"}`);
+    }
   }
 
-  getUserInfo(token) {
-    return this._useFetch(
-      token,
-      `${BASE_URL}/users/me`,
-      `GET`
-    ).then((result) => {
-        console.log("getUserInfo result:", result);
+  async getUserInfo(token) {
+    try {
+      const result = await this._useFetch(token, `${BASE_URL}/users/me`, "GET");
+      console.log("getUserInfo result:", result);
       return result;
-    });
+    } catch (error) {
+      console.error("getUserInfo error:", error.message);
+      throw error;
+    }
   }
+
+  async getCards(token) {
+    try {
+      const result = await this._useFetch(token, `${BASE_URL}/cards`, "GET");
+      return result;
+    } catch (error) {
+      console.error("getCards error:", error.message);
+      throw error;
+    }
   }
+
+  async changeSalvedCardStatus(token, cardId, isSaved) {
+    const method = isSaved ? "PUT" : "DELETE";
+    try {
+      const result = await this._useFetch(
+        token,
+        `${BASE_URL}/saved-news${cardId}`,
+        method
+      );
+      return result;
+    } catch (error) {
+      console.error("changeSalvedCardStatus error:", error.message);
+      throw error;
+    }
+  }
+
+  async deleteCard(token, cardId) {
+    try {
+      const result = await this._useFetch(token, `${BASE_URL}/cards/${cardId}`, "DELETE");
+      return result;
+    } catch (error) {
+      console.error("deleteCard error:", error.message);
+      throw error;
+    }
+  }
+}
 
 export default Api;
-
-
-//   getCards(token) {
-//     return this._useFetch(
-//       token,
-//       `${BASE_URL}/cards`,
-//       `GET`
-//     ).then((result) => {
-//       return result;
-//     });
-//   }
-
-//   changeLikeCardStatus(token, cardId, isLiked) {
-//     const method = isLiked ? "PUT" : "DELETE";
-//     return this._useFetch(
-//       token,
-//       `${BASE_URL}/cards/likes/${cardId}`,
-//       method 
-//     ).then((result) => {
-//       return result;
-//     });
-//   }
-
-//   deleteCard(token, cardId) {
-//     return this._useFetch(
-//       token,
-//       `${BASE_URL}/cards/${cardId}`,
-//       `DELETE`
-//     ).then((result) => {
-//       return result;
-//     });
-//   }
-
-//   addNewCard(token, name, link) {
-//     return this._useFetch(
-//       token,
-//       `${BASE_URL}/cards`,
-//       `POST`,
-//       { name: name, link: link }
-//     ).then((result) => {
-//       return result;
-//     });
-//   }
-
-// }
-
-// export default Api;

@@ -1,4 +1,3 @@
-// import "./App.css";
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 // import ProtectedRoute from "";
@@ -18,6 +17,9 @@ function App() {
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 
   const [token, setToken] = useState(null);
+
+  const [cards, setCards] = useState([]);
+  const [isSaved, setIsSaved] = useState(false);
 
   const api = new Api({
     address: "http://127.0.0.1:3000",
@@ -61,11 +63,24 @@ function App() {
     }
   }, [token]);
 
-  function handleloginUser() {
+  useEffect(() => {
+    if (token){
+    api
+      .getCards(token)
+      .then((response) => {
+        setCards(response);
+      })
+      .catch((error) => {
+        console.log("Error al obtener los datos de las tarjetas:", error);
+      });
+    }
+  }, [token]);
+
+  function handleLoginPopUp() {
     setIsLoginPopupOpen(true);
   }
 
-  function handlelRegisterUser() {
+  function handleRegisterPopUp() {
     setIsRegisterPopupOpen(true);
   }
 
@@ -73,6 +88,30 @@ function App() {
     setIsLoginPopupOpen(false);
     setIsRegisterPopupOpen(false);
     
+  }
+
+  async function handleCardSalved(card) {
+    if (isLoggedIn) {
+      setIsSaved(true);
+      try {
+        const savedCard = await api.changeSalvedCardStatus(token, card._id, isSaved);
+        setCards((state) => state.map((c) => (c._id === card._id ? savedCard : c)));
+    } catch (error) {
+      console.error("Error saving card:", error.message);
+    }
+  }
+}
+
+  async function handleCardDelete(card) {
+    try {
+      await api.deleteCard(token, card._id);
+  
+      setCards((Cards) =>
+        Cards.filter((item) => item._id !== card._id)
+      );
+    } catch (error) {
+      console.error("Error deleting card:", error.message);
+    }
   }
 
   async function handleRegisterUser(email, password, name) {
@@ -85,7 +124,7 @@ function App() {
     }
   }
 
-  function handleLogin(data) {
+  function handleLoginUser(data) {
     localStorage.setItem("jwt", data.token);
     setToken(data.token);
     setIsLoggedIn(true);
@@ -103,12 +142,12 @@ function App() {
       <div className="body">
         <div className="page">
           <CurrentUserContext.Provider value={currentUser}>
-             <Header handleLoginPopUp={handleloginUser} loggedIn={isLoggedIn} onLogout={handleLogout} />
+             <Header handleLoginPopUp={handleLoginPopUp} loggedIn={isLoggedIn} onLogout={handleLogout} />
             <Routes>
               <Route
                 path="/signin"
                 element={
-                  <Login onLoggedIn={handleLogin} loggedIn={isLoggedIn} isOpen={isLoginPopupOpen} onClose={closeAllPopups} handleRegisterPopUp={handlelRegisterUser}/>
+                  <Login onLoggedIn={handleLoginUser} loggedIn={isLoggedIn} isOpen={isLoginPopupOpen} onClose={closeAllPopups} handleRegisterPopUp={handleRegisterPopUp}/>
                 }
               />
               <Route
@@ -122,7 +161,15 @@ function App() {
                   />
                 }
               />
-              <Route path="/" element={<Main />} />
+              <Route
+               path="/"
+               element={<Main
+               loggedIn={isLoggedIn}
+               cards={cards}
+               onCardSalved={handleCardSalved}
+               onCardDelete={handleCardDelete}
+              />}
+            />
             </Routes>
 
             <Footer />

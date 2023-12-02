@@ -1,4 +1,3 @@
-// import "./Header.css";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";

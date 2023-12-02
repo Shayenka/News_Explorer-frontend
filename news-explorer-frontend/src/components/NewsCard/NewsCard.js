@@ -1,63 +1,52 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import savedCard from "../../images/Guardar.svg";
-import deleteCard from "../../images/";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
-function Card(props) {
+function NewsCard(props) {
   const currentUser = useContext(CurrentUserContext);
+  const [showLoginMessage, setShowLoginMessage] = useState(false);
 
-//   const isOwn = props.owner === currentUser._id;
-
-  const cardDeleteButtonClassName = `element__delete ${
-    isOwn ? "element__delete-visible" : ""
-  }`;
-
-  const isLiked = props.likes.some((item) => item === currentUser._id);
-
-  const cardLikeButtonClassName = `icon-like ${
-    isLiked ? "icon-like_black" : ""
-  }`;
-
-  function handleClick() {
-    props.onCardClick(props.card);
+  function handleSavedCard() {
+    if (props.isLoggedIn) {
+      props.onCardSaved(props.card);
+    } else {
+      setShowLoginMessage(true);
+    }
   }
 
-  function handleLikeClick() {
-    props.onCardLike(props.card);
+  function hideLoginMessage() {
+    setShowLoginMessage(false);
   }
 
-  function handleDeleteClick() {
-    props.onCardDelete(props.card);
-  }
   return (
-    <div className="element" key={props.card._id}>
+    <div className="card" key={props.card._id}>
+      <div className="card__header">
+        <img
+          className={`card__icon-saved ${props.isLoggedIn ? "card__icon-saved_changeColor" : ""}`}
+          src={savedCard}
+          alt={`Icono para ${props.isLoggedIn ? "guardar en" : "quitar de"} favoritos`}
+          onClick={() => {
+            handleSavedCard();
+            hideLoginMessage();
+          }}
+        />
+        {!props.isLoggedIn && showLoginMessage && (
+          <p className="card__login-message">Inicia sesión para guardar artículos</p>
+        )}
+      </div>
       <img
-        className={cardDeleteButtonClassName}
-        src={deleteCard}
-        alt="Icono de papelera para eliminar"
-        onClick={handleDeleteClick}
-      />
-      <img
-        className="element__image"
+        className="card__image"
         src={props.link}
         alt={props.name}
         style={{ backgroundImage: `url(${props.link})` }}
-        onClick={handleClick}
       />
-      <div className="element__footer-photo">
-        <h3 className="element__title">{props.name}</h3>
-        <div className="likes-card">
-          <img
-            className={cardLikeButtonClassName}
-            src={likeCard}
-            alt="Icono de corazón"
-            onClick={handleLikeClick}
-          />
-          <span className="likes-card__count">{props.likes.length}</span>
-        </div>
+      <div className="card__footer-image">
+        <h4 className="card__date">{props.date}</h4>
+        <h3 className="card__title">{props.name}</h3>
+        <h3 className="card__text">{props.text}</h3>
       </div>
     </div>
   );
 }
 
-export default Card;
+export default NewsCard;

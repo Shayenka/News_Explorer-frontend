@@ -36,5 +36,5 @@
   }
 
 .searchForm__button:active {
-    background-color: rgb(15, 68, 167); /* Cambia el color al hacer clic */
+    background-color: rgb(15, 68, 167);
 }
