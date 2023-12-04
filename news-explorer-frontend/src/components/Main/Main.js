@@ -87,10 +87,9 @@ function Main() {
             )}
           </div>
         )}
+        {error && <p className="searchResults__mesageError" style={{ color: 'red' }}>{error}</p>}
       </section>
-
-      {/* Mostrar mensaje de error */}
-      {error && <p className="searchResults__mesageError" style={{ color: 'red' }}>{error}</p>}
+      
     </main>
   );
 }
