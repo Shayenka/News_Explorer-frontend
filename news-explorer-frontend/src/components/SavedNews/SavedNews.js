@@ -1,0 +1,1 @@
+// componente de la página con tarjetas guardadas

@@ -23,6 +23,7 @@ function App() {
 
   const api = new Api({
     address: "http://127.0.0.1:3000",
+    apiKey: "016f14e7761d4baca1c75b200bde1015",
   });
 
   const [currentUser, setCurrentUser] = useState({ email: "", password: "", name: "" });
@@ -50,31 +51,19 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    if (token) {
-      api
-        .getUserInfo(token)
-        .then((response) => {
-          setCurrentUser(response.user);
-        })
-        .catch((error) => {
-          console.log("Error al obtener los datos del usuario:", error);
-        });
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     api
+  //       .getUserInfo(token)
+  //       .then((response) => {
+  //         setCurrentUser(response.user);
+  //       })
+  //       .catch((error) => {
+  //         console.log("Error al obtener los datos del usuario:", error);
+  //       });
+  //   }
+  // }, [token]);
 
-  useEffect(() => {
-    if (token){
-    api
-      .getCards(token)
-      .then((response) => {
-        setCards(response);
-      })
-      .catch((error) => {
-        console.log("Error al obtener los datos de las tarjetas:", error);
-      });
-    }
-  }, [token]);
 
   function handleLoginPopUp() {
     setIsLoginPopupOpen(true);
@@ -164,10 +153,6 @@ function App() {
               <Route
                path="/"
                element={<Main
-               loggedIn={isLoggedIn}
-               cards={cards}
-               onCardSalved={handleCardSalved}
-               onCardDelete={handleCardDelete}
               />}
             />
             </Routes>

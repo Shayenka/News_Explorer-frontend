@@ -1,15 +1,17 @@
 const BASE_URL = "http://127.0.0.1:3000";
+const API_KEY = "016f14e7761d4baca1c75b200bde1015";
 
 class Api {
-  constructor({ address }) {
+  constructor({ address, apiKey }) {
     this.address = address;
+    this.apiKey = apiKey;
   }
 
   async _useFetch(token, url, method, body) {
     try {
       const response = await fetch(url, {
         headers: {
-          authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${this.apiKey}`,
           "Content-Type": "application/json",
         },
         method,
@@ -27,26 +29,16 @@ class Api {
     }
   }
 
-  async getUserInfo(token) {
-    try {
-      const result = await this._useFetch(token, `${BASE_URL}/users/me`, "GET");
-      console.log("getUserInfo result:", result);
-      return result;
-    } catch (error) {
-      console.error("getUserInfo error:", error.message);
-      throw error;
-    }
-  }
-
-  async getCards(token) {
-    try {
-      const result = await this._useFetch(token, `${BASE_URL}/cards`, "GET");
-      return result;
-    } catch (error) {
-      console.error("getCards error:", error.message);
-      throw error;
-    }
-  }
+  // async getUserInfo(token) {
+  //   try {
+  //     const result = await this._useFetch(token, `${BASE_URL}/users/me`, "GET");
+  //     console.log("getUserInfo result:", result);
+  //     return result;
+  //   } catch (error) {
+  //     console.error("getUserInfo error:", error.message);
+  //     throw error;
+  //   }
+  // }
 
   async changeSalvedCardStatus(token, cardId, isSaved) {
     const method = isSaved ? "PUT" : "DELETE";

@@ -40,7 +40,7 @@ function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
             style={{
               textDecoration: "none",
               border: "1px solid white",
-              padding: "1px 35px",
+              padding: "1px 40px",
               borderRadius: "30px",
             }}
             onClick={() => {

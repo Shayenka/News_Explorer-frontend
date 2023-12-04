@@ -29,23 +29,24 @@
   }
 
   .footer__author_title {
-    font-family: "Inter", Arial, sans-serif;
+    font-family: "Roboto Slab", Arial, sans-serif;
     font-style: normal;
     margin-bottom: 50px;
     font-weight: 400;
     font-size: 40px;
-    line-height: 1;
+    line-height: 46px;
     color: black;
+    margin-bottom: 30px;
 
   }
 
   .footer__author_about {
-    font-family: "Inter", Arial, sans-serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-style: normal;
     margin-bottom: 50px;
     font-weight: 400;
-    font-size: 20px;
-    line-height: 1;
+    font-size: 18px;
+    line-height: 24px;
     color: black;
 
   }
@@ -62,11 +63,11 @@
   }
 
   .footer__link_text {
-    font-family: "Inter", Arial, sans-serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
-    line-height: 1;
+    line-height: 24px;
     color: black;
     margin-left: 50px;
     left: 0;
@@ -79,12 +80,12 @@
 
 
   .footer__copyright {
-    font-family: "Inter", Arial, sans-serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 1;
+    line-height: 22px;
     margin-right: auto;
-    color: rgb(105, 102, 102);
+    color:#B6BCBF;
 
   }

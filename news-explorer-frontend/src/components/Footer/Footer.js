@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import authorImage from "../../images/InicioImage.jpg";
+import authorImage from "../../images/imageMain.jpg";
 
 function Footer() {
   return (

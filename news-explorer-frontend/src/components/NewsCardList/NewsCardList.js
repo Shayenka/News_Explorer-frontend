@@ -1,0 +1,1 @@
+// componente que controla la representación de las tarjetas en las páginas y su cantidad
