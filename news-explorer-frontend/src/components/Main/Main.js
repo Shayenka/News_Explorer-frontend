@@ -11,6 +11,7 @@ function Main() {
   const [error, setError] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState(''); 
 
   const api = new Api({
     address: "https://newsapi.org",
@@ -75,18 +76,24 @@ function Main() {
             />
           ))
         ) : (
+          // Check if the query is empty before displaying the message
           <div className="NoResultsFound__container">
-            <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
-            <p className="NoResultsFound-mesageMain">No se encontró nada</p>
-            <p className="NoResultsFound-mesage">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
+            {query && (
+              <>
+                <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
+                <p className="NoResultsFound-mesageMain">No se encontró nada</p>
+                <p className="NoResultsFound-mesage">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
+              </>
+            )}
           </div>
         )}
       </section>
 
       {/* Mostrar mensaje de error */}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="searchResults__mesageError" style={{ color: 'red' }}>{error}</p>}
     </main>
   );
 }
+
 
 export default Main;

@@ -35,7 +35,9 @@ function SearchForm({ onSearch }) {
       <button className="searchForm__button" type="submit" disabled={isSubmitting}>
         Buscar
       </button>
+      <div className ="searchForm_mesageNoInput" >
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
     </form>
   );
 }
