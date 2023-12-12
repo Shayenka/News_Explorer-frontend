@@ -1,12 +1,18 @@
-import React, { useContext } from 'react';
-import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
+import React from "react";
+import authorImage from "../../images/imageMain.jpg";
 
 function About() {
-    const currentUser = useContext(CurrentUserContext);
-  
   return (
-    <div>
-      <h3 className="about-user_email">{currentUser.email}</h3>
+    <div className="about">
+      <img
+          className="about__author_image"
+          src={authorImage}
+          alt="Fotogafía del autor"
+        />
+        <div className="about__author_container">
+          <h3 className="about__author_title">Acerca del autor</h3>
+          <p className="about__author_text">Texto</p>
+        </div>
     </div>
   );
 }

@@ -4,23 +4,29 @@ const BASE_URL = "http://127.0.0.1:3000";
 
 
 export const registerUser = async (email, password, name) => {
-    return fetch(`${BASE_URL}/signup`, {
+  try {
+    const response = await fetch(`${BASE_URL}/signup`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password, name }),
-    })
-      .then((response) => {
-        if (response.status === 201) {
-          return response.json();
-        }
-      })
-      .then((res) => {
-        return res;
-      });
-  };
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      const errorData = await response.json();
+      console.error("Error during registration:", errorData);
+      throw new Error("Registration failed");
+    }
+  } catch (error) {
+    console.error("Error during registration:", error);
+    throw error;
+  }
+};
 
 export const authorize = async (email, password) => {
   try {

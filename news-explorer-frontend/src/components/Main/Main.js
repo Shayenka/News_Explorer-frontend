@@ -3,7 +3,8 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import SearchForm from "../SearchForm/SearchForm";
 import NewsCard from "../NewsCard/NewsCard";
 import Api from "../../utils/api";
-import NoResultsFound from "../../images/not-found_image.svg"
+import NoResultsFound from "../../images/not-found_image.svg";
+import Preloader from "../Preloader/Preloader";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
 function Main() {
@@ -11,19 +12,22 @@ function Main() {
   const [error, setError] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [visibleCards, setVisibleCards] = useState(3);
   const [query, setQuery] = useState(''); 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const api = new Api({
     address: "https://newsapi.org",
-    apiKey: "016f14e7761d4baca1c75b200bde1015", 
+    apiKey: "016f14e7761d4baca1c75b200bde1015",
   });
 
   // Función que se ejecutará cuando se envíe el formulario de búsqueda
-  const handleSearch = async (query) => {
-     setError('');
-     setIsLoading(true);
+  const handleSearch = async () => {
+    setError('');
+    setIsLoading(true);
 
     try {
+      
       // Obtener la fecha actual menos 7 días
       const sevenDaysAgo = new Date();
       sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
@@ -34,7 +38,7 @@ function Main() {
 
       // Realizar la solicitud a la API
       const response = await api._useFetch(
-        null, // Puedes agregar el token si es necesario
+        null,
         `/everything?q=${query}&apiKey=${api.apiKey}&from=${from}&to=${to}&pageSize=100`,
         "GET"
       );
@@ -44,13 +48,19 @@ function Main() {
       setError(''); // Limpiar el mensaje de error en caso de éxito
     } catch (error) {
       console.error("Error en la búsqueda de noticias:", error.message);
-      setError('Hubo un error al obtener las noticias. Por favor, inténtelo de nuevo.');
+      setError('Lo sentimos, algo ha salido mal durante la solicitud. Por favor, inténtelo de nuevo.');
     } finally {
       setIsLoading(false);
     }
-    {isLoading && <p className="searchResults__lookingNews-mesage">Buscando noticias...</p>}
   };
 
+  const handleShowMore = () => {
+    if (!isLoading) {
+      setVisibleCards((prev) => prev + 3); // Incrementar la carga
+      setIsButtonDisabled(true); // Deshabilitar el botón 
+      handleSearch();  // Realizar la carga adicional
+    }
+  };
 
   return (
     <main>
@@ -61,38 +71,47 @@ function Main() {
         <SearchForm onSearch={handleSearch} />
       </section>
 
+      {/* {isLoading && <p className="searchResults__lookingNews-mesage">Buscando noticias...</p>} */}
+
+      {searchResults.length > 0 && (
       <section className="main_cards">
-        {/* Mostrar mensaje de carga o resultados de la búsqueda o mensaje de no resultados */}
-        {isLoading ? (
-          <p className="searchResults__lookingNews-mesage">Buscando noticias...</p>
-        ) : searchResults.length > 0 ? (
-          searchResults.map((article) => (
-            <NewsCard
-              key={article.url}
-              title={article.title}
-              description={article.description}
-              urlToImage={article.urlToImage}
-              // Otras propiedades según tus necesidades
-            />
-          ))
-        ) : (
-          // Check if the query is empty before displaying the message
+        {isLoading && <Preloader />}
+
+        {/* Mostrar solo las tarjetas visibles */}
+        {searchResults.slice(0, visibleCards).map((article) => (
+          <NewsCard
+            sourceName={article.source.name}
+            title={article.title}
+            publishedAt={article.publishedAt}
+            description={article.description}
+            urlToImage={article.urlToImage}
+            // Otras propiedades
+          />
+        ))}
+
+        {/* Botón "Mostrar más" */}
+        {visibleCards < searchResults.length && (
+           <button onClick={handleShowMore} disabled={isButtonDisabled}>
+           Mostrar más
+         </button>
+        )}
+
+        {/* Mensaje de no resultados */}
+        {searchResults.length === 0 && query && (
           <div className="NoResultsFound__container">
-            {query && (
-              <>
-                <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
-                <p className="NoResultsFound-mesageMain">No se encontró nada</p>
-                <p className="NoResultsFound-mesage">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
-              </>
-            )}
+            <>
+              <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
+              <p className="NoResultsFound-mesageMain">No se encontró nada</p>
+              <p className="NoResultsFound-mesage">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
+            </>
           </div>
         )}
+
         {error && <p className="searchResults__mesageError" style={{ color: 'red' }}>{error}</p>}
       </section>
-      
-    </main>
-  );
+)}
+</main>
+);
 }
-
 
 export default Main;

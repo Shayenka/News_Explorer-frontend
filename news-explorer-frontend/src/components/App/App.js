@@ -8,8 +8,8 @@ import Header from "../Header/Header";
 import Register from "../../Register";
 import Footer from "../Footer/Footer";
 import Login from "../../Login";
+import About from "../About/About";
 
-import Api from "../../utils/api";
 import { registerUser, checkTokenValidity } from "../../utils/auth";
 
 function App() {
@@ -17,28 +17,18 @@ function App() {
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 
   const [token, setToken] = useState(null);
-
-  const [cards, setCards] = useState([]);
-  const [isSaved, setIsSaved] = useState(false);
-
-  const api = new Api({
-    address: "http://127.0.0.1:3000",
-    apiKey: "016f14e7761d4baca1c75b200bde1015",
-  });
-
-  const [currentUser, setCurrentUser] = useState({ email: "", password: "", name: "" });
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({ email: "", password: "", name: "" });
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("jwt");
+  function loadUserData() {
+    const storedToken = localStorage.getItem("jwt");
 
-    if (token) {
-      checkTokenValidity(token)
+    if (storedToken) {
+      checkTokenValidity(storedToken)
         .then((userData) => {
-          setToken(token);
+          setToken(storedToken);
           setIsLoggedIn(true);
           setCurrentUser(userData);
           navigate("/");
@@ -49,6 +39,10 @@ function App() {
     } else {
       setIsLoggedIn(false);
     }
+  }
+
+  useEffect(() => {
+    loadUserData();
   }, []);
 
   // useEffect(() => {
@@ -156,7 +150,7 @@ function App() {
               />}
             />
             </Routes>
-
+            <About />
             <Footer />
           </CurrentUserContext.Provider>
         </div>

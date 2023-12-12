@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import savedCard from "../../images/iconGuardar.svg";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { formatDate } from "../../utils/validator"
 
 function NewsCard(props) {
   const currentUser = useContext(CurrentUserContext);
@@ -24,7 +25,7 @@ function NewsCard(props) {
 
 
   return (
-    <div className="card" key={props.card._id}>
+    <div className="card">
       <div className="card__header">
       <div className="card__icon-container">
         <img
@@ -50,11 +51,11 @@ function NewsCard(props) {
         style={{ backgroundImage: `url(${props.urlToImage})` }}
       />
       <div className="card__footer-image">
-        <h4 className="card__date">{props.publishedAt}</h4>
+        <h4 className="card__date">{formatDate(publishedAt)}</h4>
         <h3 className="card__title">{props.title}</h3>
-        <h3 className="card__description">{props.description}</h3>
+        <p className="card__description">{props.description}</p>
+        <p className="card__source">{props.source.name}</p>
       </div>
-      <button className="card__results" type="submit">Ver más</button>
     </div>
   );
 }

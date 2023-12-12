@@ -1,11 +1,10 @@
 import React from 'react';
-//import preloaderGif from "";
 
 function Preloader() {
     return (
       <div className="preloader">
-        <p className="preloader__title">Cargando...</p>
-        <img className="preloader__gif" src={preloaderGif} alt="Preloader" />
+        <p className="preloader__title">Buscando noticias...</p>
+        <div className="preloader__circle"></div>
       </div>
     );
   }

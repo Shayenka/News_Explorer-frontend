@@ -7,22 +7,25 @@ function SearchForm({ onSearch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     // Validar si se ingresó una palabra clave
     if (!query.trim()) {
       setError('Por favor, introduzca una palabra clave.');
       return;
     }
-
+  
     // Limpiar el mensaje de error
     setError('');
     setIsSubmitting(true);
-
+  
     // Pasa la consulta al manejador de búsqueda
     onSearch(query);
+  
+    // Resetear el estado del formulario
+    setQuery('');
     setIsSubmitting(false);
   };
-
+  
   return (
     <form className="searchForm" onSubmit={handleSubmit}>
       <input
