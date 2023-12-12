@@ -45,18 +45,6 @@ function App() {
     loadUserData();
   }, []);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     api
-  //       .getUserInfo(token)
-  //       .then((response) => {
-  //         setCurrentUser(response.user);
-  //       })
-  //       .catch((error) => {
-  //         console.log("Error al obtener los datos del usuario:", error);
-  //       });
-  //   }
-  // }, [token]);
 
 
   function handleLoginPopUp() {
@@ -72,30 +60,6 @@ function App() {
     setIsRegisterPopupOpen(false);
     
   }
-
-//   async function handleCardSalved(card) {
-//     if (isLoggedIn) {
-//       setIsSaved(true);
-//       try {
-//         const savedCard = await api.changeSalvedCardStatus(token, card._id, isSaved);
-//         setCards((state) => state.map((c) => (c._id === card._id ? savedCard : c)));
-//     } catch (error) {
-//       console.error("Error saving card:", error.message);
-//     }
-//   }
-// }
-
-//   async function handleCardDelete(card) {
-//     try {
-//       await api.deleteCard(token, card._id);
-  
-//       setCards((Cards) =>
-//         Cards.filter((item) => item._id !== card._id)
-//       );
-//     } catch (error) {
-//       console.error("Error deleting card:", error.message);
-//     }
-//   }
 
   async function handleRegisterUser(email, password, name) {
     try {

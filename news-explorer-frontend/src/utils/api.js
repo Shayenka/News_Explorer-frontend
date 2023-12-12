@@ -40,30 +40,30 @@ class Api {
   //   }
   // }
 
-  async changeSalvedCardStatus(token, cardId, isSaved) {
-    const method = isSaved ? "PUT" : "DELETE";
-    try {
-      const result = await this._useFetch(
-        token,
-        `${BASE_URL}/saved-news${cardId}`,
-        method
-      );
-      return result;
-    } catch (error) {
-      console.error("changeSalvedCardStatus error:", error.message);
-      throw error;
-    }
-  }
+//   async changeSalvedCardStatus(token, cardId, isSaved) {
+//     const method = isSaved ? "PUT" : "DELETE";
+//     try {
+//       const result = await this._useFetch(
+//         token,
+//         `${BASE_URL}/saved-news${cardId}`,
+//         method
+//       );
+//       return result;
+//     } catch (error) {
+//       console.error("changeSalvedCardStatus error:", error.message);
+//       throw error;
+//     }
+//   }
 
-  async deleteCard(token, cardId) {
-    try {
-      const result = await this._useFetch(token, `${BASE_URL}/cards/${cardId}`, "DELETE");
-      return result;
-    } catch (error) {
-      console.error("deleteCard error:", error.message);
-      throw error;
-    }
-  }
-}
+//   async deleteCard(token, cardId) {
+//     try {
+//       const result = await this._useFetch(token, `${BASE_URL}/cards/${cardId}`, "DELETE");
+//       return result;
+//     } catch (error) {
+//       console.error("deleteCard error:", error.message);
+//       throw error;
+//     }
+//   }
+ }
 
 export default Api;

@@ -71,8 +71,6 @@ function Main() {
         <SearchForm onSearch={handleSearch} />
       </section>
 
-      {/* {isLoading && <p className="searchResults__lookingNews-mesage">Buscando noticias...</p>} */}
-
       {searchResults.length > 0 && (
       <section className="main_cards">
         {isLoading && <Preloader />}
