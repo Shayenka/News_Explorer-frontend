@@ -25,7 +25,6 @@ function Main() {
   const handleSearch = async () => {
     setError('');
     setIsLoading(true);
-
     try {
       
       // Obtener la fecha actual menos 7 días
@@ -39,7 +38,8 @@ function Main() {
       // Realizar la solicitud a la API
       const response = await api._useFetch(
         null,
-        `/everything?q=${query}&apiKey=${api.apiKey}&from=${from}&to=${to}&pageSize=100`,
+       // `${api.address}/v2/everything?q=Brazil&apiKey=${api.apiKey}&from=${from}&to=${to}&pageSize=100`,
+       `https://newsapi.org/v2/everything?q=${query}&from=2023-11-12&sortBy=publishedAt&apiKey=${api.apiKey}`, 
         "GET"
       );
 
@@ -51,6 +51,7 @@ function Main() {
       setError('Lo sentimos, algo ha salido mal durante la solicitud. Por favor, inténtelo de nuevo.');
     } finally {
       setIsLoading(false);
+      setQuery('');
     }
   };
 

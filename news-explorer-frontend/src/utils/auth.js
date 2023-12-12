@@ -1,7 +1,34 @@
 const BASE_URL = "http://127.0.0.1:3000";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
+export const registerUserMock = async (email, password, name) => {
+  return new Promise((resolve, reject) => {
+    const user = {
+      email, password, name
+    }
+    localStorage.setItem('dummyUser', JSON.stringify(user));
+    resolve(user);
+  })
+ }
 
+ export const authorizeMock = async (email, password) => {
+  return new Promise((resolve, reject) => {
+    
+    const dummyUser = JSON.parse(localStorage.getItem('dummyUser'));
+    if(dummyUser.email === email && dummyUser.password === password){
+      resolve({token: 'token'});
+      return;
+    }
+    reject(new Error("Not found"));
+  })
+ }
+
+ export const checkTokenValidityMock = async (token) => {
+  return new Promise((resolve, reject) => {
+    const dummyUser = localStorage.getItem('dummyUser');
+    resolve(JSON.parse(dummyUser));
+  })
+ }
 
 export const registerUser = async (email, password, name) => {
   try {

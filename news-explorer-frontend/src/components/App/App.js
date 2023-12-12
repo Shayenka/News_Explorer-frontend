@@ -10,7 +10,7 @@ import Footer from "../Footer/Footer";
 import Login from "../../Login";
 import About from "../About/About";
 
-import { registerUser, checkTokenValidity } from "../../utils/auth";
+import { registerUserMock as registerUser , checkTokenValidity } from "../../utils/auth";
 
 function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);

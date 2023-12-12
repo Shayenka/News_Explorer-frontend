@@ -22,7 +22,7 @@ function SearchForm({ onSearch }) {
     onSearch(query);
   
     // Resetear el estado del formulario
-    setQuery('');
+    
     setIsSubmitting(false);
   };
   
