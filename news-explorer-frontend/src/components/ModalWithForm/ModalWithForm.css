@@ -5,13 +5,14 @@
     position: fixed;
     top:0;
     left: 0;
-    z-index: 3;
     transition: visibility 0s, opacity 0.5s linear;
     display: none;
+    z-index: 6;
   }
 
   .popup_opened {
     display: block;
+    z-index: 6;
 
   }
   
@@ -36,11 +37,12 @@
     display: flex;
     justify-content: space-between;
     padding:0;
+    z-index: 6;
   }
   
   @media screen and (min-width: 320px) and (max-width: 767px) {
     .popup__container {
-      max-width: 250px;
+      max-width: 320px;
       margin: 123px auto 0;
       justify-content: center;
      
@@ -65,9 +67,9 @@
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .popup__close-icon {
-    max-width: 20px;
-    max-height: 20px;
-    right: -250px;
+    max-width: 24px;
+    max-height: 24px;
+    right: -285px;
     top: -25px;
       
   }
@@ -131,7 +133,7 @@
   @media screen and (min-width: 320px) and (max-width: 767px) {
     .popup__text-input {
       max-width: 238px;
-      margin: 10px 0 46px;
+      margin: 10px 30px 46px;
       
     }
   }
@@ -145,6 +147,7 @@
     color: #FF0000;
     margin-left: 30px;
     margin-right: 20px;
+    margin-top: auto;
     gap: 20px;
     
   }

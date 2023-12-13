@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ValidateEmail, ValidatePassword } from "./utils/validator";
-import { authorize } from "./utils/auth";
+import { authorizeMock  } from "./utils/auth";
 import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js"
 import { PopUpFailedLogin } from "./components/InfoTooltip/InfoTooltip"
 
@@ -45,7 +45,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
           },2000)
       return;
     }
-    authorize(email, password)
+    authorizeMock(email, password)
       .then((data) => {
         if (data.token) {
           onLoggedIn(data);

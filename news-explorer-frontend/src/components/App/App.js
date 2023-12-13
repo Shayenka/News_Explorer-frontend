@@ -10,7 +10,7 @@ import Footer from "../Footer/Footer";
 import Login from "../../Login";
 import About from "../About/About";
 
-import { registerUserMock as registerUser , checkTokenValidity } from "../../utils/auth";
+import { registerUserMock , checkTokenValidityMock } from "../../utils/auth";
 
 function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
@@ -26,7 +26,7 @@ function App() {
     const storedToken = localStorage.getItem("jwt");
 
     if (storedToken) {
-      checkTokenValidity(storedToken)
+      checkTokenValidityMock(storedToken)
         .then((userData) => {
           setToken(storedToken);
           setIsLoggedIn(true);
@@ -63,10 +63,12 @@ function App() {
 
   async function handleRegisterUser(email, password, name) {
     try {
-      const response = await registerUser(email, password, name);
+      console.log('Before registerUserMock');
+      const response = await registerUserMock(email, password, name);
+      console.log('Registration successful. Response:', response);
       return response;
     } catch (error) {
-      console.error("Error en el registro de usuario:", error);
+      console.error('Error in the registration process:', error);
       throw error;
     }
   }
@@ -85,41 +87,50 @@ function App() {
     navigate("/signin");
   }
 
-    return (
-      <div className="body">
-        <div className="page">
-          <CurrentUserContext.Provider value={currentUser}>
-             <Header handleLoginPopUp={handleLoginPopUp} loggedIn={isLoggedIn} onLogout={handleLogout} />
-            <Routes>
-              <Route
-                path="/signin"
-                element={
-                  <Login onLoggedIn={handleLoginUser} loggedIn={isLoggedIn} isOpen={isLoginPopupOpen} onClose={closeAllPopups} handleRegisterPopUp={handleRegisterPopUp}/>
-                }
-              />
-              <Route
-                path="/signup"
-                element={
-                  <Register
-                    onRegister={handleRegisterUser}
-                    loggedIn={isLoggedIn}
-                    isOpen={isRegisterPopupOpen}
-                    onClose={closeAllPopups}
-                  />
-                }
-              />
-              <Route
-               path="/"
-               element={<Main
-              />}
+  return (
+    <div className="body">
+      <CurrentUserContext.Provider value={currentUser}>
+        <div className="app-container">
+          <Header
+            handleLoginPopUp={handleLoginPopUp}
+            loggedIn={isLoggedIn}
+            onLogout={handleLogout}
+          />
+          <Routes>
+            <Route
+              path="/signin"
+              element={
+                <Login
+                  onLoggedIn={handleLoginUser}
+                  loggedIn={isLoggedIn}
+                  isOpen={isLoginPopupOpen}
+                  onClose={closeAllPopups}
+                  handleRegisterPopUp={handleRegisterPopUp}
+                />
+              }
             />
-            </Routes>
-            <About />
-            <Footer />
-          </CurrentUserContext.Provider>
+            <Route
+              path="/signup"
+              element={
+                <Register
+                  onRegister={handleRegisterUser}
+                  loggedIn={isLoggedIn}
+                  isOpen={isRegisterPopupOpen}
+                  onClose={closeAllPopups}
+                />
+              }
+            />
+            <Route
+              path="/"
+              element={<Main />}
+            />
+          </Routes>
         </div>
-      </div>
-    );
+        </CurrentUserContext.Provider>
+        <About />
+        <Footer />
+    </div>
+  );
   }
 
 export default App;

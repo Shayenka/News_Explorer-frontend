@@ -62,7 +62,7 @@
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .header__container-texts {
     margin-right: 50px;
-    margin-left: 320px;
+    margin-left: 150px;
 
   }
 }
@@ -81,6 +81,14 @@
     border-bottom: 2px solid white; 
   }
 
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .header__link_text {
+      font-size: 16px;
+
+    }
+  }
+
   .header__link_text-border {
     font-family: "Inter", Arial, sans-serif;
     font-style: normal;
@@ -96,7 +104,10 @@
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
     .header__link_text-border {
-      width: 120px;
+      width: 100px;
+      max-height: 55px;
+      font-size: 16px;
+      margin-right: 50px;
 
     }
   }

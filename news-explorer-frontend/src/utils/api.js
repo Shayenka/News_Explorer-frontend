@@ -7,15 +7,19 @@ class Api {
     this.apiKey = apiKey;
   }
 
-  async _useFetch(token, url, method, body) {
+  async get(url, params = {}) {
     try {
-      const response = await fetch(url, {
+      const queryString = Object.keys(params)
+        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+        .join('&');
+
+      const fullUrl = `${this.address}${url}${queryString ? `?${queryString}` : ''}`;
+
+      const response = await fetch(fullUrl, {
         headers: {
-          Authorization: `Bearer ${this.apiKey}`,
-          "Content-Type": "application/json",
+       
         },
-        method,
-        body: JSON.stringify(body),
+        method: "GET",
       });
 
       if (!response.ok) {

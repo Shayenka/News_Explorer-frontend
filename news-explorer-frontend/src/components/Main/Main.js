@@ -32,16 +32,18 @@ function Main() {
       sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
       // Formatear la fecha a YYYY-MM-DD
-      const from = sevenDaysAgo.toISOString().split('T')[0];
-      const to = new Date().toISOString().split('T')[0];
+      const fromDate = sevenDaysAgo.toISOString().split('T')[0];
+      const toDate = new Date().toISOString().split('T')[0];
 
       // Realizar la solicitud a la API
-      const response = await api._useFetch(
-        null,
-       // `${api.address}/v2/everything?q=Brazil&apiKey=${api.apiKey}&from=${from}&to=${to}&pageSize=100`,
-       `https://newsapi.org/v2/everything?q=${query}&from=2023-11-12&sortBy=publishedAt&apiKey=${api.apiKey}`, 
-        "GET"
-      );
+
+      const response = await api.get('/v2/everything', {
+        q: query,
+        apiKey: api.apiKey,
+        from: fromDate,
+        to: toDate,
+        pageSize: 100,
+      });
 
       // Actualizar los resultados de la búsqueda en el estado
       setSearchResults(response.articles);
@@ -55,35 +57,42 @@ function Main() {
     }
   };
 
-  const handleShowMore = () => {
+  const handleShowMore = async () => {
     if (!isLoading) {
-      setVisibleCards((prev) => prev + 3); // Incrementar la carga
       setIsButtonDisabled(true); // Deshabilitar el botón 
-      handleSearch();  // Realizar la carga adicional
+      try {
+        // Incrementar la carga
+        setVisibleCards((prev) => prev + 3);
+        // Realizar la carga adicional
+        await handleSearch();
+      } finally {
+        setIsButtonDisabled(false); // Habilitar el botón
+      }
     }
   };
 
   return (
-    <main>
+    <main className="main-container">
       <section className="main">
         <h1 className="main__title">¿Qué está pasando en el mundo?</h1>
         <h2 className="main__subtitle">Encuentra las últimas noticias sobre cualquier tema y guárdalas en tu cuenta personal.</h2>
 
-        <SearchForm onSearch={handleSearch} />
+        <SearchForm onSearch={handleSearch} setQuery={setQuery} query={query} />
       </section>
 
       {searchResults.length > 0 && (
-      <section className="main_cards">
-        {isLoading && <Preloader />}
+  <section className="main_cards">
+    {isLoading && <Preloader />}
 
-        {/* Mostrar solo las tarjetas visibles */}
-        {searchResults.slice(0, visibleCards).map((article) => (
-          <NewsCard
-            sourceName={article.source.name}
-            title={article.title}
-            publishedAt={article.publishedAt}
-            description={article.description}
-            urlToImage={article.urlToImage}
+    {/* Mostrar solo las tarjetas visibles */}
+    {searchResults.slice(0, visibleCards).map((article, index) => (
+      <NewsCard
+        key={index}
+        sourceName={article.source.name}
+        title={article.title}
+        publishedAt={article.publishedAt}
+        description={article.description}
+        urlToImage={article.urlToImage}
             // Otras propiedades
           />
         ))}

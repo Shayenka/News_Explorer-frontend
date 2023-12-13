@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer className="footer">
      
-      <div className="footer__link">
+      <div className="footer__container">
       <p className="footer__copyright">
         &copy; 2021 Supercite, Powered by News API
       </p>

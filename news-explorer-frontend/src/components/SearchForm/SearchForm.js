@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-function SearchForm({ onSearch }) {
-  const [query, setQuery] = useState('');
+function SearchForm({ onSearch, query, setQuery }) {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -19,6 +18,7 @@ function SearchForm({ onSearch }) {
     setIsSubmitting(true);
   
     // Pasa la consulta al manejador de búsqueda
+    // setQuery(query);
     onSearch(query);
   
     // Resetear el estado del formulario

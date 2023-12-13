@@ -51,10 +51,10 @@ function NewsCard(props) {
         style={{ backgroundImage: `url(${props.urlToImage})` }}
       />
       <div className="card__footer-image">
-        <h4 className="card__date">{formatDate(publishedAt)}</h4>
+        <h4 className="card__date">{formatDate(props.publishedAt)}</h4>
         <h3 className="card__title">{props.title}</h3>
         <p className="card__description">{props.description}</p>
-        <p className="card__source">{props.source.name}</p>
+        <p className="card__source">{props.sourceName}</p>
       </div>
     </div>
   );
