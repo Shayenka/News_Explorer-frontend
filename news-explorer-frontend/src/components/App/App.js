@@ -122,7 +122,8 @@ function App() {
             />
             <Route
               path="/"
-              element={<Main />}
+              element={<Main 
+                isLoggedIn={isLoggedIn}/>}
             />
           </Routes>
         </div>

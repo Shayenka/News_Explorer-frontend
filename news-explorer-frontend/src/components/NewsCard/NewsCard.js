@@ -6,12 +6,16 @@ import { formatDate } from "../../utils/validator"
 function NewsCard(props) {
   const currentUser = useContext(CurrentUserContext);
   const [showLoginMessage, setShowLoginMessage] = useState(false);
+  const [isSaved , setIsSaved ] = useState(false);
 
   function handleSavedCard() {
     if (props.isLoggedIn) {
-      props.onCardSaved(props.card);
+      console.log(props.isLoggedIn)
+      setIsSaved(true);
+      // props.onCardSaved(props.card);
     } else {
       setShowLoginMessage(true);
+      setIsSaved(false); 
     }
   }
 
@@ -20,7 +24,11 @@ function NewsCard(props) {
   }
 
   const cardSaveButtonClassName = `card__icon-saved ${
-    props.isLoggedIn ? "card__icon-saved_changeColor" : "card__icon-savedClick"
+    props.isLoggedIn && isSaved
+      ? "card__icon-saved_changeColor"
+      : !props.isLoggedIn && showLoginMessage
+      ? "card__icon-savedClick"
+      : ""
   }`;
 
 

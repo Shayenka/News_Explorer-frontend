@@ -7,7 +7,7 @@ import NoResultsFound from "../../images/not-found_image.svg";
 import Preloader from "../Preloader/Preloader";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
-function Main() {
+function Main(isLoggedIn) {
   const currentUser = useContext(CurrentUserContext);
   const [error, setError] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -72,8 +72,8 @@ function Main() {
   };
 
   return (
-    <main className="main-container">
-      <section className="main">
+    <main className="main">
+      <section className="main-container">
         <h1 className="main__title">¿Qué está pasando en el mundo?</h1>
         <h2 className="main__subtitle">Encuentra las últimas noticias sobre cualquier tema y guárdalas en tu cuenta personal.</h2>
 
@@ -81,12 +81,13 @@ function Main() {
       </section>
 
       {searchResults.length > 0 && (
-  <section className="main_cards">
+  <section className="main__cards">
     {isLoading && <Preloader />}
 
     {/* Mostrar solo las tarjetas visibles */}
     {searchResults.slice(0, visibleCards).map((article, index) => (
       <NewsCard
+        isLoggedIn={isLoggedIn}
         key={index}
         sourceName={article.source.name}
         title={article.title}
@@ -99,7 +100,7 @@ function Main() {
 
         {/* Botón "Mostrar más" */}
         {visibleCards < searchResults.length && (
-           <button onClick={handleShowMore} disabled={isButtonDisabled}>
+           <button className="main__cards_button-ShowMore" onClick={handleShowMore} disabled={isButtonDisabled}>
            Mostrar más
          </button>
         )}
@@ -115,7 +116,7 @@ function Main() {
           </div>
         )}
 
-        {error && <p className="searchResults__mesageError" style={{ color: 'red' }}>{error}</p>}
+        {/* {error && <p className="searchResults__mesageError" style={{ color: 'red' }}>{error}</p>} */}
       </section>
 )}
 </main>
