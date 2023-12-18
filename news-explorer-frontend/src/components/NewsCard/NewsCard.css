@@ -11,7 +11,8 @@
 }
 
 .card__header {
-    position: absolute;
+    /* position: absolute; */
+    position: relative; 
     top: 0;
     left: 0;
     width: 100%;
@@ -21,29 +22,20 @@
   }
 
   .card__icon-container {
-    position: relative;
-    z-index: 2;
-  }
-
+    position: absolute;
+    z-index: 2; 
+    display: flex;
+   }
 
 .card__icon-saved {
     margin-left: 350px;
     margin-top: 10px;
-    padding-top: 0;
-    /* z-index: 1; */
-    /* cursor: pointer;  */
-  }
+    padding-top: 0; 
+   }
 
   .card__icon-saved:hover {
     opacity: 0.6;
   }
-
-  /* .card__icon-saved:active {
-    background-image: url('../../images/iconGuardarClick.svg'); 
-    margin-left: 350px;
-    margin-top: 10px;
-    padding-top: 0;
-  } */
 
   /* Al hacer click en el icono, que cambie de color (imagen) */
   .card__icon-savedClick {
@@ -52,8 +44,9 @@
     padding-top: 0;
     background-image: url('../../images/iconGuardarClick1.svg'); 
     background-repeat: no-repeat;
+    position: absolute;
     /* object-fit: cover; */
-    /* z-index: 3; */
+    z-index: 2;
     
   }
 
@@ -63,8 +56,9 @@
     padding-top: 0;
     background-image: url('../../images/iconGuardarBlue.svg'); 
     background-repeat: no-repeat;
+    position: absolute;
+    z-index: 2;
     /* object-fit: cover; */
-    /* z-index: 5; */
 
   }
 
@@ -73,7 +67,8 @@
     background-color: white;
     max-width: 210px;
     width: auto;
-    height: auto;
+    margin-left: auto; 
+    /* height: auto; */
     border-radius: 10px;
     margin-left: 170px;
     top: 0;

@@ -10,7 +10,7 @@ import Footer from "../Footer/Footer";
 import Login from "../../Login";
 import About from "../About/About";
 
-import { registerUserMock , checkTokenValidityMock } from "../../utils/auth";
+import { registerUserMock, checkTokenValidityMock } from "../../utils/auth";
 
 function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
@@ -18,7 +18,13 @@ function App() {
 
   const [token, setToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({ email: "", password: "", name: "" });
+  const [currentUser, setCurrentUser] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
+
+  const [savedCards, setSavedCards] = useState([]);
 
   const navigate = useNavigate();
 
@@ -45,8 +51,6 @@ function App() {
     loadUserData();
   }, []);
 
-
-
   function handleLoginPopUp() {
     setIsLoginPopupOpen(true);
   }
@@ -58,17 +62,16 @@ function App() {
   function closeAllPopups() {
     setIsLoginPopupOpen(false);
     setIsRegisterPopupOpen(false);
-    
   }
 
   async function handleRegisterUser(email, password, name) {
     try {
-      console.log('Before registerUserMock');
+      console.log("Before registerUserMock");
       const response = await registerUserMock(email, password, name);
-      console.log('Registration successful. Response:', response);
+      console.log("Registration successful. Response:", response);
       return response;
     } catch (error) {
-      console.error('Error in the registration process:', error);
+      console.error("Error in the registration process:", error);
       throw error;
     }
   }
@@ -87,9 +90,14 @@ function App() {
     navigate("/signin");
   }
 
+  function handleCardSaved(card) {
+    setSavedCards((prevSavedCards) => [...prevSavedCards, card]);
+  }
+
   return (
     <div className="body">
       <CurrentUserContext.Provider value={currentUser}>
+        
         <div className="app-container">
           <Header
             handleLoginPopUp={handleLoginPopUp}
@@ -122,16 +130,20 @@ function App() {
             />
             <Route
               path="/"
-              element={<Main 
-                isLoggedIn={isLoggedIn}/>}
+              element={
+                <Main
+                  isLoggedIn={isLoggedIn}
+                  onCardSaved={handleCardSaved} 
+                />
+              }
             />
           </Routes>
         </div>
-        </CurrentUserContext.Provider>
-        <About />
-        <Footer />
+      </CurrentUserContext.Provider>
+      <About />
+      <Footer />
     </div>
   );
-  }
+}
 
 export default App;

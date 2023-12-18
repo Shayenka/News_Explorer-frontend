@@ -7,7 +7,7 @@ import NoResultsFound from "../../images/not-found_image.svg";
 import Preloader from "../Preloader/Preloader";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
-function Main(isLoggedIn) {
+function Main({ isLoggedIn, onCardSaved }) {
   const currentUser = useContext(CurrentUserContext);
   const [error, setError] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -87,8 +87,10 @@ function Main(isLoggedIn) {
     {/* Mostrar solo las tarjetas visibles */}
     {searchResults.slice(0, visibleCards).map((article, index) => (
       <NewsCard
-        isLoggedIn={isLoggedIn}
         key={index}
+        isLoggedIn={isLoggedIn}
+        onCardSaved={onCardSaved}
+        card={article} 
         sourceName={article.source.name}
         title={article.title}
         publishedAt={article.publishedAt}

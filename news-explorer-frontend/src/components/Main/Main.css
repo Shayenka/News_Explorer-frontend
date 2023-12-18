@@ -11,14 +11,17 @@
 }
 
 .main {
-    min-height: 100vh; /* Asegura que el contenido de Main tenga al menos el alto de la ventana */
+    /* min-height: 100vh;  */
+    height: auto;
     flex-direction: column;
+    position: relative;
+    z-index: 1;
+    
   }
 
 .main-container {
     width: 100%;
-    margin: 100px auto; 
-    z-index: 3;     
+    margin: 100px auto;   
 }
 
 @media screen and (min-width: 768px) and (max-width: 1250px) {
@@ -111,7 +114,8 @@
     background-color: rgb(238, 244, 247);
     grid-gap: 15px;
     z-index: 1;
-  }
+    height: auto;
+   }
 
   @media screen and (min-width: 767px) and (max-width: 1250px) {
     .main__cards {

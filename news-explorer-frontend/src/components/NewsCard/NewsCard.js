@@ -9,13 +9,17 @@ function NewsCard(props) {
   const [isSaved , setIsSaved ] = useState(false);
 
   function handleSavedCard() {
+    console.log("handleSavedCard called"); 
     if (props.isLoggedIn) {
       console.log(props.isLoggedIn)
       setIsSaved(true);
-      // props.onCardSaved(props.card);
+      props.onCardSaved(props.card);
+      console.log(props.card)
     } else {
-      setShowLoginMessage(true);
+      console.log("login:", props.isLoggedIn)
       setIsSaved(false); 
+      setShowLoginMessage(true);
+      console.log("Popup:", showLoginMessage)
     }
   }
 

@@ -32,7 +32,7 @@ function ModalWithForm(props) {
 
   return (
     <section className={`popup popup_type_${props.name} ${props.isOpen ? 'popup_opened' : ''}`}>
-      <form className="popup__container" id={props.name} noValidate>
+      <form className="popup__container" id={props.name} noValidate onSubmit={props.onSubmit}>
         <img
           className="popup__close-icon"
           src={closePopUp}
@@ -44,7 +44,7 @@ function ModalWithForm(props) {
         <button
           type="submit"
           className="popup__button"
-          onClick={props.onSubmit}
+          // onSubmit={props.onSubmit}
           disabled={!props.isFormValid}
         >
           {props.submitButtonText}

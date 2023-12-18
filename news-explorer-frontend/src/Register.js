@@ -29,6 +29,7 @@ function Register({ onRegister, loggedIn, isOpen, onClose }) {
   function handleEmailChange(evt) {
     const newEmail = evt.target.value;
     setEmail(newEmail);
+    console.log(newEmail);
     const error = ValidateEmail(newEmail);
     setEmailError(error);
     // updateFormValidity(newEmail, password, name);
@@ -37,6 +38,7 @@ function Register({ onRegister, loggedIn, isOpen, onClose }) {
   function handlePasswordChange(evt) {
     const newPassword = evt.target.value;
     setPassword(newPassword);
+    console.log(newPassword);
     const error = ValidatePassword(newPassword);
     setPasswordError(error);
     // updateFormValidity(email, newPassword, name);
@@ -45,6 +47,8 @@ function Register({ onRegister, loggedIn, isOpen, onClose }) {
   function handleNameChange(evt) {
     const newName = evt.target.value;
     setName(newName);
+    console.log(newName);
+    
     const error = ValidateName(newName);
     setNameError(error);
     // updateFormValidity(email, password, newName);
@@ -57,6 +61,7 @@ function Register({ onRegister, loggedIn, isOpen, onClose }) {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    console.log("prueba handleSubmit en Register");
 
     try {
       const userRegistered = await onRegister(email, password, name);
@@ -83,7 +88,7 @@ function Register({ onRegister, loggedIn, isOpen, onClose }) {
       submitButtonText="Inscribirse"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit}  
     //   isFormValid={isFormValid} //Para activar o desactivar boton "iniciar sesión"
     >
       <div>
@@ -97,7 +102,7 @@ function Register({ onRegister, loggedIn, isOpen, onClose }) {
           minLength="2"
           maxLength="20"
           value={email || ""}
-          onChange={handleEmailChange}
+          onChange={handleEmailChange} 
         />
         <span className="popup__input-error" id="email-error">
             {emailError}
