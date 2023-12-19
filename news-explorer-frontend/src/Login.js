@@ -10,7 +10,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [isFormValid, setIsFormValid] = useState(false);
+  // const [isFormValid, setIsFormValid] = useState(false);
   const [showPopupFailedLogin, setShowPopupFailedLogin] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,7 +20,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
     setEmail(newEmail);
     const error = ValidateEmail(newEmail);
     setEmailError(error);
-    updateFormValidity(newEmail, password);
+    // updateFormValidity(newEmail, password);
   }
 
   function handlePasswordChange(evt) {
@@ -28,13 +28,13 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
     setPassword(newPassword);
     const error = ValidatePassword(newPassword);
     setPasswordError(error);
-    updateFormValidity(email, newPassword);
+    // updateFormValidity(email, newPassword);
   }
 
-  function updateFormValidity(email, password) {
-    // Verifica si ambos campos tienen contenido (para desactivar boton "iniciar sesión")
-    setIsFormValid(email.trim() !== "" && password.trim() !== "");
-  }
+  // function updateFormValidity(email, password) {
+  //   // Verifica si ambos campos tienen contenido (para desactivar boton "iniciar sesión")
+  //   setIsFormValid(email.trim() !== "" && password.trim() !== "");
+  // }
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -64,7 +64,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isFormValid={isFormValid} //Para activar o desactivar boton "iniciar sesión"
+      // isFormValid={isFormValid} //Para activar o desactivar boton "iniciar sesión"
       handleRegisterPopUp={handleRegisterPopUp}
     >
       <div>
