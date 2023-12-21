@@ -45,22 +45,22 @@ function ModalWithForm(props) {
           type="submit"
           className="popup__button"
           // onSubmit={props.onSubmit}
-          disabled={!props.isFormValid}
+          // disabled={!props.isFormValid}
         >
           {props.submitButtonText}
         </button>
         <div className="popup__container-footer">
         <p className="popup__text_footer">ó</p>
         <Link
-          to="/signup"
-          className="popup__link_signup"
-          style={{ textDecoration: "none" }}
-          onClick={() => {
-            props.handleRegisterPopUp();
-          }}
-        >
-          inscribirse
-        </Link>
+  to={props.isLoginPopUp ? "/signup" : "/signin"}
+  className="popup__link_signup"
+  style={{ textDecoration: "none" }}
+  onClick={() => {
+    props.isLoginPopUp ? props.handleRegisterPopUp() : props.handleLoginPopUp();
+  }}
+>
+  {props.isLoginPopUp ? "Inscribirse" : "Iniciar sesión"}
+</Link>
         </div>
       </form>
     </section>

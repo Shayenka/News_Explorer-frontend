@@ -3,9 +3,9 @@ import { CurrentUserContext } from "./contexts/CurrentUserContext"
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ValidateEmail, ValidatePassword, ValidateName } from "./utils/validator";
 import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js"
-import { PopUpSuccessfulRegister, PopUpFailedRegister } from "./components/InfoTooltip/InfoTooltip";
+import { PopUpSuccessfulRegister, PopUpFailedRegister, PopUpUserRegistered } from "./components/InfoTooltip/InfoTooltip";
 
-function Register({ onRegister, loggedIn, isOpen, onClose }) {
+function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,6 +17,8 @@ function Register({ onRegister, loggedIn, isOpen, onClose }) {
   const [showPopupSuccessfulRegister, setShowPopupSuccessfulRegister] =
     useState(false);
   const [showPopupFailedRegister, setShowPopupFailedRegister] = useState(false);
+  const [showPopUpUserRegistered, setShowPopUpUserRegistered] = useState(false);
+  const [isRegisterPopupVisible, setRegisterPopupVisible] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -63,32 +65,57 @@ function Register({ onRegister, loggedIn, isOpen, onClose }) {
     evt.preventDefault();
     console.log("prueba handleSubmit en Register");
 
+    if (!email.trim() || !password.trim() || !name.trim()) {
+      // Campos vacíos
+      setShowPopupFailedRegister(true);
+      setShowPopupSuccessfulRegister(false);
+      setRegisterPopupVisible(false);
+      return;
+    }
+
     try {
       const userRegistered = await onRegister(email, password, name);
-      if (userRegistered) {
+  
+      if (!userRegistered) {
+        // Usuario ya registrado
+        setShowPopUpUserRegistered(true);
+        setShowPopupFailedRegister(false);
+        setShowPopupSuccessfulRegister(false);
+        setRegisterPopupVisible(false);
+        console.log("El usuario ya está registrado");
+      } else {
+        // Usuario registrado correctamente
         setShowPopupSuccessfulRegister(true);
         setShowPopupFailedRegister(false);
+        setRegisterPopupVisible(false);
+        setShowPopUpUserRegistered(false);
+  
         setTimeout(() => {
           navigate("/signin");
-        },2000)
-      } else {
-        setShowPopupFailedRegister(true);
-        setShowPopupSuccessfulRegister(false);
-        console.log("Error en el registo de usuario.");
+        }, 2000);
       }
     } catch (error) {
       console.error("Error en el registo de usuario:", error);
+      setShowPopupFailedRegister(true);
     }
   };
 
+  // const handleRegisterPopupClose = () => {
+  //   setRegisterPopupVisible(false);
+  // };
+
   return (
-    <ModalWithForm
+    <>
+     {isRegisterPopupVisible && (
+        <ModalWithForm
       name="registerUser"
       title="Inscribirse"
       submitButtonText="Inscribirse"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}  
+      onSubmit={handleSubmit} 
+      handleLoginPopUp={handleLoginPopUp}
+      isLoginPopUp={false}
     //   isFormValid={isFormValid} //Para activar o desactivar boton "iniciar sesión"
     >
       <div>
@@ -138,20 +165,30 @@ function Register({ onRegister, loggedIn, isOpen, onClose }) {
             {nameError}
           </span>
       </div> 
-      {showPopupSuccessfulRegister && (
-        <PopUpSuccessfulRegister
-          isOpen={true}
-          onClose={() => setShowPopupSuccessfulRegister(false)}
-        />
-      )}
-      {showPopupFailedRegister && (
-        <PopUpFailedRegister
-          isOpen={true}
-          onClose={() => setShowPopupFailedRegister(false)}
-        />
-      )}
     </ModalWithForm>
-  );
-}
+     )}
+
+    {showPopupSuccessfulRegister && (
+      <PopUpSuccessfulRegister
+        isOpen={true}
+        onClose={() => setShowPopupSuccessfulRegister(false)}
+      />
+    )}
+    {showPopupFailedRegister && (
+      <PopUpFailedRegister
+        isOpen={true}
+        onClose={() => setShowPopupFailedRegister(false)}
+        />
+        )}
+    {showPopUpUserRegistered && (
+      <PopUpUserRegistered
+        isOpen={true}
+        onClose={() => setShowPopUpUserRegistered(false)}
+        />
+        )}
+      </>
+    );
+  }
+  
 
 export default Register;

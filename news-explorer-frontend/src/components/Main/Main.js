@@ -26,6 +26,9 @@ function Main({ isLoggedIn, onCardSaved }) {
     setError('');
     setIsLoading(true);
     try {
+
+      console.log('Query before search:', query);
+      console.log('Is loading before search:', isLoading);
       
       // Obtener la fecha actual menos 7 días
       const sevenDaysAgo = new Date();
@@ -45,6 +48,8 @@ function Main({ isLoggedIn, onCardSaved }) {
         pageSize: 100,
       });
 
+      console.log('Search results:', response.articles);
+
       // Actualizar los resultados de la búsqueda en el estado
       setSearchResults(response.articles);
       setError(''); // Limpiar el mensaje de error en caso de éxito
@@ -54,6 +59,9 @@ function Main({ isLoggedIn, onCardSaved }) {
     } finally {
       setIsLoading(false);
       setQuery('');
+
+      console.log('Query after search:', query);
+      console.log('Is loading after search:', isLoading);
     }
   };
 
@@ -70,6 +78,10 @@ function Main({ isLoggedIn, onCardSaved }) {
       }
     }
   };
+
+  console.log('Is loading in render:', isLoading);
+  console.log('Search results length:', searchResults.length);
+  console.log('Query in render:', query);
 
   return (
     <main className="main">
@@ -108,15 +120,13 @@ function Main({ isLoggedIn, onCardSaved }) {
         )}
 
         {/* Mensaje de no resultados */}
-        {searchResults.length === 0 && query && (
-          <div className="NoResultsFound__container">
-            <>
-              <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
-              <p className="NoResultsFound-mesageMain">No se encontró nada</p>
-              <p className="NoResultsFound-mesage">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
-            </>
-          </div>
-        )}
+        {searchResults.length === 0 && !isLoading &&  (
+  <div className="NoResultsFound__container">
+    <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
+    <p className="NoResultsFound-mesageMain">No se encontró nada</p>
+    <p className="NoResultsFound-mesage">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
+  </div>
+)}
 
         {/* {error && <p className="searchResults__mesageError" style={{ color: 'red' }}>{error}</p>} */}
       </section>

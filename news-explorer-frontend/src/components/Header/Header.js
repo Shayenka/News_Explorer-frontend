@@ -4,6 +4,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
   const currentUser = useContext(CurrentUserContext);
+  console.log("isLoggedIn in Header:", isLoggedIn);
 
   return (
     <header className="header">
@@ -29,8 +30,11 @@ function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
               to="/"
               className="header__link_text-border"
               style={{ textDecoration: "none" }}
+              onClick={() => {
+                onLogout();
+              }}
             >
-              Elise [->;
+              Cerrar sesión
             </Link>
           </>
         ) : (

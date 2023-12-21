@@ -101,7 +101,7 @@ function App() {
         <div className="app-container">
           <Header
             handleLoginPopUp={handleLoginPopUp}
-            loggedIn={isLoggedIn}
+            isLoggedIn={isLoggedIn}
             onLogout={handleLogout}
           />
           <Routes>
@@ -125,6 +125,7 @@ function App() {
                   loggedIn={isLoggedIn}
                   isOpen={isRegisterPopupOpen}
                   onClose={closeAllPopups}
+                  handleLoginPopUp={ handleLoginPopUp}
                 />
               }
             />

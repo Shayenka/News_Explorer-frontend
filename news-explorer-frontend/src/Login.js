@@ -12,6 +12,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   const [passwordError, setPasswordError] = useState("");
   // const [isFormValid, setIsFormValid] = useState(false);
   const [showPopupFailedLogin, setShowPopupFailedLogin] = useState(false);
+  const [isLoginPopupVisible, setLoginPopupVisible] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -40,6 +41,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
     evt.preventDefault();
     if (!email || !password) {
         setShowPopupFailedLogin(true)
+        setLoginPopupVisible(false)
         setTimeout(() => {
             navigate("/signin");
           },2000)
@@ -57,7 +59,9 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   }
 
   return (
-    <ModalWithForm
+    <>
+     {isLoginPopupVisible && (
+        <ModalWithForm
       name="loginUser"
       title="Iniciar sesión"
       submitButtonText="Iniciar sesión"
@@ -66,6 +70,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
       onSubmit={handleSubmit}
       // isFormValid={isFormValid} //Para activar o desactivar boton "iniciar sesión"
       handleRegisterPopUp={handleRegisterPopUp}
+      isLoginPopUp={true}
     >
       <div>
       <h3 className="popup__subtitle-input">Correo eléctronico</h3>
@@ -99,14 +104,16 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
             {passwordError}
           </span>
       </div>
-      {showPopupFailedLogin && (
-        <PopUpFailedLogin 
-          isOpen={true}
-          onClose={() => setShowPopupFailedLogin(false)}
-        />
-      )} 
     </ModalWithForm>
+    )}
+  {showPopupFailedLogin && (
+    <PopUpFailedLogin 
+      isOpen={true}
+      onClose={() => setShowPopupFailedLogin(false)}
+      />
+      )}
+    </>
   );
-}
+  }
 
 export default Login;

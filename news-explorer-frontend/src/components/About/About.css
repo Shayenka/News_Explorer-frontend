@@ -3,8 +3,7 @@
     flex-direction: row;
     z-index: 2;
     background-color: white;
-   padding-top: 100px;
-
+    position: relative;
     z-index: 2;
 
   }

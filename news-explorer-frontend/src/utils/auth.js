@@ -1,15 +1,41 @@
 const BASE_URL = "http://127.0.0.1:3000";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
+// export const registerUserMock = async (email, password, name) => {
+//   return new Promise((resolve, reject) => {
+//     const user = {
+//       email, password, name
+//     }
+//     localStorage.setItem('dummyUser', JSON.stringify(user));
+//     resolve(user);
+//   })
+// }
+
 export const registerUserMock = async (email, password, name) => {
   return new Promise((resolve, reject) => {
-    const user = {
-      email, password, name
+    // Obtener usuarios registrados del localStorage
+    const storedUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+
+    // Verificar si el usuario ya está registrado por su dirección de correo electrónico
+    const isUserRegistered = storedUsers.some(user => user.email === email);
+
+    if (isUserRegistered) {
+      // Usuario ya registrado
+      resolve(null);
+      console.log("El usuario ya está registrado");
+    } else {
+      // Usuario no registrado, proceder con el registro
+      const user = { email, password, name };
+
+      // Agregar nuevo usuario a la lista de usuarios registrados
+      storedUsers.push(user);
+      localStorage.setItem('registeredUsers', JSON.stringify(storedUsers));
+
+      resolve(user);
+      console.log("El usuario registrado", user);
     }
-    localStorage.setItem('dummyUser', JSON.stringify(user));
-    resolve(user);
-  })
-}
+  });
+};
 
 
  export const authorizeMock = async (email, password) => {
