@@ -89,6 +89,12 @@
     }
   }
 
+  .header__user-container {
+    display: flex;
+    align-items: center;
+    
+  }
+
   .header__link_text-border {
     font-family: "Inter", Arial, sans-serif;
     font-style: normal;
@@ -96,6 +102,8 @@
     font-size: 18px;
     line-height: 2;
     color: white;
+    margin: 0;
+    padding: 0;
   }
 
   .header__link_text-border:hover {
@@ -110,6 +118,14 @@
       margin-right: 50px;
 
     }
+  }
+
+  .header__icon-logout {
+    width: 24px;
+    height: 24px;
+    top: 5px;
+
+
   }
 
  

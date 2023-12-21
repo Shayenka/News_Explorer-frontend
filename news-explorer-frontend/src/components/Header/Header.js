@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import Logout from "../../images/logout.svg";
 
 function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
   const currentUser = useContext(CurrentUserContext);
@@ -18,7 +19,7 @@ function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
           Inicio
         </Link>
         {isLoggedIn ? (
-          <>
+          <div className="header__user-container">
             <Link
               to="/saved-news"
               className="header__link_text"
@@ -29,14 +30,24 @@ function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
             <Link
               to="/"
               className="header__link_text-border"
-              style={{ textDecoration: "none" }}
+              style={{
+                textDecoration: "none",
+                border: "1px solid white",
+                padding: "1px 20px",
+                borderRadius: "30px",
+              }}
               onClick={() => {
                 onLogout();
               }}
             >
-              Cerrar sesión
+              {currentUser.name}
+              <img
+                className="header__icon-logout"
+                src={Logout}
+                alt="Icono de logout"
+              />
             </Link>
-          </>
+          </div>
         ) : (
           <Link
             to="/signin"

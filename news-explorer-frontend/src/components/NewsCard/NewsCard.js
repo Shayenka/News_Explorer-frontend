@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import savedCard from "../../images/iconGuardar.svg";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { formatDate } from "../../utils/validator"
+import { formatDate } from "../../utils/validator";
 
 function NewsCard(props) {
   const currentUser = useContext(CurrentUserContext);

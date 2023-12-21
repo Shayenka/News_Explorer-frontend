@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-// import ProtectedRoute from "";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import Main from "../Main/Main";
@@ -9,6 +9,7 @@ import Register from "../../Register";
 import Footer from "../Footer/Footer";
 import Login from "../../Login";
 import About from "../About/About";
+import SavedNews from "../SavedNews/SavedNews";
 
 import { registerUserMock, checkTokenValidityMock } from "../../utils/auth";
 
@@ -23,8 +24,6 @@ function App() {
     password: "",
     name: "",
   });
-
-  const [savedCards, setSavedCards] = useState([]);
 
   const navigate = useNavigate();
 
@@ -90,10 +89,6 @@ function App() {
     navigate("/signin");
   }
 
-  function handleCardSaved(card) {
-    setSavedCards((prevSavedCards) => [...prevSavedCards, card]);
-  }
-
   return (
     <div className="body">
       <CurrentUserContext.Provider value={currentUser}>
@@ -134,10 +129,18 @@ function App() {
               element={
                 <Main
                   isLoggedIn={isLoggedIn}
-                  onCardSaved={handleCardSaved} 
                 />
               }
             />
+            <Route
+              path="/saved-news"
+              element={
+                <ProtectedRoute
+                  loggedIn={isLoggedIn}
+                  component={SavedNews}
+                />
+              }
+              />
           </Routes>
         </div>
       </CurrentUserContext.Provider>

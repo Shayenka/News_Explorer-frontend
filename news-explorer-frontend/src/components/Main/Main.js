@@ -5,6 +5,7 @@ import NewsCard from "../NewsCard/NewsCard";
 import Api from "../../utils/api";
 import NoResultsFound from "../../images/not-found_image.svg";
 import Preloader from "../Preloader/Preloader";
+import SavedNews from "../SavedNews/SavedNews";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
 function Main({ isLoggedIn, onCardSaved }) {
@@ -15,6 +16,8 @@ function Main({ isLoggedIn, onCardSaved }) {
   const [visibleCards, setVisibleCards] = useState(3);
   const [query, setQuery] = useState(''); 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [savedCards, setSavedCards] = useState([]);
+  const [searchQueries, setSearchQueries] = useState([]);
 
   const api = new Api({
     address: "https://newsapi.org",
@@ -53,6 +56,7 @@ function Main({ isLoggedIn, onCardSaved }) {
       // Actualizar los resultados de la búsqueda en el estado
       setSearchResults(response.articles);
       setError(''); // Limpiar el mensaje de error en caso de éxito
+      setSearchQueries((prevQueries) => [...prevQueries, query]);
     } catch (error) {
       console.error("Error en la búsqueda de noticias:", error.message);
       setError('Lo sentimos, algo ha salido mal durante la solicitud. Por favor, inténtelo de nuevo.');
@@ -79,6 +83,10 @@ function Main({ isLoggedIn, onCardSaved }) {
     }
   };
 
+  const handleCardSaved = (card) => {
+    setSavedCards((prevSavedCards) => [...prevSavedCards, card]);
+  };
+
   console.log('Is loading in render:', isLoading);
   console.log('Search results length:', searchResults.length);
   console.log('Query in render:', query);
@@ -101,7 +109,7 @@ function Main({ isLoggedIn, onCardSaved }) {
       <NewsCard
         key={index}
         isLoggedIn={isLoggedIn}
-        onCardSaved={onCardSaved}
+        onCardSaved={handleCardSaved} 
         card={article} 
         sourceName={article.source.name}
         title={article.title}
@@ -131,6 +139,13 @@ function Main({ isLoggedIn, onCardSaved }) {
         {/* {error && <p className="searchResults__mesageError" style={{ color: 'red' }}>{error}</p>} */}
       </section>
 )}
+{/* Pasar las tarjetas guardadas a SavedNews */}
+{savedCards.length > 0 && queries (
+        <SavedNews 
+        cards={savedCards}
+        searchQueries={searchQueries}
+         />
+      )}
 </main>
 );
 }
