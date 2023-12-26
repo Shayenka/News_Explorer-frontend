@@ -14,7 +14,7 @@ function SavedNewsHeader({ savedCardsCount, searchQueries}) {
     <div className="saved-news-header">
       <h2 className="saved-news-header__title">Artículos guardados</h2>
       <p className="saved-news-header__count">{`${currentUser.name}, tienes ${savedCardsCount} artículos guardados`}</p>
-      <p className="saved-news-header__queries">Por palabras clave: {queries.join(', ')}</p>
+      <p className="saved-news-header__queries">Por palabras clave: {searchQueries.join(', ')}</p>
     </div>
   );
 }

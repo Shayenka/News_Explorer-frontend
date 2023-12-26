@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
-import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
-import NewsCardList from '../NewsCardList/NewsCardList';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+import React, { useState } from "react";
+import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
+import NewsCardList from "../NewsCardList/NewsCardList";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
-function SavedNews({ cards, searchQueries }) {
+function SavedNews({ cards, onDeleteCard, searchQueries }) {
   return (
     <>
+    <section className="savedNews-container">
       <Header />
+      <SavedNewsHeader
+        savedCardsCount={cards.length}
+        searchQueries={searchQueries}
+      />
       <div className="saved-news">
-        <SavedNewsHeader savedCardsCount={cards.length} searchQueries={searchQueries} />
-        <NewsCardList cards={cards} />
+        {cards.map((card, index) => (
+          <NewsCardList
+            key={index}
+            card={card}
+            onDelete={() => onDeleteCard(index)}
+          />
+        ))}
       </div>
       <Footer />
+      </section>
     </>
   );
 }

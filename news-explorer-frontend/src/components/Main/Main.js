@@ -8,7 +8,7 @@ import Preloader from "../Preloader/Preloader";
 import SavedNews from "../SavedNews/SavedNews";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
-function Main({ isLoggedIn, onCardSaved }) {
+function Main({ isLoggedIn }) {
   const currentUser = useContext(CurrentUserContext);
   const [error, setError] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -57,6 +57,7 @@ function Main({ isLoggedIn, onCardSaved }) {
       setSearchResults(response.articles);
       setError(''); // Limpiar el mensaje de error en caso de éxito
       setSearchQueries((prevQueries) => [...prevQueries, query]);
+  
     } catch (error) {
       console.error("Error en la búsqueda de noticias:", error.message);
       setError('Lo sentimos, algo ha salido mal durante la solicitud. Por favor, inténtelo de nuevo.');
@@ -84,7 +85,18 @@ function Main({ isLoggedIn, onCardSaved }) {
   };
 
   const handleCardSaved = (card) => {
-    setSavedCards((prevSavedCards) => [...prevSavedCards, card]);
+    const cardWithQueries = {
+      ...card,
+      searchQueries: [...searchQueries],
+    };
+  
+    setSavedCards((prevSavedCards) => [...prevSavedCards, cardWithQueries]);
+  };
+
+  const handleDeleteCard = (index) => {
+    const updatedCards = [...savedCards];
+    updatedCards.splice(index, 1);
+    setSavedCards(updatedCards);
   };
 
   console.log('Is loading in render:', isLoading);
@@ -139,12 +151,9 @@ function Main({ isLoggedIn, onCardSaved }) {
         {/* {error && <p className="searchResults__mesageError" style={{ color: 'red' }}>{error}</p>} */}
       </section>
 )}
-{/* Pasar las tarjetas guardadas a SavedNews */}
-{savedCards.length > 0 && queries (
-        <SavedNews 
-        cards={savedCards}
-        searchQueries={searchQueries}
-         />
+ {/* Pasar las tarjetas guardadas a SavedNews */}
+ {savedCards.length > 0 && (
+        <SavedNews cards={savedCards} onDeleteCard={handleDeleteCard} searchQueries={searchQueries} />
       )}
 </main>
 );

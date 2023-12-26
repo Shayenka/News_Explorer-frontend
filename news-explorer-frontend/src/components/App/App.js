@@ -92,7 +92,7 @@ function App() {
   return (
     <div className="body">
       <CurrentUserContext.Provider value={currentUser}>
-        
+        {/* Contenedor para rutas principales */}
         <div className="app-container">
           <Header
             handleLoginPopUp={handleLoginPopUp}
@@ -120,32 +120,29 @@ function App() {
                   loggedIn={isLoggedIn}
                   isOpen={isRegisterPopupOpen}
                   onClose={closeAllPopups}
-                  handleLoginPopUp={ handleLoginPopUp}
+                  handleLoginPopUp={handleLoginPopUp}
                 />
               }
             />
-            <Route
-              path="/"
-              element={
-                <Main
-                  isLoggedIn={isLoggedIn}
-                />
-              }
-            />
-            <Route
-              path="/saved-news"
-              element={
-                <ProtectedRoute
-                  loggedIn={isLoggedIn}
-                  component={SavedNews}
-                />
-              }
-              />
+            <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
           </Routes>
         </div>
+  
+        {/* Contenedor para la ruta especial */}
+        <Routes>
+          <Route
+            path="/saved-news"
+            element={
+              <div className="saved-news-container">
+                <ProtectedRoute loggedIn={isLoggedIn} component={SavedNews} />
+              </div>
+            }
+          />
+        </Routes>
+  
+        <About />
+        <Footer />
       </CurrentUserContext.Provider>
-      <About />
-      <Footer />
     </div>
   );
 }
