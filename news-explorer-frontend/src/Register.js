@@ -178,12 +178,14 @@ function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
       <PopUpFailedRegister
         isOpen={true}
         onClose={() => setShowPopupFailedRegister(false)}
+        onOpenRegister={() => setRegisterPopupVisible(true)}
         />
         )}
     {showPopUpUserRegistered && (
       <PopUpUserRegistered
         isOpen={true}
         onClose={() => setShowPopUpUserRegistered(false)}
+        onOpenRegister={() => setRegisterPopupVisible(true)}
         />
         )}
       </>

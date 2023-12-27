@@ -17,23 +17,25 @@
     margin: 0;
     z-index: 1;
   }
-
-  .saved-news-container {
-    background-image: none;
-    background-color: white;
-  }
-
   
-  /* @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1280px) {
     .app-container {
       margin: 0 auto;
+      width: 100%;
     }
   }
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
     .app-container {
       margin: 0 auto;
-      width: 320px;
+      /* min-width: 320px; */
+      width: 100%;
   
     }
-  } */
+  }
+
+  
+  .saved-news-container {
+    background-image: none;
+    background-color: white;
+  }

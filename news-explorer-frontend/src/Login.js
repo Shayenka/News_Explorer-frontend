@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ValidateEmail, ValidatePassword } from "./utils/validator";
 import { authorizeMock  } from "./utils/auth";
 import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js"
-import { PopUpFailedLogin } from "./components/InfoTooltip/InfoTooltip"
+import { PopUpFailedInputLogin, PopUpFailedLogin } from "./components/InfoTooltip/InfoTooltip"
 
 function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   const [email, setEmail] = useState("");
@@ -11,6 +11,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   // const [isFormValid, setIsFormValid] = useState(false);
+  const [showPopupFailedInputLogin, setShowPopupFailedInputLogin] = useState(false);
   const [showPopupFailedLogin, setShowPopupFailedLogin] = useState(false);
   const [isLoginPopupVisible, setLoginPopupVisible] = useState(true);
   const navigate = useNavigate();
@@ -40,7 +41,8 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     if (!email || !password) {
-        setShowPopupFailedLogin(true)
+        setShowPopupFailedInputLogin(true)
+        console.log(() => showPopupFailedInputLogin, "prueba setShowPopupFailedInputLogin");
         setLoginPopupVisible(false)
         setTimeout(() => {
             navigate("/signin");
@@ -48,15 +50,28 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
       return;
     }
     authorizeMock(email, password)
-      .then((data) => {
-        if (data.token) {
-          onLoggedIn(data);
-          navigate("/");
-          setShowPopupFailedLogin(false)
-        }
-      })
-      .catch((err) => console.log(err));
-  }
+    .then((data) => {
+      if (data.token) {
+        onLoggedIn(data);
+        navigate("/");
+      } else {
+        // Usuario no registrado
+        setShowPopupFailedLogin(true);
+        console.log(() => showPopupFailedLogin, "prueba setShowPopupFailedLogin");
+        setLoginPopupVisible(false)
+        setTimeout(() => {
+          navigate("/signup");
+        },2000)
+      }
+    })
+    .catch((err) => {
+      // Error en la autenticación
+      setLoginPopupVisible(false)
+      setShowPopupFailedLogin(true);
+      console.log(err);
+    });
+}
+
 
   return (
     <>
@@ -106,14 +121,23 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
       </div>
     </ModalWithForm>
     )}
-  {showPopupFailedLogin && (
-    <PopUpFailedLogin 
-      isOpen={true}
-      onClose={() => setShowPopupFailedLogin(false)}
-      />
+      {showPopupFailedInputLogin && (
+        <PopUpFailedInputLogin
+          isOpen={true}
+          onClose={() => setShowPopupFailedInputLogin(false)}
+          onOpenLogin={() => setLoginPopupVisible(true)}
+        />
+      )}
+
+      {showPopupFailedLogin && (
+        <PopUpFailedLogin
+          isOpen={true}
+          onClose={() => setShowPopupFailedLogin(false)}
+          onOpenLogin= {() => setLoginPopupVisible(true)}
+        />
       )}
     </>
   );
-  }
+}
 
 export default Login;

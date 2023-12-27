@@ -19,11 +19,12 @@ function App() {
 
   const [token, setToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({
-    email: "",
-    password: "",
-    name: "",
-  });
+  const [currentUser, setCurrentUser] = useState(null);
+  // const [currentUser, setCurrentUser] = useState({
+  //   email: "",
+  //   password: "",
+  //   name: "",
+  // });
 
   const navigate = useNavigate();
 

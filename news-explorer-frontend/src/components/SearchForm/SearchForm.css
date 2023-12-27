@@ -9,7 +9,7 @@
     .searchForm  {
       flex-direction: column;
       gap: 20px;
-      justify-content: center;
+      align-items: center;
   
     }
   }
@@ -40,6 +40,7 @@
     .searchForm__input {
         min-width: 288px;
         height: 56px;
+        margin: 0 16px;
   
     }
   }
@@ -76,8 +77,9 @@
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
     .searchForm__button{
-        min-width: 320px;
+        /* margin: 0 16px; */
         height: 56px;
+        width: 288px;
   
     }
   }

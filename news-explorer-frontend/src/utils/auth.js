@@ -40,10 +40,12 @@ export const registerUserMock = async (email, password, name) => {
 
  export const authorizeMock = async (email, password) => {
   return new Promise((resolve, reject) => {
-    const dummyUser = JSON.parse(localStorage.getItem('dummyUser'));
-    console.log('dummyUser:', dummyUser);
+    const storedUsers = JSON.parse(localStorage.getItem('registeredUsers'));
+    console.log('storedUsers:', storedUsers);
 
-    if (dummyUser && dummyUser.email === email && dummyUser.password === password) {
+    const authorizedUser = storedUsers.find(user => user.email === email && user.password === password);
+
+    if (authorizedUser) {
       resolve({ token: 'token' });
     } else {
       console.log('Invalid credentials');
@@ -51,6 +53,11 @@ export const registerUserMock = async (email, password, name) => {
     }
   });
 }
+
+
+// const newUser = { email: 'nuevo@gmail.com', password: 'nuevacontraseña', name: 'Nuevo Usuario' };
+// localStorage.setItem('dummyUser', JSON.stringify(newUser));
+
 
  export const checkTokenValidityMock = async (token) => {
   return new Promise((resolve, reject) => {

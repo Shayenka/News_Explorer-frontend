@@ -21,6 +21,11 @@ export function PopUpSuccessfulRegister(props) {
           to="/signin"
           className="popup__info-link"
           style={{ textDecoration: "none" }}
+          onClick={() => {
+            props.onClose(); // Cerrar el popup actual
+            props.onOpenLogin(); // Abrir el otro popup
+          }}
+        
         >
           Iniciar sesión
         </Link>
@@ -46,6 +51,10 @@ export function PopUpFailedRegister(props) {
             to="/signup"
             className="popup__info-link"
             style={{ textDecoration: "none" }}
+            onClick={() => {
+              props.onClose(); // Cerrar el popup actual
+              props.onOpenRegister(); // Abrir el otro popup
+            }}
           >
             Inscribirse
           </Link>
@@ -71,6 +80,10 @@ export function PopUpUserRegistered(props) {
             to="/signup"
             className="popup__info-link"
             style={{ textDecoration: "none" }}
+            onClick={() => {
+              props.onClose(); // Cerrar el popup actual
+              props.onOpenRegister(); // Abrir el otro popup
+            }}
           >
             Inscribirse
           </Link>
@@ -78,7 +91,7 @@ export function PopUpUserRegistered(props) {
   );
 }
 
-export function PopUpFailedLogin(props) {
+export function PopUpFailedInputLogin(props) {
     return (
       <section
         className={`popup__info-container ${
@@ -91,14 +104,49 @@ export function PopUpFailedLogin(props) {
           alt="Icono de una X para cerrar ventana emergente."
           onClick={props.onClose}
         />
-         <h3 className="popup__info-text">¡No estas registrado!</h3>
+         <h3 className="popup__info-text">¡Debes completar los datos!</h3>
          <Link
-            to="/signup"
+            to="/signin"
             className="popup__info-link"
             style={{ textDecoration: "none" }}
+            onClick={() => {
+              props.onClose(); // Cerrar el popup actual
+              props.onOpenLogin(); // Abrir el otro popup
+            }}
+          >
+            Iniciar sesión
+          </Link>
+      </section>
+    );
+  }
+
+  export function PopUpFailedLogin(props) {
+    return (
+      <section
+        className={`popup__info-container ${
+          props.isOpen ? "" : "popup__info-closed"
+        }`}
+      >
+        <img
+          className="popup__info-CloseIcon"
+          src={closePopUp}
+          alt="Icono de una X para cerrar ventana emergente."
+          onClick={props.onClose}
+        />
+         <h3 className="popup__info-text">¡Usuario no registrado!</h3>
+         <Link
+            to="/signin"
+            className="popup__info-link"
+            style={{ textDecoration: "none" }}
+            onClick={() => {
+              props.onClose(); // Cerrar el popup actual
+              props.onOpenLogin(); // Abrir el otro popup
+            }}
           >
             Inscribirse
           </Link>
       </section>
     );
   }
+
+

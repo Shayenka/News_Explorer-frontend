@@ -29,7 +29,7 @@
     .main {
       height: 480px;
       margin-bottom: 0;
-      margin-left: 100px;
+      justify-content: center;
   
     }
   }

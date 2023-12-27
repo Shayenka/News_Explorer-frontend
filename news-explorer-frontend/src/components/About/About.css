@@ -32,7 +32,10 @@
      gap: 20px;
      align-items: center;
      height: 752px;
-     margin-left: 180px;
+     /* margin-left: 180px; */
+     margin-top: 100px;
+     width: 100%;
+    
 
     }
   }
@@ -62,7 +65,7 @@
     .about__author_image {
       width: 272px;
       height: 272px;
-      margin-bottom: 0;
+      justify-content: center;
 
     }
   }
@@ -85,6 +88,7 @@
   @media screen and (min-width: 320px) and (max-width: 767px) {
     .about__author_container {
       margin-top: 0;
+      margin-left: 0;
 
     }
   }
@@ -116,7 +120,6 @@
       min-width: 288px;
       height: 40px;
       font-size: 30px;
-      margin-left: 80px;
 
     }
   }
@@ -135,7 +138,8 @@
   @media screen and (min-width: 320px) and (max-width: 767px) {
     .about__author_text {
       font-size: 18px;
-      margin-left: 80px;
+      /* margin-left: 80px; */
+      align-items: center;
 
     }
   }

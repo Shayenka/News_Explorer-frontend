@@ -6,6 +6,8 @@ import Logout from "../../images/logout.svg";
 function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
   const currentUser = useContext(CurrentUserContext);
   console.log("isLoggedIn in Header:", isLoggedIn);
+  console.log("currentUser:", currentUser);
+  
 
   return (
     <header className="header">
@@ -40,7 +42,7 @@ function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
                 onLogout();
               }}
             >
-              {currentUser.name}
+              {currentUser && currentUser.name}
               <img
                 className="header__icon-logout"
                 src={Logout}
