@@ -25,7 +25,7 @@ export const registerUserMock = async (email, password, name) => {
       console.log("El usuario ya está registrado");
     } else {
       // Usuario no registrado, proceder con el registro
-      const user = { email, password, name };
+      const user = { email, password, name, token: 'token' };
 
       // Agregar nuevo usuario a la lista de usuarios registrados
       storedUsers.push(user);
@@ -55,16 +55,23 @@ export const registerUserMock = async (email, password, name) => {
 }
 
 
-// const newUser = { email: 'nuevo@gmail.com', password: 'nuevacontraseña', name: 'Nuevo Usuario' };
-// localStorage.setItem('dummyUser', JSON.stringify(newUser));
-
-
- export const checkTokenValidityMock = async (token) => {
+export const checkTokenValidityMock = async (token) => {
   return new Promise((resolve, reject) => {
-    const dummyUser = localStorage.getItem('dummyUser');
-    resolve(JSON.parse(dummyUser));
-  })
- }
+    // Obtener usuarios registrados del localStorage
+    const storedUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+
+    // Buscar el usuario correspondiente al token
+    const currentUser = storedUsers.find(user => user.token === token);
+
+    if (currentUser) {
+      // Si se encuentra el usuario, resolver la promesa con el usuario
+      resolve(currentUser);
+    } else {
+      // Si no se encuentra el usuario, rechazar la promesa con un error
+      reject(new Error('Usuario no encontrado'));
+    }
+  });
+};
 
 
  //  export const authorizeMock = async (email, password) => {

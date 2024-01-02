@@ -30,14 +30,20 @@ function App() {
 
   function loadUserData() {
     const storedToken = localStorage.getItem("jwt");
-
+  
     if (storedToken) {
       checkTokenValidityMock(storedToken)
         .then((userData) => {
-          setToken(storedToken);
-          setIsLoggedIn(true);
-          setCurrentUser(userData);
-          navigate("/");
+          // Actualiza el estado solo si hay datos de usuario
+          if (userData) {
+            setToken(storedToken);
+            setIsLoggedIn(true);
+            console.log("currentUser in App in loadUserData:", currentUser);
+            setCurrentUser(userData);
+            navigate("/");
+          } else {
+            console.error("No se encontró el usuario correspondiente al token.");
+          }
         })
         .catch((error) => {
           console.error("Error de token:", error);
@@ -50,6 +56,8 @@ function App() {
   useEffect(() => {
     loadUserData();
   }, []);
+
+  console.log("currentUser in App:", currentUser);
 
   function handleLoginPopUp() {
     setIsLoginPopupOpen(true);
@@ -76,10 +84,19 @@ function App() {
     }
   }
 
-  function handleLoginUser(data) {
+  async function handleLoginUser(data) {
     localStorage.setItem("jwt", data.token);
     setToken(data.token);
     setIsLoggedIn(true);
+  
+    // Obtener la información del usuario usando el token
+    try {
+      const userData = await checkTokenValidityMock(data.token);
+      setCurrentUser(userData);
+    } catch (error) {
+      console.error("Error al obtener la información del usuario:", error);
+      // Puedes manejar el error según tus necesidades
+    }
   }
 
   function handleLogout() {
@@ -87,12 +104,13 @@ function App() {
     localStorage.removeItem("jwt");
     setToken(null);
     setIsLoggedIn(false);
+    setCurrentUser(null);
     navigate("/signin");
   }
 
   return (
     <div className="body">
-      <CurrentUserContext.Provider value={currentUser}>
+      <CurrentUserContext.Provider value={{ user: currentUser }}>
         {/* Contenedor para rutas principales */}
         <div className="app-container">
           <Header
@@ -126,9 +144,9 @@ function App() {
               }
             />
             <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
-          </Routes>
-        </div>
-  
+            </Routes>
+      </div>
+
         {/* Contenedor para la ruta especial */}
         <Routes>
           <Route
@@ -140,7 +158,7 @@ function App() {
             }
           />
         </Routes>
-  
+
         <About />
         <Footer />
       </CurrentUserContext.Provider>

@@ -155,6 +155,11 @@ function Main({ isLoggedIn }) {
  {savedCards.length > 0 && (
         <SavedNews cards={savedCards} onDeleteCard={handleDeleteCard} searchQueries={searchQueries} />
       )}
+
+      {/* Si no hay tarjetas guardadas, renderizar un mensaje */}
+{savedCards.length === 0 && (
+  <SavedNews cards={[]} onDeleteCard={() => {}} searchQueries={[]} />
+)}
 </main>
 );
 }
