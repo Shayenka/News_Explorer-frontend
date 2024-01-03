@@ -19,7 +19,7 @@ function NewsCard(props) {
       console.log("login:", props.isLoggedIn)
       setIsSaved(false); 
       setShowLoginMessage(true);
-      console.log("Popup:", showLoginMessage)
+      console.log("Popup showLoginMessage:", showLoginMessage);
     }
   }
 

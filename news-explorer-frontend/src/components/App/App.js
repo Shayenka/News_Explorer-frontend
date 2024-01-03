@@ -153,12 +153,11 @@ function App() {
             path="/saved-news"
             element={
               <div className="saved-news-container">
-                <ProtectedRoute loggedIn={isLoggedIn} component={SavedNews} />
+                <ProtectedRoute isLoggedIn={isLoggedIn} component={SavedNews} />
               </div>
             }
           />
         </Routes>
-
         <About />
         <Footer />
       </CurrentUserContext.Provider>
