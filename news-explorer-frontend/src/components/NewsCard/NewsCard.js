@@ -8,49 +8,21 @@ function NewsCard(props) {
   const [showLoginMessage, setShowLoginMessage] = useState(false);
   const [isSaved , setIsSaved ] = useState(false);
 
-  // function handleSavedCard() {
-  //   console.log("handleSavedCard called"); 
-  //   if (props.isLoggedIn) {
-  //     console.log(props.isLoggedIn)
-  //     setIsSaved(true);
-  //     props.onCardSaved(props.card);
-  //     console.log(props.card)
-  //   } else {
-  //     console.log("login:", props.isLoggedIn)
-  //     setIsSaved(false); 
-  //     console.log("setIsSaved:",isSaved);
-  //     setShowLoginMessage(true);
-  //     console.log("Popup showLoginMessage:", showLoginMessage);
-  //   }
-  // }
-
   function handleSavedCard() {
-    console.log("handleSavedCard called");
-  
-    setIsSaved((prevIsSaved) => {
-      if (props.isLoggedIn) {
-        props.onCardSaved(props.card);
-        return true;
-      } else {
-        setShowLoginMessage(true);
-        console.log("Popup showLoginMessage:", showLoginMessage);
-        return prevIsSaved; // Mantener el valor anterior de isSaveds
-      }
-    });
+    console.log("handleSavedCard called"); 
+    if (props.isLoggedIn) {
+      console.log(props.isLoggedIn)
+      setIsSaved(true);
+      props.onCardSaved(props.card);
+      console.log(props.card)
+    } else {
+      console.log("login:", props.isLoggedIn)
+      setIsSaved(false); 
+      console.log("setIsSaved:",isSaved);
+      setShowLoginMessage(true);
+      console.log("Popup showLoginMessage:", showLoginMessage);
+    }
   }
-
-
-  // function handleSavedCard() {
-  //   if (props.isLoggedIn) {
-  //     // Aquí puedes realizar alguna lógica para guardar la tarjeta
-  //     props.onCardSaved(props.card);
-  //     // Establece isSaved en true solo si la tarjeta se guarda correctamente
-  //     setIsSaved((prevIsSaved) => !prevIsSaved);
-  //   } else {
-  //     setShowLoginMessage(true);
-  //     setIsSaved((prevIsSaved) => !prevIsSaved);
-  //   }
-  // }
 
   function hideLoginMessage() {
     setShowLoginMessage(false);
