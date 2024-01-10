@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import savedCard from "../../images/iconGuardar.svg";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { formatDate } from "../../utils/validator";
@@ -8,20 +8,49 @@ function NewsCard(props) {
   const [showLoginMessage, setShowLoginMessage] = useState(false);
   const [isSaved , setIsSaved ] = useState(false);
 
+  // function handleSavedCard() {
+  //   console.log("handleSavedCard called"); 
+  //   if (props.isLoggedIn) {
+  //     console.log(props.isLoggedIn)
+  //     setIsSaved(true);
+  //     props.onCardSaved(props.card);
+  //     console.log(props.card)
+  //   } else {
+  //     console.log("login:", props.isLoggedIn)
+  //     setIsSaved(false); 
+  //     console.log("setIsSaved:",isSaved);
+  //     setShowLoginMessage(true);
+  //     console.log("Popup showLoginMessage:", showLoginMessage);
+  //   }
+  // }
+
   function handleSavedCard() {
-    console.log("handleSavedCard called"); 
-    if (props.isLoggedIn) {
-      console.log(props.isLoggedIn)
-      setIsSaved(true);
-      props.onCardSaved(props.card);
-      console.log(props.card)
-    } else {
-      console.log("login:", props.isLoggedIn)
-      setIsSaved(false); 
-      setShowLoginMessage(true);
-      console.log("Popup showLoginMessage:", showLoginMessage);
-    }
+    console.log("handleSavedCard called");
+  
+    setIsSaved((prevIsSaved) => {
+      if (props.isLoggedIn) {
+        props.onCardSaved(props.card);
+        return true;
+      } else {
+        setShowLoginMessage(true);
+        console.log("Popup showLoginMessage:", showLoginMessage);
+        return prevIsSaved; // Mantener el valor anterior de isSaveds
+      }
+    });
   }
+
+
+  // function handleSavedCard() {
+  //   if (props.isLoggedIn) {
+  //     // Aquí puedes realizar alguna lógica para guardar la tarjeta
+  //     props.onCardSaved(props.card);
+  //     // Establece isSaved en true solo si la tarjeta se guarda correctamente
+  //     setIsSaved((prevIsSaved) => !prevIsSaved);
+  //   } else {
+  //     setShowLoginMessage(true);
+  //     setIsSaved((prevIsSaved) => !prevIsSaved);
+  //   }
+  // }
 
   function hideLoginMessage() {
     setShowLoginMessage(false);
