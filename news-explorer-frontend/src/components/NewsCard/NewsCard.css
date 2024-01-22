@@ -37,31 +37,6 @@
     opacity: 0.6;
   }
 
-  /* Al hacer click en el icono, que cambie de color (imagen) */
-  .card__icon-savedClick {
-    margin-left: 350px;
-    margin-top: 10px;
-    padding-top: 0;
-    background-image: url('../../images/iconGuardarClick1.svg'); 
-    background-repeat: no-repeat;
-    position: absolute;
-    /* object-fit: cover; */
-    z-index: 2;
-    
-  }
-
-  .card__icon-saved_changeColor { 
-    margin-left: 350px;
-    margin-top: 10px;
-    padding-top: 0;
-    background-image: url('../../images/iconGuardarBlue.svg'); 
-    background-repeat: no-repeat;
-    position: absolute;
-    z-index: 2;
-    /* object-fit: cover; */
-
-  }
-
   .card__login-message-container {
     z-index: 2;
     background-color: white;
@@ -117,7 +92,7 @@
     font-size: 18px;
     line-height: 24px;
     color: rgb(105, 102, 102);
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 
   }
 
@@ -129,9 +104,10 @@
     line-height: 30px;
     color: #000000;
     padding: 0;
-    height: 80px;
+    height: auto;
     margin-top: 0;
-    padding-bottom: 30px;
+    /* padding-bottom: 30px; */
+
 
   }
 
@@ -143,7 +119,7 @@
     line-height: 22px;
     color: black;
     height: auto;
-    padding-top: 30px;
+    /* padding-top: 30px; */
    
 
   }

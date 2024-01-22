@@ -6,6 +6,8 @@ import Api from "../../utils/api";
 import NoResultsFound from "../../images/not-found_image.svg";
 import Preloader from "../Preloader/Preloader";
 import SavedNews from "../SavedNews/SavedNews";
+import About from "../About/About";
+import Footer from "../Footer/Footer";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
 function Main({ isLoggedIn }) {
@@ -18,11 +20,21 @@ function Main({ isLoggedIn }) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [savedCards, setSavedCards] = useState([]);
   const [searchQueries, setSearchQueries] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const api = new Api({
     address: "https://newsapi.org",
     apiKey: "016f14e7761d4baca1c75b200bde1015",
   });
+
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   // Función que se ejecutará cuando se envíe el formulario de búsqueda
   const handleSearch = async () => {
@@ -122,6 +134,7 @@ function Main({ isLoggedIn }) {
         key={index}
         isLoggedIn={isLoggedIn}
         onCardSaved={handleCardSaved} 
+        onCardDelete={handleDeleteCard}
         card={article} 
         sourceName={article.source.name}
         title={article.title}
@@ -160,8 +173,10 @@ function Main({ isLoggedIn }) {
 {savedCards.length === 0 && (
   <SavedNews cards={[]} onDeleteCard={() => {}} searchQueries={[]} />
 )}
+<About />
+<Footer />
 </main>
 );
 }
 
-export default Main;
+export default Main;   

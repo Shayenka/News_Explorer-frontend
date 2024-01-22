@@ -10,6 +10,7 @@ import Footer from "../Footer/Footer";
 import Login from "../../Login";
 import About from "../About/About";
 import SavedNews from "../SavedNews/SavedNews";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 import { registerUserMock, checkTokenValidityMock } from "../../utils/auth";
 
@@ -119,6 +120,8 @@ function App() {
             onLogout={handleLogout}
           />
           <Routes>
+       
+          {isLoginPopupOpen && (
             <Route
               path="/signin"
               element={
@@ -131,6 +134,8 @@ function App() {
                 />
               }
             />
+          )}
+        
             <Route
               path="/signup"
               element={
@@ -158,8 +163,21 @@ function App() {
             }
           />
         </Routes>
-        <About />
-        <Footer />
+        {/* {isLoginPopupOpen && (
+            <ModalWithForm
+            isOpen={isLoginPopupOpen}
+            onClose={closeAllPopups}
+            handleRegisterPopUp={handleRegisterPopUp}
+            />
+          )}
+          {isRegisterPopupOpen && (
+            <ModalWithForm
+            isOpen={isRegisterPopupOpen}
+            onClose={closeAllPopups}
+            handleLoginPopUp={handleLoginPopUp}
+            />
+          )} */}
+        {/* <About /> */}
       </CurrentUserContext.Provider>
     </div>
   );

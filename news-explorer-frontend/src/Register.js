@@ -193,4 +193,4 @@ function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
   }
   
 
-export default Register;
+export default Register;  

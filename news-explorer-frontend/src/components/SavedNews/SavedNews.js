@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import Header from "../Header/Header";
@@ -12,7 +12,7 @@ function SavedNews({ cards = [], isLoggedIn, onDeleteCard, searchQueries }) {
   return (
     <>
       {isLoggedIn ? (
-        <section className="savedNews-container">
+        <section>
           <Header isLoggedIn={isLoggedIn} />
           <SavedNewsHeader
             savedCardsCount={savedCardsCount}
