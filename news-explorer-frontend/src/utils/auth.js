@@ -14,10 +14,12 @@ const BASE_URL = "http://127.0.0.1:3000";
 export const registerUserMock = async (email, password, name) => {
   return new Promise((resolve, reject) => {
     // Obtener usuarios registrados del localStorage
-    const storedUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+    const storedUsers =
+      JSON.parse(localStorage.getItem("registeredUsers")) || [];
 
     // Verificar si el usuario ya está registrado por su dirección de correo electrónico
-    const isUserRegistered = storedUsers.some(user => user.email === email);
+    const isUserRegistered = storedUsers.some((user) => user.email === email);
+    console.log(isUserRegistered);
 
     if (isUserRegistered) {
       // Usuario ya registrado
@@ -25,11 +27,11 @@ export const registerUserMock = async (email, password, name) => {
       console.log("El usuario ya está registrado");
     } else {
       // Usuario no registrado, proceder con el registro
-      const user = { email, password, name, token: 'token' };
+      const user = { email, password, name, token: "token" };
 
       // Agregar nuevo usuario a la lista de usuarios registrados
       storedUsers.push(user);
-      localStorage.setItem('registeredUsers', JSON.stringify(storedUsers));
+      localStorage.setItem("registeredUsers", JSON.stringify(storedUsers));
 
       resolve(user);
       console.log("El usuario registrado", user);
@@ -37,46 +39,57 @@ export const registerUserMock = async (email, password, name) => {
   });
 };
 
-
- export const authorizeMock = async (email, password) => {
+export const authorizeMock = async (email, password) => {
   return new Promise((resolve, reject) => {
-    const storedUsers = JSON.parse(localStorage.getItem('registeredUsers'));
-    console.log('storedUsers:', storedUsers);
+    /**
+     *
+     * POST - Email y passsword
+     * Return token (jwt)
+     */
+    const storedUsers = JSON.parse(localStorage.getItem("registeredUsers"));
+    console.log("storedUsers:", storedUsers);
 
-    const authorizedUser = storedUsers.find(user => user.email === email && user.password === password);
+    const authorizedUser = storedUsers.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    console.log(authorizedUser);
 
     if (authorizedUser) {
-      resolve({ token: 'token' });
+      resolve({ token: "token", authorizedUser });
     } else {
-      console.log('Invalid credentials');
+      console.log("Invalid credentials");
       reject(new Error("Not found"));
     }
   });
-}
+};
 
-
-export const checkTokenValidityMock = async (token) => {
+export const checkTokenValidityMock = async ({ token, authorizedUser }) => {
   return new Promise((resolve, reject) => {
     // Obtener usuarios registrados del localStorage
-    const storedUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+    const storedUsers =
+      JSON.parse(localStorage.getItem("registeredUsers")) || [];
 
     // Buscar el usuario correspondiente al token
-    const currentUser = storedUsers.find(user => user.token === token);
+    const currentUser = storedUsers.find(
+      (user) => user.email === authorizedUser.email
+    );
+
+    console.log(currentUser);
 
     if (currentUser) {
       // Si se encuentra el usuario, resolver la promesa con el usuario
       resolve(currentUser);
     } else {
       // Si no se encuentra el usuario, rechazar la promesa con un error
-      reject(new Error('Usuario no encontrado'));
+      reject(new Error("Usuario no encontrado"));
     }
   });
 };
 
-
- //  export const authorizeMock = async (email, password) => {
+//  export const authorizeMock = async (email, password) => {
 //   return new Promise((resolve, reject) => {
-    
+
 //     const dummyUser = JSON.parse(localStorage.getItem('dummyUser'));
 //     if(dummyUser.email === email && dummyUser.password === password){
 //       resolve({token: 'token'});
@@ -85,9 +98,6 @@ export const checkTokenValidityMock = async (token) => {
 //     reject(new Error("Not found"));
 //   })
 //  }
-
-
-
 
 // export const registerUser = async (email, password, name) => {
 //   try {
