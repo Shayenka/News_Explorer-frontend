@@ -16,7 +16,7 @@ function NewsCard(props) {
     console.log("handleSavedCard called"); 
     if (props.isLoggedIn) {
       console.log("User is logged in");
-      console.log(props.isLoggedIn)
+      console.log("usuario logueado:", props.isLoggedIn)
       setIsSaved(true);
       props.onCardSaved(props.card);
       console.log("card guardada:", props.card)

@@ -20,21 +20,12 @@ function Main({ isLoggedIn }) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [savedCards, setSavedCards] = useState([]);
   const [searchQueries, setSearchQueries] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
 
   const api = new Api({
     address: "https://newsapi.org",
     apiKey: "016f14e7761d4baca1c75b200bde1015",
   });
-
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
 
   // Función que se ejecutará cuando se envíe el formulario de búsqueda
   const handleSearch = async () => {
@@ -165,13 +156,10 @@ function Main({ isLoggedIn }) {
       </section>
 )}
  {/* Pasar las tarjetas guardadas a SavedNews */}
- {savedCards.length > 0 && (
-        <SavedNews cards={savedCards} onDeleteCard={handleDeleteCard} searchQueries={searchQueries} />
-      )}
-
-      {/* Si no hay tarjetas guardadas, renderizar un mensaje */}
-{savedCards.length === 0 && (
-  <SavedNews cards={[]} onDeleteCard={() => {}} searchQueries={[]} />
+ {savedCards.length > 0 ? (
+  <SavedNews cards={savedCards} onDeleteCard={handleDeleteCard} searchQueries={searchQueries} />
+) : (
+  <SavedNews cards={[]} isLoggedIn={isLoggedIn} onDeleteCard={() => {}} searchQueries={[]} />
 )}
 <About />
 <Footer />
@@ -179,4 +167,4 @@ function Main({ isLoggedIn }) {
 );
 }
 
-export default Main;   
+export default Main;

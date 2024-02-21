@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ValidateEmail, ValidatePassword } from "./utils/validator";
-import { authorizeMock  } from "./utils/auth";
-import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js"
-import { PopUpFailedInputLogin, PopUpFailedLogin } from "./components/InfoTooltip/InfoTooltip"
+import { authorizeMock } from "./utils/auth";
+import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js";
+import {
+  PopUpFailedInputLogin,
+  PopUpFailedLogin,
+} from "./components/InfoTooltip/InfoTooltip";
 
 function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   const [email, setEmail] = useState("");
@@ -11,7 +14,8 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   // const [isFormValid, setIsFormValid] = useState(false);
-  const [showPopupFailedInputLogin, setShowPopupFailedInputLogin] = useState(false);
+  const [showPopupFailedInputLogin, setShowPopupFailedInputLogin] =
+    useState(false);
   const [showPopupFailedLogin, setShowPopupFailedLogin] = useState(false);
   const [isLoginPopupVisible, setLoginPopupVisible] = useState(true);
   const navigate = useNavigate();
@@ -41,86 +45,92 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     if (!email || !password) {
-        setShowPopupFailedInputLogin(true)
-        console.log(() => showPopupFailedInputLogin, "prueba setShowPopupFailedInputLogin");
-        setLoginPopupVisible(false)
-        setTimeout(() => {
-            navigate("/signin");
-          },2000)
+      setShowPopupFailedInputLogin(true);
+      console.log(
+        () => showPopupFailedInputLogin,
+        "prueba setShowPopupFailedInputLogin"
+      );
+      setLoginPopupVisible(false);
+      setTimeout(() => {
+        navigate("/signin");
+      }, 2000);
       return;
     }
     authorizeMock(email, password)
-    .then((data) => {
-      if (data.token) {
-        onLoggedIn(data);
-        navigate("/");
-      } else {
-        // Usuario no registrado
+      .then((data) => {
+        console.log(data); // token + authorizedUser
+        if (data.token) {
+          onLoggedIn(data); // {token, authorizedUser}
+          navigate("/");
+        } else {
+          // Usuario no registrado
+          setShowPopupFailedLogin(true);
+          console.log(
+            () => showPopupFailedLogin,
+            "prueba setShowPopupFailedLogin"
+          );
+          setLoginPopupVisible(false);
+          setTimeout(() => {
+            navigate("/signup");
+          }, 2000);
+        }
+      })
+      .catch((err) => {
+        // Error en la autenticación
+        setLoginPopupVisible(false);
         setShowPopupFailedLogin(true);
-        console.log(() => showPopupFailedLogin, "prueba setShowPopupFailedLogin");
-        setLoginPopupVisible(false)
-        setTimeout(() => {
-          navigate("/signup");
-        },2000)
-      }
-    })
-    .catch((err) => {
-      // Error en la autenticación
-      setLoginPopupVisible(false)
-      setShowPopupFailedLogin(true);
-      console.log(err);
-    });
-}
-
+        console.log(err);
+      });
+  }
 
   return (
     <>
-     {isLoginPopupVisible && (
+      {isLoginPopupVisible && (
         <ModalWithForm
-      name="loginUser"
-      title="Iniciar sesión"
-      submitButtonText="Iniciar sesión"
-      isOpen={isOpen}
-      onClose={onClose}
-      onSubmit={handleSubmit}
-      // isFormValid={isFormValid} //Para activar o desactivar boton "iniciar sesión"
-      handleRegisterPopUp={handleRegisterPopUp}
-      isLoginPopUp={true}
-    >
-      <div>
-      <h3 className="popup__subtitle-input">Correo eléctronico</h3>
-        <input
-          type="text"
-          id="email"
-          placeholder="Introduce tu correo eléctronico"
-          className="popup__text-input"
-          required
-          minLength="2"
-          maxLength="20"
-          value={email || ""}
-          onChange={handleEmailChange}
-        />
-        <span className="popup__input-error" id="email-error">
-            {emailError}
-          </span>
-          <h3 className="popup__subtitle-input">Contraseña</h3>
-          <input 
-            type="password"
-            id="password"
-            placeholder="Introduce tu contraseña"
-            className="popup__text-input"
-            required
-            minLength="2"
-            maxLength="20"
-            value={password || ""}
-            onChange={handlePasswordChange}
-          />
-         <span className="popup__input-error" id="password-error">
-            {passwordError}
-          </span>
-      </div>
-    </ModalWithForm>
-    )}
+          name="loginUser"
+          title="Iniciar sesión"
+          submitButtonText="Iniciar sesión"
+          isOpen={isOpen}
+          onClose={onClose}
+          onSubmit={handleSubmit}
+          // isFormValid={isFormValid} //Para activar o desactivar boton "iniciar sesión"
+          handleRegisterPopUp={handleRegisterPopUp}
+          isLoginPopUp={true}
+        >
+          <div>
+            <h3 className="popup__subtitle-input">Correo eléctronico</h3>
+            <input
+              type="text"
+              id="email"
+              placeholder="Introduce tu correo eléctronico"
+              className="popup__text-input"
+              required
+              minLength="2"
+              maxLength="20"
+              value={email || ""}
+              onChange={handleEmailChange}
+            />
+            <span className="popup__input-error" id="email-error">
+              {emailError}
+            </span>
+            <h3 className="popup__subtitle-input">Contraseña</h3>
+            <input
+              type="password"
+              id="password"
+              placeholder="Introduce tu contraseña"
+              className="popup__text-input"
+              required
+              minLength="2"
+              maxLength="20"
+              value={password || ""}
+              onChange={handlePasswordChange}
+            />
+            <span className="popup__input-error" id="password-error">
+              {passwordError}
+            </span>
+          </div>
+        </ModalWithForm>
+      )}
       {showPopupFailedInputLogin && (
         <PopUpFailedInputLogin
           isOpen={true}
@@ -133,7 +143,7 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
         <PopUpFailedLogin
           isOpen={true}
           onClose={() => setShowPopupFailedLogin(false)}
-          onOpenLogin= {() => setLoginPopupVisible(true)}
+          onOpenLogin={() => setLoginPopupVisible(true)}
         />
       )}
     </>

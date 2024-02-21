@@ -106,7 +106,7 @@ function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
 
   return (
     <>
-     {isRegisterPopupVisible && (
+     {isOpen && (
         <ModalWithForm
       name="registerUser"
       title="Inscribirse"

@@ -27,11 +27,14 @@ function App() {
   //   name: "",
   // });
 
+  console.log(isLoggedIn);
+  console.log(currentUser);
+
   const navigate = useNavigate();
 
   function loadUserData() {
     const storedToken = localStorage.getItem("jwt");
-  
+
     if (storedToken) {
       checkTokenValidityMock(storedToken)
         .then((userData) => {
@@ -43,7 +46,9 @@ function App() {
             setCurrentUser(userData);
             navigate("/");
           } else {
-            console.error("No se encontró el usuario correspondiente al token.");
+            console.error(
+              "No se encontró el usuario correspondiente al token."
+            );
           }
         })
         .catch((error) => {
@@ -85,14 +90,14 @@ function App() {
     }
   }
 
-  async function handleLoginUser(data) {
-    localStorage.setItem("jwt", data.token);
-    setToken(data.token);
+  async function handleLoginUser({ token, authorizedUser }) {
+    localStorage.setItem("jwt", token);
+    setToken(token);
     setIsLoggedIn(true);
-  
+
     // Obtener la información del usuario usando el token
     try {
-      const userData = await checkTokenValidityMock(data.token);
+      const userData = await checkTokenValidityMock({ token, authorizedUser });
       setCurrentUser(userData);
     } catch (error) {
       console.error("Error al obtener la información del usuario:", error);
@@ -120,22 +125,21 @@ function App() {
             onLogout={handleLogout}
           />
           <Routes>
-       
-          {isLoginPopupOpen && (
-            <Route
-              path="/signin"
-              element={
-                <Login
-                  onLoggedIn={handleLoginUser}
-                  loggedIn={isLoggedIn}
-                  isOpen={isLoginPopupOpen}
-                  onClose={closeAllPopups}
-                  handleRegisterPopUp={handleRegisterPopUp}
-                />
-              }
-            />
-          )}
-        
+            {isLoginPopupOpen && (
+              <Route
+                path="/signin"
+                element={
+                  <Login
+                    onLoggedIn={handleLoginUser}
+                    loggedIn={isLoggedIn}
+                    isOpen={isLoginPopupOpen}
+                    onClose={closeAllPopups}
+                    handleRegisterPopUp={handleRegisterPopUp}
+                  />
+                }
+              />
+            )}
+
             <Route
               path="/signup"
               element={
@@ -148,21 +152,25 @@ function App() {
                 />
               }
             />
+
+            <Route
+              path="/saved-news"
+              element={
+                <div className="saved-news-container">
+                  <ProtectedRoute
+                    isLoggedIn={isLoggedIn}
+                    component={SavedNews}
+                  />
+                </div>
+              }
+            />
+
             <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
-            </Routes>
-      </div>
+          </Routes>
+        </div>
 
         {/* Contenedor para la ruta especial */}
-        <Routes>
-          <Route
-            path="/saved-news"
-            element={
-              <div className="saved-news-container">
-                <ProtectedRoute isLoggedIn={isLoggedIn} component={SavedNews} />
-              </div>
-            }
-          />
-        </Routes>
+
         {/* {isLoginPopupOpen && (
             <ModalWithForm
             isOpen={isLoginPopupOpen}
