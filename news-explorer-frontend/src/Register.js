@@ -31,7 +31,6 @@ function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
   function handleEmailChange(evt) {
     const newEmail = evt.target.value;
     setEmail(newEmail);
-    console.log(newEmail);
     const error = ValidateEmail(newEmail);
     setEmailError(error);
     // updateFormValidity(newEmail, password, name);
@@ -40,7 +39,6 @@ function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
   function handlePasswordChange(evt) {
     const newPassword = evt.target.value;
     setPassword(newPassword);
-    console.log(newPassword);
     const error = ValidatePassword(newPassword);
     setPasswordError(error);
     // updateFormValidity(email, newPassword, name);
@@ -49,7 +47,6 @@ function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
   function handleNameChange(evt) {
     const newName = evt.target.value;
     setName(newName);
-    console.log(newName);
     
     const error = ValidateName(newName);
     setNameError(error);
@@ -63,7 +60,6 @@ function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    console.log("prueba handleSubmit en Register");
 
     if (!email.trim() || !password.trim() || !name.trim()) {
       // Campos vacíos

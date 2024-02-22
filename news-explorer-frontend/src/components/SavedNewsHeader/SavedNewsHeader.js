@@ -5,6 +5,7 @@ function SavedNewsHeader({ savedCardsCount, searchQueries }) {
   const {
     user: { email, password, name, token },
   } = useContext(CurrentUserContext);
+  
 
   const queries = searchQueries ? searchQueries.slice(0, 2) : [];
 

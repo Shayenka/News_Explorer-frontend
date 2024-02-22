@@ -6,11 +6,7 @@ import Logout from "../../images/logout.svg";
 function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
   // const currentUser = useContext(CurrentUserContext);
   const { user: currentUser } = useContext(CurrentUserContext);
-
-  console.log("isLoggedIn in Header:", isLoggedIn);
-  console.log("currentUser:", currentUser);
   
-
   return (
     <header className="header">
       <h2 className="header__text"> NewsExplorer </h2>

@@ -19,7 +19,6 @@ export const registerUserMock = async (email, password, name) => {
 
     // Verificar si el usuario ya está registrado por su dirección de correo electrónico
     const isUserRegistered = storedUsers.some((user) => user.email === email);
-    console.log(isUserRegistered);
 
     if (isUserRegistered) {
       // Usuario ya registrado
@@ -41,19 +40,12 @@ export const registerUserMock = async (email, password, name) => {
 
 export const authorizeMock = async (email, password) => {
   return new Promise((resolve, reject) => {
-    /**
-     *
-     * POST - Email y passsword
-     * Return token (jwt)
-     */
+
     const storedUsers = JSON.parse(localStorage.getItem("registeredUsers"));
-    console.log("storedUsers:", storedUsers);
 
     const authorizedUser = storedUsers.find(
       (user) => user.email === email && user.password === password
     );
-
-    console.log(authorizedUser);
 
     if (authorizedUser) {
       resolve({ token: "token", authorizedUser });
@@ -74,8 +66,6 @@ export const checkTokenValidityMock = async ({ token, authorizedUser }) => {
     const currentUser = storedUsers.find(
       (user) => user.email === authorizedUser.email
     );
-
-    console.log(currentUser);
 
     if (currentUser) {
       // Si se encuentra el usuario, resolver la promesa con el usuario

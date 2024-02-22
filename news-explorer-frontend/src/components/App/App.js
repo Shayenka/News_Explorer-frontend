@@ -6,9 +6,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
 import Register from "../../Register";
-import Footer from "../Footer/Footer";
 import Login from "../../Login";
-import About from "../About/About";
 import SavedNews from "../SavedNews/SavedNews";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
@@ -21,22 +19,20 @@ function App() {
   const [token, setToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  // const [currentUser, setCurrentUser] = useState({
-  //   email: "",
-  //   password: "",
-  //   name: "",
-  // });
-
-  console.log(isLoggedIn);
-  console.log(currentUser);
 
   const navigate = useNavigate();
 
   function loadUserData() {
     const storedToken = localStorage.getItem("jwt");
 
+    const storedUsers = JSON.parse(localStorage.getItem("registeredUsers"));
+
+    const authorizedUser = storedUsers.find(
+    (user) => user.token === storedToken
+  );
+
     if (storedToken) {
-      checkTokenValidityMock(storedToken)
+      checkTokenValidityMock( {token: storedToken, authorizedUser} )
         .then((userData) => {
           // Actualiza el estado solo si hay datos de usuario
           if (userData) {
@@ -63,8 +59,6 @@ function App() {
     loadUserData();
   }, []);
 
-  console.log("currentUser in App:", currentUser);
-
   function handleLoginPopUp() {
     setIsLoginPopupOpen(true);
   }
@@ -80,9 +74,7 @@ function App() {
 
   async function handleRegisterUser(email, password, name) {
     try {
-      console.log("Before registerUserMock");
       const response = await registerUserMock(email, password, name);
-      console.log("Registration successful. Response:", response);
       return response;
     } catch (error) {
       console.error("Error in the registration process:", error);
@@ -94,7 +86,7 @@ function App() {
     localStorage.setItem("jwt", token);
     setToken(token);
     setIsLoggedIn(true);
-
+    
     // Obtener la información del usuario usando el token
     try {
       const userData = await checkTokenValidityMock({ token, authorizedUser });

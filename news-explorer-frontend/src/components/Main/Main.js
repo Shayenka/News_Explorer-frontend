@@ -32,10 +32,6 @@ function Main({ isLoggedIn }) {
     setError('');
     setIsLoading(true);
     try {
-
-      console.log('Query before search:', query);
-      console.log('Is loading before search:', isLoading);
-      
       // Obtener la fecha actual menos 7 días
       const sevenDaysAgo = new Date();
       sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
@@ -54,7 +50,6 @@ function Main({ isLoggedIn }) {
         pageSize: 100,
       });
 
-      console.log('Search results:', response.articles);
 
       // Actualizar los resultados de la búsqueda en el estado
       setSearchResults(response.articles);
@@ -67,9 +62,6 @@ function Main({ isLoggedIn }) {
     } finally {
       setIsLoading(false);
       setQuery('');
-
-      console.log('Query after search:', query);
-      console.log('Is loading after search:', isLoading);
     }
   };
 
@@ -101,10 +93,6 @@ function Main({ isLoggedIn }) {
     updatedCards.splice(index, 1);
     setSavedCards(updatedCards);
   };
-
-  console.log('Is loading in render:', isLoading);
-  console.log('Search results length:', searchResults.length);
-  console.log('Query in render:', query);
 
   return (
     <main className="main">

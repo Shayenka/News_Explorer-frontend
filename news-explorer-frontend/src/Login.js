@@ -65,10 +65,6 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
         } else {
           // Usuario no registrado
           setShowPopupFailedLogin(true);
-          console.log(
-            () => showPopupFailedLogin,
-            "prueba setShowPopupFailedLogin"
-          );
           setLoginPopupVisible(false);
           setTimeout(() => {
             navigate("/signup");
