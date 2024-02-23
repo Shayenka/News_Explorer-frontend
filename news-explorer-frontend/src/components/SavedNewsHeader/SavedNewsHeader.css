@@ -1,5 +1,6 @@
 .saved-news-header {
     flex-direction: column;
+    margin-left: 100px;
     /* position: relative; */
 
 }

@@ -19,6 +19,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  // const [isSavedNewsPage, setIsSavedNewsPage] = useState(false);
 
   const navigate = useNavigate();
 
@@ -86,7 +87,7 @@ function App() {
     localStorage.setItem("jwt", token);
     setToken(token);
     setIsLoggedIn(true);
-    
+
     // Obtener la información del usuario usando el token
     try {
       const userData = await checkTokenValidityMock({ token, authorizedUser });
@@ -107,8 +108,9 @@ function App() {
   }
 
   return (
-    <div className="body">
+    // <div className="body">
       <CurrentUserContext.Provider value={{ user: currentUser }}>
+        {/* <div className={`body ${isSavedNewsPage ? '' : 'app-container'}`}> */}
         {/* Contenedor para rutas principales */}
         <div className="app-container">
           <Header
@@ -179,8 +181,7 @@ function App() {
           )} */}
         {/* <About /> */}
       </CurrentUserContext.Provider>
-    </div>
-  );
-}
+      );
+    }
 
-export default App;
+    export default App;

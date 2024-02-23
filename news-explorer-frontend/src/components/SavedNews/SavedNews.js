@@ -28,7 +28,7 @@ function SavedNews({ cards = [], isLoggedIn, onDeleteCard, searchQueries }) {
               ))
             ) : (
               // Mostrar mensaje si no hay tarjetas
-              <p>No hay tarjetas guardadas.</p>
+              <p className="saved-news_NoCardsFound">No hay tarjetas guardadas.</p>
             )}
           </div>
           <Footer />

@@ -36,6 +36,7 @@
 
   
   .saved-news-container {
+    height: 100%;
     background-image: none;
     background-color: white;
     position: relative;
