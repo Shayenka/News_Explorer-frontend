@@ -8,19 +8,19 @@ import Preloader from "../Preloader/Preloader";
 import SavedNews from "../SavedNews/SavedNews";
 import About from "../About/About";
 import Footer from "../Footer/Footer";
+import SearchBanner from "../SearchBanner/SearchBanner";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
 function Main({ isLoggedIn }) {
-  const currentUser = useContext(CurrentUserContext);
+  const { handleSearch, setQuery, query } = useContext(CurrentUserContext);
   const [error, setError] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [visibleCards, setVisibleCards] = useState(3);
-  const [query, setQuery] = useState(''); 
+  // const [query, setQuery] = useState(''); 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [savedCards, setSavedCards] = useState([]);
   const [searchQueries, setSearchQueries] = useState([]);
-  
 
   const api = new Api({
     address: "https://newsapi.org",
@@ -28,42 +28,40 @@ function Main({ isLoggedIn }) {
   });
 
   // Función que se ejecutará cuando se envíe el formulario de búsqueda
-  const handleSearch = async () => {
-    setError('');
-    setIsLoading(true);
-    try {
-      // Obtener la fecha actual menos 7 días
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  // const handleSearch = async () => {
+  //   setError('');
+  //   setIsLoading(true);
+  //   try {
+  //     // Obtener la fecha actual menos 7 días
+  //     const sevenDaysAgo = new Date();
+  //     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
-      // Formatear la fecha a YYYY-MM-DD
-      const fromDate = sevenDaysAgo.toISOString().split('T')[0];
-      const toDate = new Date().toISOString().split('T')[0];
+  //     // Formatear la fecha a YYYY-MM-DD
+  //     const fromDate = sevenDaysAgo.toISOString().split('T')[0];
+  //     const toDate = new Date().toISOString().split('T')[0];
 
-      // Realizar la solicitud a la API
+  //     // Realizar la solicitud a la API
+  //     const response = await api.get('/v2/everything', {
+  //       q: query,
+  //       apiKey: api.apiKey,
+  //       from: fromDate,
+  //       to: toDate,
+  //       pageSize: 100,
+  //     });
 
-      const response = await api.get('/v2/everything', {
-        q: query,
-        apiKey: api.apiKey,
-        from: fromDate,
-        to: toDate,
-        pageSize: 100,
-      });
-
-
-      // Actualizar los resultados de la búsqueda en el estado
-      setSearchResults(response.articles);
-      setError(''); // Limpiar el mensaje de error en caso de éxito
-      setSearchQueries((prevQueries) => [...prevQueries, query]);
+  //     // Actualizar los resultados de la búsqueda en el estado
+  //     setSearchResults(response.articles);
+  //     setError(''); // Limpiar el mensaje de error en caso de éxito
+  //     setSearchQueries((prevQueries) => [...prevQueries, query]);
   
-    } catch (error) {
-      console.error("Error en la búsqueda de noticias:", error.message);
-      setError('Lo sentimos, algo ha salido mal durante la solicitud. Por favor, inténtelo de nuevo.');
-    } finally {
-      setIsLoading(false);
-      setQuery('');
-    }
-  };
+  //   } catch (error) {
+  //     console.error("Error en la búsqueda de noticias:", error.message);
+  //     setError('Lo sentimos, algo ha salido mal durante la solicitud. Por favor, inténtelo de nuevo.');
+  //   } finally {
+  //     setIsLoading(false);
+  //     setQuery('');
+  //   }
+  // };
 
   const handleShowMore = async () => {
     if (!isLoading) {
@@ -95,64 +93,53 @@ function Main({ isLoggedIn }) {
   };
 
   return (
-    <main className="main">
-      <section className="main-container">
-        <h1 className="main__title">¿Qué está pasando en el mundo?</h1>
-        <h2 className="main__subtitle">Encuentra las últimas noticias sobre cualquier tema y guárdalas en tu cuenta personal.</h2>
-
-        <SearchForm onSearch={handleSearch} setQuery={setQuery} query={query} />
-      </section>
-
+    <>
+      <SearchBanner handleSearch={handleSearch} setQuery={setQuery} query={query} />
       {searchResults.length > 0 && (
-  <section className="main__cards">
-    {isLoading && <Preloader />}
-
-    {/* Mostrar solo las tarjetas visibles */}
-    {searchResults.slice(0, visibleCards).map((article, index) => (
-      <NewsCard
-        key={index}
-        isLoggedIn={isLoggedIn}
-        onCardSaved={handleCardSaved} 
-        onCardDelete={handleDeleteCard}
-        card={article} 
-        sourceName={article.source.name}
-        title={article.title}
-        publishedAt={article.publishedAt}
-        description={article.description}
-        urlToImage={article.urlToImage}
-            // Otras propiedades
-          />
-        ))}
-
-        {/* Botón "Mostrar más" */}
-        {visibleCards < searchResults.length && (
-           <button className="main__cards_button-ShowMore" onClick={handleShowMore} disabled={isButtonDisabled}>
-           Mostrar más
-         </button>
-        )}
-
-        {/* Mensaje de no resultados */}
-        {searchResults.length === 0 && !isLoading &&  (
-  <div className="NoResultsFound__container">
-    <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
-    <p className="NoResultsFound-mesageMain">No se encontró nada</p>
-    <p className="NoResultsFound-mesage">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
-  </div>
-)}
-
-        {/* {error && <p className="searchResults__mesageError" style={{ color: 'red' }}>{error}</p>} */}
-      </section>
-)}
- {/* Pasar las tarjetas guardadas a SavedNews */}
- {savedCards.length > 0 ? (
-  <SavedNews cards={savedCards} onDeleteCard={handleDeleteCard} searchQueries={searchQueries} />
-) : (
-  <SavedNews cards={[]} isLoggedIn={isLoggedIn} onDeleteCard={() => {}} searchQueries={[]} />
-)}
-<About />
-<Footer />
-</main>
-);
+        <section className="main__cards">
+          {isLoading && <Preloader />}
+          {/* Mostrar solo las tarjetas visibles */}
+          {searchResults.slice(0, visibleCards).map((article, index) => (
+            <NewsCard
+              key={index}
+              isLoggedIn={isLoggedIn}
+              onCardSaved={handleCardSaved} 
+              onCardDelete={handleDeleteCard}
+              card={article} 
+              sourceName={article.source.name}
+              title={article.title}
+              publishedAt={article.publishedAt}
+              description={article.description}
+              urlToImage={article.urlToImage}
+              // Otras propiedades
+            />
+          ))}
+          {/* Botón "Mostrar más" */}
+          {visibleCards < searchResults.length && (
+            <button className="main__cards_button-ShowMore" onClick={handleShowMore} disabled={isButtonDisabled}>
+              Mostrar más
+            </button>
+          )}
+          {/* Mensaje de no resultados */}
+          {searchResults.length === 0 && !isLoading && (
+            <div className="NoResultsFound__container">
+              <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
+              <p className="NoResultsFound-mesageMain">No se encontró nada</p>
+              <p className="NoResultsFound-mesage">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
+            </div>
+          )}
+        </section>
+      )}
+      {/* Pasar las tarjetas guardadas a SavedNews */}
+      {savedCards.length > 0 ? (
+        <SavedNews cards={savedCards} onDeleteCard={handleDeleteCard} searchQueries={searchQueries} />
+      ) : (
+        <SavedNews cards={[]} isLoggedIn={isLoggedIn} onDeleteCard={() => {}} searchQueries={[]} />
+      )}
+      <About />
+      {/* <Footer /> */}
+    </>
+  );
 }
 
 export default Main;

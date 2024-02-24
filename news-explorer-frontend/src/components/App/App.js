@@ -9,6 +9,7 @@ import Register from "../../Register";
 import Login from "../../Login";
 import SavedNews from "../SavedNews/SavedNews";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import Footer from "../Footer/Footer";
 
 import { registerUserMock, checkTokenValidityMock } from "../../utils/auth";
 
@@ -19,17 +20,18 @@ function App() {
   const [token, setToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  // const [isSavedNewsPage, setIsSavedNewsPage] = useState(false);
-
+  const [query, setQuery] = useState('');
+ 
   const navigate = useNavigate();
 
   function loadUserData() {
     const storedToken = localStorage.getItem("jwt");
+    const storedEmail = localStorage.getItem("email");
 
     const storedUsers = JSON.parse(localStorage.getItem("registeredUsers"));
 
     const authorizedUser = storedUsers.find(
-    (user) => user.token === storedToken
+    (user) => user.email === storedEmail
   );
 
     if (storedToken) {
@@ -84,14 +86,19 @@ function App() {
   }
 
   async function handleLoginUser({ token, authorizedUser }) {
-    localStorage.setItem("jwt", token);
-    setToken(token);
-    setIsLoggedIn(true);
 
     // Obtener la información del usuario usando el token
     try {
       const userData = await checkTokenValidityMock({ token, authorizedUser });
+
+      localStorage.setItem("jwt", token);
+      localStorage.setItem("email", userData.email);
+
+
       setCurrentUser(userData);
+      setToken(token);
+      setIsLoggedIn(true);
+      
     } catch (error) {
       console.error("Error al obtener la información del usuario:", error);
       // Puedes manejar el error según tus necesidades
@@ -107,9 +114,45 @@ function App() {
     navigate("/signin");
   }
 
+    //Función que se ejecutará cuando se envíe el formulario de búsqueda
+  const handleSearch = async () => {
+    setError('');
+    setIsLoading(true);
+    try {
+      // Obtener la fecha actual menos 7 días
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+      // Formatear la fecha a YYYY-MM-DD
+      const fromDate = sevenDaysAgo.toISOString().split('T')[0];
+      const toDate = new Date().toISOString().split('T')[0];
+
+      // Realizar la solicitud a la API
+      const response = await api.get('/v2/everything', {
+        q: query,
+        apiKey: api.apiKey,
+        from: fromDate,
+        to: toDate,
+        pageSize: 100,
+      });
+
+      // Actualizar los resultados de la búsqueda en el estado
+      setSearchResults(response.articles);
+      setError(''); // Limpiar el mensaje de error en caso de éxito
+      setSearchQueries((prevQueries) => [...prevQueries, query]);
+  
+    } catch (error) {
+      console.error("Error en la búsqueda de noticias:", error.message);
+      setError('Lo sentimos, algo ha salido mal durante la solicitud. Por favor, inténtelo de nuevo.');
+    } finally {
+      setIsLoading(false);
+      setQuery('');
+    }
+  };
+
   return (
     // <div className="body">
-      <CurrentUserContext.Provider value={{ user: currentUser }}>
+      <CurrentUserContext.Provider value={{ user: currentUser, handleSearch, setQuery, query }}>
         {/* <div className={`body ${isSavedNewsPage ? '' : 'app-container'}`}> */}
         {/* Contenedor para rutas principales */}
         <div className="app-container">
@@ -118,8 +161,8 @@ function App() {
             isLoggedIn={isLoggedIn}
             onLogout={handleLogout}
           />
+          {/* <Main> */}
           <Routes>
-            {isLoginPopupOpen && (
               <Route
                 path="/signin"
                 element={
@@ -132,7 +175,6 @@ function App() {
                   />
                 }
               />
-            )}
 
             <Route
               path="/signup"
@@ -161,11 +203,13 @@ function App() {
 
             <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
           </Routes>
+          {/* </Main> */}
+          <Footer />
         </div>
 
         {/* Contenedor para la ruta especial */}
 
-        {/* {isLoginPopupOpen && (
+        {isLoginPopupOpen && (
             <ModalWithForm
             isOpen={isLoginPopupOpen}
             onClose={closeAllPopups}
@@ -178,7 +222,7 @@ function App() {
             onClose={closeAllPopups}
             handleLoginPopUp={handleLoginPopUp}
             />
-          )} */}
+          )}
         {/* <About /> */}
       </CurrentUserContext.Provider>
       );

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { CurrentUserContext } from "./contexts/CurrentUserContext.js"
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ValidateEmail, ValidatePassword } from "./utils/validator";
 import { authorizeMock } from "./utils/auth";
@@ -7,8 +8,12 @@ import {
   PopUpFailedInputLogin,
   PopUpFailedLogin,
 } from "./components/InfoTooltip/InfoTooltip";
+import SearchBanner from "./components/SearchBanner/SearchBanner.js";
+import About from "./components/About/About.js";
+
 
 function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
+  const { handleSearch, setQuery, query } = useContext(CurrentUserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -80,7 +85,8 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   }
 
   return (
-    <>
+    <main className="main">
+      <SearchBanner handleSearch={handleSearch} setQuery={setQuery} query={query} />
       {isLoginPopupVisible && (
         <ModalWithForm
           name="loginUser"
@@ -142,7 +148,8 @@ function Login({ onLoggedIn, loggedIn, isOpen, onClose, handleRegisterPopUp }) {
           onOpenLogin={() => setLoginPopupVisible(true)}
         />
       )}
-    </>
+    <About/>
+    </main>
   );
 }
 
