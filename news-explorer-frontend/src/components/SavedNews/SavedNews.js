@@ -4,14 +4,15 @@ import NewsCardList from "../NewsCardList/NewsCardList";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-function SavedNews({ cards = [], isLoggedIn, onDeleteCard, searchQueries }) {
+function SavedNews({ cards = [], isLoggedIn, onDeleteCard, searchQueries, isSavedNewsClicked}) {
   const savedCardsCount = cards ? cards.length : 0;
 
+  if (isLoggedIn && isSavedNewsClicked) {
   return (
-    <>
-      {isLoggedIn ? (
-        <section>
-          <Header isLoggedIn={isLoggedIn} />
+    // <>
+    //   {isLoggedIn ? (
+        <section className="savedNews">
+          {/* <Header isLoggedIn={isLoggedIn} /> */}
           <SavedNewsHeader
             savedCardsCount={savedCardsCount}
             searchQueries={searchQueries}
@@ -31,13 +32,12 @@ function SavedNews({ cards = [], isLoggedIn, onDeleteCard, searchQueries }) {
               <p className="saved-news_NoCardsFound">No hay tarjetas guardadas.</p>
             )}
           </div>
-          <Footer />
-        </section>
-      ) : (
-        ""
-      )}
-    </>
-  );
+      </section>
+    );
+  } else {
+    // Renderizar algo diferente o nada si no cumple con las condiciones
+    return null;
+  }
 }
 
 export default SavedNews;

@@ -131,10 +131,24 @@
 
 
 
+  .header__SavedNews {
+    background-color: white;
+    border-bottom: 1px #545454 solid;
+    margin: 0;
+    width: 100%;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+
+    max-height: 80px;
+  
+  }
 
 
 
-  /* .header__text_SavedNews {
+
+  .header__text_SavedNews {
     font-family: "Roboto Slab", Arial, sans-serif;
     font-style: normal;
     margin-top: 50px;
@@ -169,4 +183,4 @@
     margin: 0;
     padding: 0;
 
-  } */
+  }

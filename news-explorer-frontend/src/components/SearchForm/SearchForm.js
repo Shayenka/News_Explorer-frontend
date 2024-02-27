@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function SearchForm({ onSearch, query, setQuery }) {
+function SearchForm({ onSearch, setQuery, query }) {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 

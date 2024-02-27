@@ -12,12 +12,12 @@ import SearchBanner from "../SearchBanner/SearchBanner";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
 function Main({ isLoggedIn }) {
-  const { handleSearch, setQuery, query } = useContext(CurrentUserContext);
+  // const { setQuery, query } = useContext(CurrentUserContext);
   const [error, setError] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [visibleCards, setVisibleCards] = useState(3);
-  // const [query, setQuery] = useState(''); 
+  const [query, setQuery] = useState(''); 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [savedCards, setSavedCards] = useState([]);
   const [searchQueries, setSearchQueries] = useState([]);
@@ -28,40 +28,40 @@ function Main({ isLoggedIn }) {
   });
 
   // Función que se ejecutará cuando se envíe el formulario de búsqueda
-  // const handleSearch = async () => {
-  //   setError('');
-  //   setIsLoading(true);
-  //   try {
-  //     // Obtener la fecha actual menos 7 días
-  //     const sevenDaysAgo = new Date();
-  //     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  const handleSearch = async () => {
+    setError('');
+    setIsLoading(true);
+    try {
+      // Obtener la fecha actual menos 7 días
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
-  //     // Formatear la fecha a YYYY-MM-DD
-  //     const fromDate = sevenDaysAgo.toISOString().split('T')[0];
-  //     const toDate = new Date().toISOString().split('T')[0];
+      // Formatear la fecha a YYYY-MM-DD
+      const fromDate = sevenDaysAgo.toISOString().split('T')[0];
+      const toDate = new Date().toISOString().split('T')[0];
 
-  //     // Realizar la solicitud a la API
-  //     const response = await api.get('/v2/everything', {
-  //       q: query,
-  //       apiKey: api.apiKey,
-  //       from: fromDate,
-  //       to: toDate,
-  //       pageSize: 100,
-  //     });
+      // Realizar la solicitud a la API
+      const response = await api.get('/v2/everything', {
+        q: query,
+        apiKey: api.apiKey,
+        from: fromDate,
+        to: toDate,
+        pageSize: 100,
+      });
 
-  //     // Actualizar los resultados de la búsqueda en el estado
-  //     setSearchResults(response.articles);
-  //     setError(''); // Limpiar el mensaje de error en caso de éxito
-  //     setSearchQueries((prevQueries) => [...prevQueries, query]);
+      // Actualizar los resultados de la búsqueda en el estado
+      setSearchResults(response.articles);
+      setError(''); // Limpiar el mensaje de error en caso de éxito
+      setSearchQueries((prevQueries) => [...prevQueries, query]);
   
-  //   } catch (error) {
-  //     console.error("Error en la búsqueda de noticias:", error.message);
-  //     setError('Lo sentimos, algo ha salido mal durante la solicitud. Por favor, inténtelo de nuevo.');
-  //   } finally {
-  //     setIsLoading(false);
-  //     setQuery('');
-  //   }
-  // };
+    } catch (error) {
+      console.error("Error en la búsqueda de noticias:", error.message);
+      setError('Lo sentimos, algo ha salido mal durante la solicitud. Por favor, inténtelo de nuevo.');
+    } finally {
+      setIsLoading(false);
+      setQuery('');
+    }
+  };
 
   const handleShowMore = async () => {
     if (!isLoading) {

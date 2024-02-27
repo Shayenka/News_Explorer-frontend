@@ -21,6 +21,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [query, setQuery] = useState('');
+  const [isSavedNewsClicked, setIsSavedNewsClicked] = useState(false);
  
   const navigate = useNavigate();
 
@@ -111,48 +112,13 @@ function App() {
     setToken(null);
     setIsLoggedIn(false);
     setCurrentUser(null);
+    setIsSavedNewsClicked(false);
     navigate("/signin");
   }
 
-    //Función que se ejecutará cuando se envíe el formulario de búsqueda
-  const handleSearch = async () => {
-    setError('');
-    setIsLoading(true);
-    try {
-      // Obtener la fecha actual menos 7 días
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-      // Formatear la fecha a YYYY-MM-DD
-      const fromDate = sevenDaysAgo.toISOString().split('T')[0];
-      const toDate = new Date().toISOString().split('T')[0];
-
-      // Realizar la solicitud a la API
-      const response = await api.get('/v2/everything', {
-        q: query,
-        apiKey: api.apiKey,
-        from: fromDate,
-        to: toDate,
-        pageSize: 100,
-      });
-
-      // Actualizar los resultados de la búsqueda en el estado
-      setSearchResults(response.articles);
-      setError(''); // Limpiar el mensaje de error en caso de éxito
-      setSearchQueries((prevQueries) => [...prevQueries, query]);
-  
-    } catch (error) {
-      console.error("Error en la búsqueda de noticias:", error.message);
-      setError('Lo sentimos, algo ha salido mal durante la solicitud. Por favor, inténtelo de nuevo.');
-    } finally {
-      setIsLoading(false);
-      setQuery('');
-    }
-  };
-
   return (
     // <div className="body">
-      <CurrentUserContext.Provider value={{ user: currentUser, handleSearch, setQuery, query }}>
+      <CurrentUserContext.Provider value={{ user: currentUser }}>
         {/* <div className={`body ${isSavedNewsPage ? '' : 'app-container'}`}> */}
         {/* Contenedor para rutas principales */}
         <div className="app-container">
@@ -160,6 +126,8 @@ function App() {
             handleLoginPopUp={handleLoginPopUp}
             isLoggedIn={isLoggedIn}
             onLogout={handleLogout}
+            isSavedNewsClicked={isSavedNewsClicked}
+            onSavedNewsClick={() => setIsSavedNewsClicked(true)}
           />
           {/* <Main> */}
           <Routes>
@@ -189,6 +157,7 @@ function App() {
               }
             />
 
+          {isSavedNewsClicked && (
             <Route
               path="/saved-news"
               element={
@@ -196,34 +165,18 @@ function App() {
                   <ProtectedRoute
                     isLoggedIn={isLoggedIn}
                     component={SavedNews}
+                    isSavedNewsClicked={isSavedNewsClicked}
                   />
                 </div>
               }
             />
+          )}   
 
             <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
           </Routes>
           {/* </Main> */}
           <Footer />
         </div>
-
-        {/* Contenedor para la ruta especial */}
-
-        {isLoginPopupOpen && (
-            <ModalWithForm
-            isOpen={isLoginPopupOpen}
-            onClose={closeAllPopups}
-            handleRegisterPopUp={handleRegisterPopUp}
-            />
-          )}
-          {isRegisterPopupOpen && (
-            <ModalWithForm
-            isOpen={isRegisterPopupOpen}
-            onClose={closeAllPopups}
-            handleLoginPopUp={handleLoginPopUp}
-            />
-          )}
-        {/* <About /> */}
       </CurrentUserContext.Provider>
       );
     }

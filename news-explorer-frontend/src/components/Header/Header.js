@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Logout from "../../images/logout.svg";
 
-function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
+function Header({ handleLoginPopUp, isLoggedIn, onLogout, onSavedNewsClick  }) {
   // const currentUser = useContext(CurrentUserContext);
   const { user: currentUser } = useContext(CurrentUserContext);
   
@@ -24,6 +24,9 @@ function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
               to="/saved-news"
               className="header__link_text"
               style={{ textDecoration: "none" }}
+              onClick={() => {
+                onSavedNewsClick();
+              }}
             >
               Articulos guardados
             </Link>
@@ -75,3 +78,7 @@ function Header({ handleLoginPopUp, isLoggedIn, onLogout }) {
 }
 
 export default Header;
+
+
+
+

@@ -4,8 +4,11 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ValidateEmail, ValidatePassword, ValidateName } from "./utils/validator";
 import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js"
 import { PopUpSuccessfulRegister, PopUpFailedRegister, PopUpUserRegistered } from "./components/InfoTooltip/InfoTooltip";
+import SearchBanner from "./components/SearchBanner/SearchBanner.js";
+import About from "./components/About/About.js";
 
 function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
+  const { handleSearch, setQuery, query } = useContext(CurrentUserContext);
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -101,7 +104,8 @@ function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
   // };
 
   return (
-    <>
+    <main className="main">
+    <SearchBanner handleSearch={handleSearch} setQuery={setQuery} query={query} />
      {isOpen && (
         <ModalWithForm
       name="registerUser"
@@ -184,9 +188,10 @@ function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
         onOpenRegister={() => setRegisterPopupVisible(true)}
         />
         )}
-      </>
-    );
-  }
+      <About/>
+    </main>
+  );
+}
   
 
 export default Register;  
