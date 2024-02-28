@@ -16,6 +16,7 @@ function NewsCard(props) {
     if (props.isLoggedIn) {
       setIsSaved(true);
       props.onCardSaved(props.card);
+      console.log(props.card)
     } else {
       setIsSaved(false); 
       setShowLoginMessage(true);

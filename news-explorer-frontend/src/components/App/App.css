@@ -42,3 +42,7 @@
     position: relative;
 
   }
+
+  .app-container_savedNews {
+    background-color: white;
+  }

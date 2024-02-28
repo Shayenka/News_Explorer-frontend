@@ -112,20 +112,25 @@ function App() {
     setToken(null);
     setIsLoggedIn(false);
     setCurrentUser(null);
-    setIsSavedNewsClicked(false);
+    // setIsSavedNewsClicked(false);
     navigate("/signin");
+  }
+
+  function handleSavedNewsClick() {
+    setIsSavedNewsClicked(false);
   }
 
   return (
     // <div className="body">
       <CurrentUserContext.Provider value={{ user: currentUser }}>
-        {/* <div className={`body ${isSavedNewsPage ? '' : 'app-container'}`}> */}
+        <div className={`body ${isSavedNewsClicked ? 'app-container_savedNews' : 'app-container'}`}>
         {/* Contenedor para rutas principales */}
-        <div className="app-container">
+        {/* <div className="app-container"> */}
           <Header
             handleLoginPopUp={handleLoginPopUp}
             isLoggedIn={isLoggedIn}
             onLogout={handleLogout}
+            handleSavedNewsClick={handleSavedNewsClick}
             isSavedNewsClicked={isSavedNewsClicked}
             onSavedNewsClick={() => setIsSavedNewsClicked(true)}
           />
@@ -180,5 +185,6 @@ function App() {
       </CurrentUserContext.Provider>
       );
     }
+    
 
     export default App;

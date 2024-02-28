@@ -109,13 +109,14 @@
 
 .main__cards {
     display: grid;
-    margin: auto;
+    /* margin: auto; */
     padding: 180px;
     grid-template-columns: repeat(3, 1fr);
     background-color: rgb(238, 244, 247);
     grid-gap: 15px;
     z-index: 1;
     height: auto;
+    /* width: 100%; */
    }
 
   @media screen and (min-width: 767px) and (max-width: 1250px) {
@@ -192,7 +193,7 @@
    
 }
 
-.NoResultsFound-mesageMain {
+.NoResultsFound-messageMain {
     font-family: "Roboto Slab", Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -206,7 +207,7 @@
 
 }
 
-.NoResultsFound-mesage {
+.NoResultsFound-message {
     font-family: "Roboto Slab", Arial, sans-serif;
     font-style: normal;
     font-weight: 400;

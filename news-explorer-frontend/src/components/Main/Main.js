@@ -84,12 +84,14 @@ function Main({ isLoggedIn }) {
     };
   
     setSavedCards((prevSavedCards) => [...prevSavedCards, cardWithQueries]);
+    console.log(savedCards);
   };
 
   const handleDeleteCard = (index) => {
     const updatedCards = [...savedCards];
     updatedCards.splice(index, 1);
     setSavedCards(updatedCards);
+    console.log(savedCards);
   };
 
   return (
@@ -124,8 +126,8 @@ function Main({ isLoggedIn }) {
           {searchResults.length === 0 && !isLoading && (
             <div className="NoResultsFound__container">
               <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
-              <p className="NoResultsFound-mesageMain">No se encontró nada</p>
-              <p className="NoResultsFound-mesage">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
+              <p className="NoResultsFound-messageMain">No se encontró nada</p>
+              <p className="NoResultsFound-message">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
             </div>
           )}
         </section>
