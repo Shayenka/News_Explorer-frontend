@@ -84,7 +84,7 @@ function Main({ isLoggedIn }) {
     };
   
     setSavedCards((prevSavedCards) => [...prevSavedCards, cardWithQueries]);
-    console.log(savedCards);
+    // console.log(savedCards);
   };
 
   const handleDeleteCard = (index) => {
@@ -93,6 +93,8 @@ function Main({ isLoggedIn }) {
     setSavedCards(updatedCards);
     console.log(savedCards);
   };
+
+  console.log(savedCards);
 
   return (
     <>

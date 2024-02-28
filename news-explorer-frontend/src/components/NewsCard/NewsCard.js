@@ -24,16 +24,17 @@ function NewsCard(props) {
     }
   }
 
-  function handleclickCard() {
-    if (!props.isLoggedIn && showLoginMessage && clickedOnce){
-      setSavedCardSrc(savedCard);
-      setShowLoginMessage(false);
-    } else if (props.isLoggedIn && isSaved) {
-      setSavedCardSrc(savedCard);
-      props.onCardDelete(props.card);
-      setIsSaved(false);
-    }
-  }
+  // function handleclickCard() {
+  //   if (!props.isLoggedIn && showLoginMessage && clickedOnce){
+  //     setSavedCardSrc(savedCard);
+  //     setShowLoginMessage(false);
+  //     setClickedOnce(false);
+  //   } else if (props.isLoggedIn && isSaved) {
+  //     setSavedCardSrc(savedCard);
+  //     // props.onCardDelete(props.card);
+  //     setIsSaved(false);
+  //   }
+  // }
 
   useEffect(() => {
 
@@ -57,7 +58,7 @@ function NewsCard(props) {
           alt={`Icono para guardar tarjeta`}
           onClick={() => {
             handleSavedCard();
-            handleclickCard();
+            // handleclickCard();
           }}
         />
         </div>
