@@ -180,6 +180,8 @@
     position: relative;
     flex-direction: column;
     max-width: 356px;
+    align-self: center;
+    margin-top: 200px;
   
 }
 
@@ -216,7 +218,6 @@
     color: #B6BCBF;
     /* max-width: 356px; */
     height: 48px;
-    align-self: center;
 
 }
 

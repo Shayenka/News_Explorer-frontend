@@ -21,6 +21,7 @@ function Main({ isLoggedIn }) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [savedCards, setSavedCards] = useState([]);
   const [searchQueries, setSearchQueries] = useState([]);
+  const [searchProcess, setSearchProcess] = useState([null]);
 
   const api = new Api({
     address: "https://newsapi.org",
@@ -48,11 +49,14 @@ function Main({ isLoggedIn }) {
         to: toDate,
         pageSize: 100,
       });
-
+      
+      console.log(response.articles);
       // Actualizar los resultados de la búsqueda en el estado
       setSearchResults(response.articles);
       setError(''); // Limpiar el mensaje de error en caso de éxito
       setSearchQueries((prevQueries) => [...prevQueries, query]);
+      setSearchProcess(true);
+
   
     } catch (error) {
       console.error("Error en la búsqueda de noticias:", error.message);
@@ -84,7 +88,7 @@ function Main({ isLoggedIn }) {
     };
   
     setSavedCards((prevSavedCards) => [...prevSavedCards, cardWithQueries]);
-    // console.log(savedCards);
+    console.log(savedCards);
   };
 
   const handleDeleteCard = (index) => {
@@ -94,12 +98,14 @@ function Main({ isLoggedIn }) {
     console.log(savedCards);
   };
 
-  console.log(savedCards);
+  console.log(searchResults);
+  console.log(isLoading);
+
 
   return (
     <>
       <SearchBanner handleSearch={handleSearch} setQuery={setQuery} query={query} />
-      {searchResults.length > 0 && (
+      {searchResults.length > 0 ? (
         <section className="main__cards">
           {isLoading && <Preloader />}
           {/* Mostrar solo las tarjetas visibles */}
@@ -124,15 +130,27 @@ function Main({ isLoggedIn }) {
               Mostrar más
             </button>
           )}
-          {/* Mensaje de no resultados */}
-          {searchResults.length === 0 && !isLoading && (
+          {/* Mensaje de no resultados
+          {(searchResults.length === 0 && isLoading) && (
+            <div className="NoResultsFound__container">
+              <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
+              <p className="NoResultsFound-messageMain">No se encontró nada</p>
+              <p className="NoResultsFound-message">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
+            </div>
+          )} */}
+        </section>
+      ):(
+        <>
+         {/* Mensaje de no resultados */}
+         {(searchProcess) && (
             <div className="NoResultsFound__container">
               <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
               <p className="NoResultsFound-messageMain">No se encontró nada</p>
               <p className="NoResultsFound-message">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
             </div>
           )}
-        </section>
+
+        </>
       )}
       {/* Pasar las tarjetas guardadas a SavedNews */}
       {savedCards.length > 0 ? (
