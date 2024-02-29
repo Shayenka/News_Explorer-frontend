@@ -21,7 +21,7 @@ function Main({ isLoggedIn }) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [savedCards, setSavedCards] = useState([]);
   const [searchQueries, setSearchQueries] = useState([]);
-  const [searchProcess, setSearchProcess] = useState([null]);
+  const [searchProcess, setSearchProcess] = useState(false);
 
   const api = new Api({
     address: "https://newsapi.org",
