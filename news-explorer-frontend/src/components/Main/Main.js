@@ -98,9 +98,7 @@ function Main({ isLoggedIn }) {
     console.log(savedCards);
   };
 
-  console.log(searchResults);
-  console.log(isLoading);
-
+  console.log(savedCards);
 
   return (
     <>
@@ -130,14 +128,6 @@ function Main({ isLoggedIn }) {
               Mostrar más
             </button>
           )}
-          {/* Mensaje de no resultados
-          {(searchResults.length === 0 && isLoading) && (
-            <div className="NoResultsFound__container">
-              <img className="NoResultsFound-image" src={NoResultsFound} alt="No Results Found" />
-              <p className="NoResultsFound-messageMain">No se encontró nada</p>
-              <p className="NoResultsFound-message">Lo sentimos, pero no hay nada que coincida con tus términos de búsqueda.</p>
-            </div>
-          )} */}
         </section>
       ):(
         <>

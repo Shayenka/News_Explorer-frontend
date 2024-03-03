@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import deleteCard from "../../images/deleteCard.svg";
+import deleteCardClick from "../../images/deleteCardClick.svg";
 import { formatDate } from "../../utils/validator";
 
 function NewsCardList({ card, onDelete }) {
     const [showDeleteMessage, setShowDeleteMessage] = useState(false);
     const [isDelete , setIsDelete ] = useState(false);
-  
+    const [deleteCardSrc, setDeleteCardSrc] = useState(deleteCard);
+
     function handleDeleteCard() {
       if (showDeleteMessage) {
         // Realizar la acción de eliminación solo si el mensaje ya está mostrado
@@ -14,14 +16,21 @@ function NewsCardList({ card, onDelete }) {
         setShowDeleteMessage(false); // Restablecer isDelete después de la eliminación
       } else {
         // Alternar entre mostrar y ocultar el mensaje y cambiar la clase del botón
+        setDeleteCardSrc(deleteCardClick);
         setShowDeleteMessage(true);
         setIsDelete(true);
       }
     }
+
+    // useEffect(() => {
+
+    //   if (showDeleteMessage && isDelete) {
+    //     setDeleteCardSrc(deleteCardClick);
+    //   } else {
+    //     setDeleteCardSrc(deleteCard);
+    //   } 
   
-    const cardDeleteButtonClassName = `cardList__icon-delete ${
-      isDelete ? "cardList__icon-deleteClick" : ""
-    }`;
+    // }, [isDelete, showDeleteMessage]);
 
       return (
         <div>
@@ -29,11 +38,12 @@ function NewsCardList({ card, onDelete }) {
               <div className="card__header">
                 <div className="card__icon-container">
                   <img
-                    className={cardDeleteButtonClassName}
-                    src={deleteCard}
+                    className="cardList__icon-delete"
+                    src={deleteCardSrc}
                     alt={`Icono para eliminar tarjeta`}
                     onClick={() => {
                       handleDeleteCard();
+                      // handleclickCardDelete();
                     }}
                   />
                 </div>

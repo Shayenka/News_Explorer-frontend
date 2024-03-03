@@ -17,24 +17,27 @@ function NewsCard(props) {
       setIsSaved(true);
       props.onCardSaved(props.card);
       console.log(props.card)
+      setClickedOnce(true);
     } else {
       setIsSaved(false); 
       setShowLoginMessage(true);
       setClickedOnce(true);
     }
   }
-
-  // function handleclickCard() {
-  //   if (!props.isLoggedIn && showLoginMessage && clickedOnce){
-  //     setSavedCardSrc(savedCard);
-  //     setShowLoginMessage(false);
-  //     setClickedOnce(false);
-  //   } else if (props.isLoggedIn && isSaved) {
-  //     setSavedCardSrc(savedCard);
-  //     // props.onCardDelete(props.card);
-  //     setIsSaved(false);
-  //   }
-  // }
+  
+  //Funcion para cambiar al boton original si se le da un 2do clic
+  function handleclickCard() {
+    if (!props.isLoggedIn && showLoginMessage && clickedOnce){
+      setSavedCardSrc(savedCard);
+      setShowLoginMessage(false);
+      setClickedOnce(false);
+    } else if (props.isLoggedIn && isSaved && clickedOnce) {
+      setSavedCardSrc(savedCard);
+      props.onCardDelete(props.card);
+      console.log(props.card);
+      setIsSaved(false);
+    }
+  }
 
   useEffect(() => {
 
@@ -58,7 +61,7 @@ function NewsCard(props) {
           alt={`Icono para guardar tarjeta`}
           onClick={() => {
             handleSavedCard();
-            // handleclickCard();
+            handleclickCard();
           }}
         />
         </div>

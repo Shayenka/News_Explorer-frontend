@@ -11,13 +11,13 @@ function SavedNews({ cards = [], isLoggedIn, onDeleteCard, searchQueries, isSave
   return (
     // <>
     //   {isLoggedIn ? (
-        <section className="savedNews">
+        <section>
           {/* <Header isLoggedIn={isLoggedIn} /> */}
           <SavedNewsHeader
             savedCardsCount={savedCardsCount}
             searchQueries={searchQueries}
           />
-          <div className="saved-news">
+          <div className="saved-news__cards">
             {cards.length > 0 ? (
               // Mostrar tarjetas si hay alguna
               cards.map((card, index) => (

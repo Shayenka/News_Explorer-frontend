@@ -10,6 +10,25 @@
   position: relative;
 } */
 
+.saved-news__cards {
+  display: grid;
+  /* margin: auto; */
+  padding: 180px;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: rgb(238, 244, 247);
+  grid-gap: 15px;
+  z-index: 1;
+  height: auto; 
+  /* width: 100%; */
+  /* justify-content: center;
+  align-content: center;  */
+  position: relative;
+}
+
 .saved-news_NoCardsFound {
-  margin-left: 100px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

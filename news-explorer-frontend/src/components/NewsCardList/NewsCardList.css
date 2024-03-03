@@ -1,0 +1,64 @@
+.cardList__icon-delete {
+    margin-left: 350px;
+    margin-top: 10px;
+    padding-top: 0; 
+
+}
+
+.cardList__icon-delete:hover {
+    opacity: 0.6;
+  }
+
+  
+.cardList__delete-message-container {
+    z-index: 2;
+    background-color: white;
+    max-width: 210px;
+    width: auto;
+    margin-left: auto; 
+    /* height: auto; */
+    border-radius: 10px;
+    margin-left: 170px;
+    top: 0;
+    position: absolute;
+    margin-top: 10px;
+
+}
+
+.cardList__delete-message {
+    font-family: "Roboto", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1;
+    z-index: 2;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.cardList__query-container {
+    z-index: 2;
+    background-color: white;
+    max-width: 210px;
+    width: auto;
+    margin-left: auto; 
+    /* height: auto; */
+    border-radius: 10px;
+    margin-left: 170px;
+    top: 0;
+    position: absolute;
+    margin-top: 10px;
+    
+}
+
+.cardList__query-text {
+    font-family: "Roboto", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    z-index: 2;
+    margin-left: 8px;
+    margin-right: 8px;
+  
+}
