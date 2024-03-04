@@ -7,6 +7,9 @@ import Footer from "../Footer/Footer";
 function SavedNews({ cards = [], isLoggedIn, onDeleteCard, searchQueries, isSavedNewsClicked}) {
   const savedCardsCount = cards ? cards.length : 0;
 
+  console.log("Cards in SavedNews:", cards);
+  
+
   if (isLoggedIn && isSavedNewsClicked) {
   return (
     // <>

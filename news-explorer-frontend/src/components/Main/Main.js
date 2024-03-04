@@ -86,9 +86,15 @@ function Main({ isLoggedIn }) {
       ...card,
       searchQueries: [...searchQueries],
     };
+
+    setSavedCards((prevSavedCards) => {
+      const updatedCards = [...prevSavedCards, cardWithQueries];
+      console.log("Cards in main:", updatedCards);
+      return updatedCards;
+    });
   
-    setSavedCards((prevSavedCards) => [...prevSavedCards, cardWithQueries]);
-    console.log(savedCards);
+    // setSavedCards((prevSavedCards) => [...prevSavedCards, cardWithQueries]);
+    // console.log(savedCards);
   };
 
   const handleDeleteCard = (index) => {

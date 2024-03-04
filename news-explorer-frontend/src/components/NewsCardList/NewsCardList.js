@@ -3,10 +3,12 @@ import deleteCard from "../../images/deleteCard.svg";
 import deleteCardClick from "../../images/deleteCardClick.svg";
 import { formatDate } from "../../utils/validator";
 
-function NewsCardList({ card, onDelete }) {
+function NewsCardList({ card, onDelete, index }) {
     const [showDeleteMessage, setShowDeleteMessage] = useState(false);
     const [isDelete , setIsDelete ] = useState(false);
     const [deleteCardSrc, setDeleteCardSrc] = useState(deleteCard);
+
+    console.log("Cards in NewsCardList:", card);
 
     function handleDeleteCard() {
       if (showDeleteMessage) {
@@ -22,19 +24,19 @@ function NewsCardList({ card, onDelete }) {
       }
     }
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //   if (showDeleteMessage && isDelete) {
-    //     setDeleteCardSrc(deleteCardClick);
-    //   } else {
-    //     setDeleteCardSrc(deleteCard);
-    //   } 
+      if (showDeleteMessage && isDelete) {
+        setDeleteCardSrc(deleteCardClick);
+      } else {
+        setDeleteCardSrc(deleteCard);
+      } 
   
-    // }, [isDelete, showDeleteMessage]);
+    }, [isDelete, showDeleteMessage]);
 
       return (
         <div>
-           <div className="card" key={card.index}>
+           <div className="card" key={index}>
               <div className="card__header">
                 <div className="card__icon-container">
                   <img
