@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import NewsCardList from "../NewsCardList/NewsCardList";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 
 function SavedNews({ cards = [], isLoggedIn, onDeleteCard, searchQueries, isSavedNewsClicked}) {
   const savedCardsCount = cards ? cards.length : 0;

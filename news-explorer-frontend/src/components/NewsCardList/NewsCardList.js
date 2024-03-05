@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import deleteCard from "../../images/deleteCard.svg";
 import deleteCardClick from "../../images/deleteCardClick.svg";
 import { formatDate } from "../../utils/validator";
