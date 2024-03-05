@@ -16,7 +16,7 @@ function Footer() {
           Inicio
         </Link>
         <Link
-          to=""
+          to="https://tripleten.com/"
           className="footer__link_text"
           style={{ textDecoration: "none" }}
         >

@@ -10,7 +10,7 @@ function NewsCardList({ card, onDelete, index }) {
 
     console.log("Cards in NewsCardList:", card);
 
-    function handleDeleteCard() {
+    function handleDeleteNewsCard() {
       if (showDeleteMessage) {
         // Realizar la acción de eliminación solo si el mensaje ya está mostrado
         onDelete();
@@ -44,7 +44,7 @@ function NewsCardList({ card, onDelete, index }) {
                     src={deleteCardSrc}
                     alt={`Icono para eliminar tarjeta`}
                     onClick={() => {
-                      handleDeleteCard();
+                      handleDeleteNewsCard();
                       // handleclickCardDelete();
                     }}
                   />

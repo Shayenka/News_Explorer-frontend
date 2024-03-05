@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import NewsCardList from "../NewsCardList/NewsCardList";
+import { NewsContext } from "../../contexts/CurrentUserContext";
 
-function SavedNews({ cards = [], isLoggedIn, onDeleteCard, searchQueries, isSavedNewsClicked}) {
-  const savedCardsCount = cards ? cards.length : 0;
+function SavedNews({ isLoggedIn, isSavedNewsClicked }) {
+  const { savedCards, searchQueries, handleDeleteCard } = useContext(NewsContext);
+  const savedCardsCount = savedCards ? savedCards.length : 0;
 
-  console.log("Cards in SavedNews:", cards);
+  console.log("Cards in SavedNews:", savedCards);
   
 
   if (isLoggedIn && isSavedNewsClicked) {
@@ -19,13 +21,13 @@ function SavedNews({ cards = [], isLoggedIn, onDeleteCard, searchQueries, isSave
             searchQueries={searchQueries}
           />
           <div className="saved-news__cards">
-            {cards.length > 0 ? (
+            {savedCards.length > 0 ? (
               // Mostrar tarjetas si hay alguna
-              cards.map((card, index) => (
+              savedCards.map((card, index) => (
                 <NewsCardList
                   key={index}
                   card={card}
-                  onDelete={() => onDeleteCard(index)}
+                  onDelete={() => handleDeleteCard(index)}
                 />
               ))
             ) : (

@@ -1,26 +1,24 @@
 import React, { useContext, useState } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import SearchForm from "../SearchForm/SearchForm";
 import NewsCard from "../NewsCard/NewsCard";
 import Api from "../../utils/api";
 import NoResultsFound from "../../images/not-found_image.svg";
 import Preloader from "../Preloader/Preloader";
 import SavedNews from "../SavedNews/SavedNews";
 import About from "../About/About";
-import Footer from "../Footer/Footer";
 import SearchBanner from "../SearchBanner/SearchBanner";
+import { NewsContext } from "../../contexts/CurrentUserContext";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
 function Main({ isLoggedIn }) {
-  // const { setQuery, query } = useContext(CurrentUserContext);
+  const { handleCardSaved, savedCards, setSearchQueries, searchQueries, handleDeleteCard } = useContext(NewsContext);
   const [error, setError] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [visibleCards, setVisibleCards] = useState(3);
   const [query, setQuery] = useState(''); 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [savedCards, setSavedCards] = useState([]);
-  const [searchQueries, setSearchQueries] = useState([]);
+  // const [savedCards, setSavedCards] = useState([]);
+  // const [searchQueries, setSearchQueries] = useState([]);
   const [searchProcess, setSearchProcess] = useState(false);
 
   const api = new Api({
@@ -81,28 +79,26 @@ function Main({ isLoggedIn }) {
     }
   };
 
-  const handleCardSaved = (card) => {
-    const cardWithQueries = {
-      ...card,
-      searchQueries: [...searchQueries],
-    };
+  // const handleCardSaved = (card) => {
+  //   const cardWithQueries = {
+  //     ...card,
+  //     searchQueries: [...searchQueries],
+  //   };
 
-    setSavedCards((prevSavedCards) => {
-      const updatedCards = [...prevSavedCards, cardWithQueries];
-      console.log("Cards in main:", updatedCards);
-      return updatedCards;
-    });
-  
-    // setSavedCards((prevSavedCards) => [...prevSavedCards, cardWithQueries]);
-    // console.log(savedCards);
-  };
+  //   setSavedCards((prevSavedCards) => {
+  //     const updatedCards = [...prevSavedCards, cardWithQueries];
+  //     console.log("Cards in main:", updatedCards);
+  //     return updatedCards;
+  //   });
 
-  const handleDeleteCard = (index) => {
-    const updatedCards = [...savedCards];
-    updatedCards.splice(index, 1);
-    setSavedCards(updatedCards);
-    console.log(savedCards);
-  };
+  // };
+
+  // const handleDeleteCard = (index) => {
+  //   const updatedCards = [...savedCards];
+  //   updatedCards.splice(index, 1);
+  //   setSavedCards(updatedCards);
+  //   console.log(savedCards);
+  // };
 
   console.log(savedCards);
 
@@ -150,12 +146,11 @@ function Main({ isLoggedIn }) {
       )}
       {/* Pasar las tarjetas guardadas a SavedNews */}
       {savedCards.length > 0 ? (
-        <SavedNews cards={savedCards} onDeleteCard={handleDeleteCard} searchQueries={searchQueries} />
+        <SavedNews />
       ) : (
-        <SavedNews cards={[]} isLoggedIn={isLoggedIn} onDeleteCard={() => {}} searchQueries={[]} />
+        <SavedNews savedCards={[]} handleDeleteCard={() => {}} searchQueries={[]} />
       )}
       <About />
-      {/* <Footer /> */}
     </>
   );
 }
