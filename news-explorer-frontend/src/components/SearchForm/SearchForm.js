@@ -19,7 +19,7 @@ function SearchForm({ onSearch, setQuery, query }) {
   
     // Pasa la consulta al manejador de búsqueda
     // setQuery(query);
-    onSearch(query);
+    onSearch();
   
     // Resetear el estado del formulario
     

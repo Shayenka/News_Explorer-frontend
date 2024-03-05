@@ -52,7 +52,10 @@ function Main({ isLoggedIn }) {
       // Actualizar los resultados de la búsqueda en el estado
       setSearchResults(response.articles);
       setError(''); // Limpiar el mensaje de error en caso de éxito
-      setSearchQueries((prevQueries) => [...prevQueries, query]);
+      setSearchQueries((prevQueries) => {
+        const finalQuery = [query]
+        return finalQuery
+      });
       setSearchProcess(true);
 
   
@@ -113,8 +116,8 @@ function Main({ isLoggedIn }) {
             <NewsCard
               key={index}
               isLoggedIn={isLoggedIn}
-              onCardSaved={handleCardSaved} 
-              onCardDelete={handleDeleteCard}
+              // onCardSaved={handleCardSaved} 
+              // onCardDelete={handleDeleteCard}
               card={article} 
               sourceName={article.source.name}
               title={article.title}

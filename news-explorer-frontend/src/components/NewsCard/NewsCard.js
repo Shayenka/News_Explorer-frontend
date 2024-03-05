@@ -2,11 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import savedCard from "../../images/iconGuardar.svg";
 import savedCardClick from "../../images/iconGuardarClick.svg";
 import savedCardChangeColor from "../../images/IconGuardarChangeBlue.svg";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { NewsContext } from "../../contexts/CurrentUserContext";
 import { formatDate } from "../../utils/validator";
 
 function NewsCard(props) {
-  const currentUser = useContext(CurrentUserContext);
+  const { handleCardSaved, handleDeleteCard } = useContext(NewsContext);
   const [showLoginMessage, setShowLoginMessage] = useState(false);
   const [isSaved , setIsSaved ] = useState(false);
   const [clickedOnce, setClickedOnce] = useState(false);
@@ -15,7 +15,7 @@ function NewsCard(props) {
   function handleSavedCard() {
     if (props.isLoggedIn) {
       setIsSaved(true);
-      props.onCardSaved(props.card);
+      handleCardSaved(props.card);
       console.log(props.card)
       setClickedOnce(true);
     } else {
@@ -33,7 +33,7 @@ function NewsCard(props) {
       setClickedOnce(false);
     } else if (props.isLoggedIn && isSaved && clickedOnce) {
       setSavedCardSrc(savedCard);
-      props.onCardDelete(props.card);
+      handleDeleteCard(props.card);
       console.log(props.card);
       setIsSaved(false);
     }
