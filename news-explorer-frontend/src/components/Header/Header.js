@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import useUserContext from "../Hooks/useUserContext";
 import Logout from "../../images/logout.svg";
 import LogoutBlack from "../../images/logout-black.svg";
 
 function Header({ handleLoginPopUp, isLoggedIn, onLogout, onSavedNewsClick, handleSavedNewsClick, isSavedNewsClicked  }) {
   // const currentUser = useContext(CurrentUserContext);
-  const { user: currentUser } = useContext(CurrentUserContext);
+  const { user: currentUser } = useUserContext();
   
   return (
     <header className="header">

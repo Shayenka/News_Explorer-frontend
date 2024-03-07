@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { NewsContext } from "../../contexts/CurrentUserContext";
 
 import Main from "../Main/Main";
 import Header from "../Header/Header";
 import Register from "../../Register";
 import Login from "../../Login";
 import SavedNews from "../SavedNews/SavedNews";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import Footer from "../Footer/Footer";
+import NewsProvider from "../Providers/NewsProviders";
 
 import { registerUserMock, checkTokenValidityMock } from "../../utils/auth";
 
@@ -21,11 +20,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [query, setQuery] = useState("");
   const [isSavedNewsClicked, setIsSavedNewsClicked] = useState(false);
-
-  const [savedCards, setSavedCards] = useState([]);
-  const [searchQueries, setSearchQueries] = useState([]);
 
   const navigate = useNavigate();
 
@@ -121,37 +116,9 @@ function App() {
     setIsSavedNewsClicked(false);
   }
 
-  //Funciones para las cards
-  const handleCardSaved = (card) => {
-    const cardWithQueries = {
-      ...card,
-      searchQueries: [...searchQueries],
-    };
-
-    setSavedCards((prevSavedCards) => {
-      const updatedCards = [...prevSavedCards, cardWithQueries];
-      console.log("Cards in main:", updatedCards);
-      return updatedCards;
-    });
-  };
-
-  const handleDeleteCard = (index) => {
-    const updatedCards = [...savedCards];
-    updatedCards.splice(index, 1);
-    setSavedCards(updatedCards);
-    console.log(savedCards);
-  };
 
   return (
-    <NewsContext.Provider
-      value={{
-        handleCardSaved,
-        savedCards,
-        setSearchQueries,
-        searchQueries,
-        handleDeleteCard,
-      }}
-    >
+    <NewsProvider>
       <CurrentUserContext.Provider value={{ user: currentUser }}>
         <div
           className={`body ${
@@ -212,20 +179,14 @@ function App() {
               element={
                 <Main
                   isLoggedIn={isLoggedIn}
-                  // handleCardSaved={handleCardSaved}
-                  // savedCards={savedCards}
-                  // setSearchQueries={setSearchQueries}
-                  // searchQueries={searchQueries}
-                  // handleDeleteCard={handleDeleteCard}
                 />
               }
             />
-            {/* </NewsContext.Provider> */}
           </Routes>
           <Footer />
         </div>
       </CurrentUserContext.Provider>
-    </NewsContext.Provider>
+    </NewsProvider>
   );
 }
 

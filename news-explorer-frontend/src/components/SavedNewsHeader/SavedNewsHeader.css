@@ -35,3 +35,14 @@
     color:#1A1B22;
 
 }
+
+.show-more-link {
+    color: #007bff; /* Color azul típico de los enlaces */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón para indicar que es interactivo */
+    text-decoration: underline; /* Subraya el texto para indicar que es un enlace */
+    margin-left: 5px; /* Puedes ajustar el margen izquierdo según tus preferencias */
+  }
+  
+  .show-more-link:hover {
+    text-decoration: none; /* Quita el subrayado al pasar el ratón sobre el enlace */
+  }

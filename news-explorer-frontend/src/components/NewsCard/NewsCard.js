@@ -2,11 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import savedCard from "../../images/iconGuardar.svg";
 import savedCardClick from "../../images/iconGuardarClick.svg";
 import savedCardChangeColor from "../../images/IconGuardarChangeBlue.svg";
-import { NewsContext } from "../../contexts/CurrentUserContext";
+import useNewsContext from "../Hooks/useNewsContext";
 import { formatDate } from "../../utils/validator";
 
 function NewsCard(props) {
-  const { handleCardSaved, handleDeleteCard } = useContext(NewsContext);
+  const { handleCardSaved, handleDeleteCard } = useNewsContext();
   const [showLoginMessage, setShowLoginMessage] = useState(false);
   const [isSaved , setIsSaved ] = useState(false);
   const [clickedOnce, setClickedOnce] = useState(false);
@@ -26,18 +26,18 @@ function NewsCard(props) {
   }
   
   //Funcion para cambiar al boton original si se le da un 2do clic
-  function handleclickCard() {
-    if (!props.isLoggedIn && showLoginMessage && clickedOnce){
-      setSavedCardSrc(savedCard);
-      setShowLoginMessage(false);
-      setClickedOnce(false);
-    } else if (props.isLoggedIn && isSaved && clickedOnce) {
-      setSavedCardSrc(savedCard);
-      handleDeleteCard(props.card);
-      console.log(props.card);
-      setIsSaved(false);
-    }
-  }
+  // function handleclickCard() {
+  //   if (!props.isLoggedIn && showLoginMessage && clickedOnce){
+  //     setSavedCardSrc(savedCard);
+  //     setShowLoginMessage(false);
+  //     setClickedOnce(false);
+  //   } else if (props.isLoggedIn && isSaved && clickedOnce) {
+  //     setSavedCardSrc(savedCard);
+  //     handleDeleteCard(props.card);
+  //     console.log(props.card);
+  //     setIsSaved(false);
+  //   }
+  // }
 
   useEffect(() => {
 
@@ -61,7 +61,7 @@ function NewsCard(props) {
           alt={`Icono para guardar tarjeta`}
           onClick={() => {
             handleSavedCard();
-            handleclickCard();
+            // handleclickCard();
           }}
         />
         </div>

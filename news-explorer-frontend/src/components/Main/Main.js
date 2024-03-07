@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import NewsCard from "../NewsCard/NewsCard";
 import Api from "../../utils/api";
 import NoResultsFound from "../../images/not-found_image.svg";
@@ -6,19 +6,17 @@ import Preloader from "../Preloader/Preloader";
 import SavedNews from "../SavedNews/SavedNews";
 import About from "../About/About";
 import SearchBanner from "../SearchBanner/SearchBanner";
-import { NewsContext } from "../../contexts/CurrentUserContext";
+import useNewsContext from "../Hooks/useNewsContext";
 
 // CLAVE API: 016f14e7761d4baca1c75b200bde1015
 function Main({ isLoggedIn }) {
-  const { handleCardSaved, savedCards, setSearchQueries, searchQueries, handleDeleteCard } = useContext(NewsContext);
+  const { savedCards, setSearchQueries } = useNewsContext();
   const [error, setError] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [visibleCards, setVisibleCards] = useState(3);
   const [query, setQuery] = useState(''); 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  // const [savedCards, setSavedCards] = useState([]);
-  // const [searchQueries, setSearchQueries] = useState([]);
   const [searchProcess, setSearchProcess] = useState(false);
 
   const api = new Api({
@@ -54,6 +52,7 @@ function Main({ isLoggedIn }) {
       setError(''); // Limpiar el mensaje de error en caso de éxito
       setSearchQueries((prevQueries) => {
         const finalQuery = [query]
+      
         return finalQuery
       });
       setSearchProcess(true);
@@ -82,27 +81,6 @@ function Main({ isLoggedIn }) {
     }
   };
 
-  // const handleCardSaved = (card) => {
-  //   const cardWithQueries = {
-  //     ...card,
-  //     searchQueries: [...searchQueries],
-  //   };
-
-  //   setSavedCards((prevSavedCards) => {
-  //     const updatedCards = [...prevSavedCards, cardWithQueries];
-  //     console.log("Cards in main:", updatedCards);
-  //     return updatedCards;
-  //   });
-
-  // };
-
-  // const handleDeleteCard = (index) => {
-  //   const updatedCards = [...savedCards];
-  //   updatedCards.splice(index, 1);
-  //   setSavedCards(updatedCards);
-  //   console.log(savedCards);
-  // };
-
   console.log(savedCards);
 
   return (
@@ -116,8 +94,6 @@ function Main({ isLoggedIn }) {
             <NewsCard
               key={index}
               isLoggedIn={isLoggedIn}
-              // onCardSaved={handleCardSaved} 
-              // onCardDelete={handleDeleteCard}
               card={article} 
               sourceName={article.source.name}
               title={article.title}

@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import NewsCardList from "../NewsCardList/NewsCardList";
-import { NewsContext } from "../../contexts/CurrentUserContext";
+import useNewsContext from "../Hooks/useNewsContext";
 
 function SavedNews({ isLoggedIn, isSavedNewsClicked }) {
-  const { savedCards, searchQueries, handleDeleteCard } = useContext(NewsContext);
+  const { savedCards, allSearchQueries, handleDeleteCard } = useNewsContext();;
   const savedCardsCount = savedCards ? savedCards.length : 0;
 
   console.log("Cards in SavedNews:", savedCards);
+  console.log("allSearchQueries in SavedNews:", allSearchQueries)
   
 
   if (isLoggedIn && isSavedNewsClicked) {
@@ -17,8 +18,9 @@ function SavedNews({ isLoggedIn, isSavedNewsClicked }) {
         <section>
           {/* <Header isLoggedIn={isLoggedIn} /> */}
           <SavedNewsHeader
+            savedCards={savedCards}
             savedCardsCount={savedCardsCount}
-            searchQueries={searchQueries}
+            allSearchQueries={allSearchQueries}
           />
           <div className="saved-news__cards">
             {savedCards.length > 0 ? (
