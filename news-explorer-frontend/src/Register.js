@@ -61,43 +61,42 @@ function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
 //     setIsFormValid(email.trim() !== "" && password.trim() !== "" && name.trim() !== "");
 //   }
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
+const handleSubmit = async (evt) => {
+  evt.preventDefault();
 
+  try {
     if (!email.trim() || !password.trim() || !name.trim()) {
       // Campos vacíos
       setShowPopupFailedRegister(true);
       setShowPopupSuccessfulRegister(false);
-      setRegisterPopupVisible(false);
+      setShowPopUpUserRegistered(false);
       return;
     }
 
-    try {
-      const userRegistered = await onRegister(email, password, name);
-  
-      if (!userRegistered) {
-        // Usuario ya registrado
-        setShowPopUpUserRegistered(true);
-        setShowPopupFailedRegister(false);
-        setShowPopupSuccessfulRegister(false);
-        setRegisterPopupVisible(false);
-        console.log("El usuario ya está registrado");
-      } else {
-        // Usuario registrado correctamente
-        setShowPopupSuccessfulRegister(true);
-        setShowPopupFailedRegister(false);
-        setRegisterPopupVisible(false);
-        setShowPopUpUserRegistered(false);
-  
-        setTimeout(() => {
-          navigate("/signin");
-        }, 2000);
-      }
-    } catch (error) {
-      console.error("Error en el registo de usuario:", error);
-      setShowPopupFailedRegister(true);
+    const userRegistered = await onRegister(email, password, name);
+
+    if (!userRegistered) {
+      // Usuario ya registrado
+      setShowPopUpUserRegistered(true);
+      setShowPopupFailedRegister(false);
+      setShowPopupSuccessfulRegister(false);
+    } else {
+      // Usuario registrado correctamente
+      setShowPopupSuccessfulRegister(true);
+      setShowPopupFailedRegister(false);
+      setShowPopUpUserRegistered(false);
+
+      setTimeout(() => {
+        navigate("/signin");
+      }, 2000);
     }
-  };
+  } catch (error) {
+    console.error("Error en el registro de usuario:", error);
+    setShowPopupFailedRegister(true);
+    setShowPopupSuccessfulRegister(false);
+    setShowPopUpUserRegistered(false);
+  }
+};
 
   // const handleRegisterPopupClose = () => {
   //   setRegisterPopupVisible(false);
