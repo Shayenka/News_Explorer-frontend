@@ -10,6 +10,27 @@
     bottom: 30px;
 }
 
+@media screen and (min-width: 767px) and (max-width: 1250px) {
+  .card {
+    width: max-content;
+    max-width: 300px;
+    margin-top: 0;
+    margin-left: 0;
+    /* margin: auto;  */
+
+  }
+}
+
+ @media screen and (min-width: 320px) and (max-width: 767px) {
+    .card {
+      width: 280px;
+  
+    }
+  }
+
+
+
+
 .card__header {
     /* position: absolute; */
     position: relative; 
@@ -21,11 +42,27 @@
     flex-direction: column;
   }
 
+  /* @media screen and (min-width: 767px) and (max-width: 1250px) {
+    .card__header {
+  
+    }
+  } */
+
   .card__icon-container {
     position: absolute;
     z-index: 2; 
     display: flex;
+    right: 10px; 
+      top: 0; 
+    
    }
+
+   /* @media screen and (min-width: 767px) and (max-width: 1250px) {
+    .card__icon-container {
+  
+    }
+  } */
+
 
 .card__icon-saved {
     margin-left: 350px;
@@ -42,14 +79,28 @@
     background-color: white;
     max-width: 210px;
     width: auto;
-    margin-left: auto; 
-    /* height: auto; */
+    /* margin-left: auto;  */
+    height: auto;
     border-radius: 10px;
-    margin-left: 170px;
+    margin-left: 140px;
     top: 0;
     position: absolute;
     margin-top: 10px;
     
+  }
+
+  @media screen and (min-width: 767px) and (max-width: 1250px) {
+    .card__login-message-container {
+      margin-left: 70px;
+    }
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .card__login-message-container {
+      margin-left: 70px;
+      margin-right: 60px;
+  
+    }
   }
 
   .card__login-message {
