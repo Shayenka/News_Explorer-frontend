@@ -8,6 +8,7 @@ function Footer() {
       <p className="footer__copyright">
         &copy; 2021 Supercite, Powered by News API
       </p>
+      <div className="footer__container_links">
       <Link
           to="/"
           className="footer__link_text"
@@ -22,6 +23,7 @@ function Footer() {
         >
           Practicum
         </Link>
+        </div>
         </div>
     </footer>
   );

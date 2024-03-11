@@ -10,6 +10,17 @@ function NewsCardList({ card, onDelete, index }) {
 
     console.log("Cards in NewsCardList:", card);
 
+      // Función para capitalizar la primera letra y convertir el resto a minúsculas
+const capitalizeAndLowercase = (word) => {
+  // Asegurarse de que word sea una cadena de texto
+  const str = String(word);
+  // Capitalizar la primera letra y convertir el resto a minúsculas
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
+
+const capitalizeSearchQueries = capitalizeAndLowercase(card.searchQueries);
+
+
     function handleDeleteNewsCard() {
       if (showDeleteMessage) {
         // Realizar la acción de eliminación solo si el mensaje ya está mostrado
@@ -55,7 +66,7 @@ function NewsCardList({ card, onDelete, index }) {
                   </div>
                 )}
                 <div className="cardList__query-container">
-                  <p className="cardList__query-text">{card.searchQueries}</p>
+                  <p className="cardList__query-text">{capitalizeSearchQueries}</p>
                 </div>
               </div>
               <img

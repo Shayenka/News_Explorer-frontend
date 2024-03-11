@@ -101,18 +101,16 @@
 
 @media screen and (min-width: 767px) and (max-width: 1250px) {
     .searchForm_mesageNoInput {
-       top: 390px;
-       left: auto;
-        
-
+       margin: auto;
+      top:250px;
     }
   }
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
     .searchForm_mesageNoInput {
-        top: 600px;
-        margin-left: 35px;
-        width: 300px;
+        top: 380px;
+        max-width: 300px;
+        justify-content: center;
       
     }
   }

@@ -91,7 +91,7 @@ export function PopUpUserRegistered(props) {
   );
 }
 
-export function PopUpFailedInputLogin(props) {
+export function PopUpFailedInput(props) {
     return (
       <section
         className={`popup__info-container ${

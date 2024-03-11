@@ -7,7 +7,8 @@ import { PopUpSuccessfulRegister, PopUpFailedRegister, PopUpUserRegistered } fro
 import SearchBanner from "./components/SearchBanner/SearchBanner.js";
 import About from "./components/About/About.js";
 
-function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
+
+function Register({ onRegister, isOpen, onClose,  handleLoginPopUp}) {
   const { handleSearch, setQuery, query } = useContext(CurrentUserContext);
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ function Register({ onRegister, loggedIn, isOpen, onClose,  handleLoginPopUp}) {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [nameError, setNameError] = useState("");
-//   const [isFormValid, setIsFormValid] = useState(false);
+//   const [isFormValid, setIsFormValid] = useState(false);  //
   const [showPopupSuccessfulRegister, setShowPopupSuccessfulRegister] =
     useState(false);
   const [showPopupFailedRegister, setShowPopupFailedRegister] = useState(false);

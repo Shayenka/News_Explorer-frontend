@@ -1,5 +1,5 @@
 .footer {
-    margin: 0; 
+    margin: 0;
     padding: 0;
     width: 100%;
     background-color: white;
@@ -7,7 +7,7 @@
 
     position: relative;
     margin-bottom: auto;
- 
+
   }
 
   .footer__container {
@@ -17,7 +17,7 @@
     margin: 100px;
     margin-bottom: 0;
     padding-bottom: 50px;
-    
+
 
   }
 
@@ -34,11 +34,28 @@
       left: 0;
       padding: 0;
       gap: 20px;
-      margin-left: 16px;
-  
+      /* margin-left: 16px; */
+      margin: 0;
+      text-align: center;
     }
   }
-  
+
+  .footer__container_links {
+    display: flex;
+
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .footer__container_links {
+      flex-direction:column;
+      /* align-items: flex-end; */
+      text-align: center;
+      margin-right: 0;
+      margin-top: 20px;
+
+    }
+  }
+
 
   .footer__link_text {
     font-family: "Roboto", Arial, sans-serif;
@@ -53,13 +70,13 @@
   }
 
   .footer__link_text:hover {
-    border-bottom: 2px solid black; 
+    border-bottom: 2px solid black;
   }
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
     .footer__link_text{
-       margin-left: 0;
-  
+      font-size: 14px;
+
     }
   }
 
@@ -81,6 +98,11 @@
       width: 288px;
       height: 22px;
       font-size: 14px;
-  
+      /* justify-content: center; */
+      /* margin-left: 16px; */
+      /* margin: auto;   quitar si quiero que quede hacia el lado izquierdo */
+
+
+
     }
   }
