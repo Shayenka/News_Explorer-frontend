@@ -7,6 +7,9 @@
 
     position: relative;
     margin-bottom: auto;
+    height: 80px;
+    padding: 0 100px;
+    box-sizing: border-box;
 
   }
 
@@ -14,17 +17,19 @@
     display: flex;
     align-items: center;
     flex-direction: row;
-    margin: 100px;
+    /* margin: 100px; */
     margin-bottom: 0;
-    padding-bottom: 50px;
+    /* padding-bottom: 50px; */
+    box-sizing: border-box;
+    height: 100%;
 
 
   }
 
   @media screen and (min-width: 768px) and (max-width: 1250px) {
     .footer__container {
-      margin: 100px 50px;
-      top: 0;
+      /* margin: 100px 50px; */
+      /* top: 0; */
     }
   }
 
@@ -32,6 +37,7 @@
     .footer__container {
       margin-bottom: 0;
       bottom: 0;
+      height: 176px;
      
       
     }
@@ -45,10 +51,8 @@
   @media screen and (min-width: 320px) and (max-width: 767px) {
     .footer__container_links {
       flex-direction:column;
-      /* align-items: flex-end; */
-      text-align: center;
-      margin-right: 0;
-      margin-top: 20px;
+     align-items: flex-start; 
+    
 
     }
   }
@@ -86,20 +90,13 @@
     line-height: 22px;
     margin-right: auto;
     color:#B6BCBF;
+   
 
   }
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
     .footer__copyright {
-      /* margin-left: 70px; */
       width: 288px;
-      height: 22px;
-      font-size: 14px;
-      /* justify-content: center; */
-      /* margin-left: 16px; */
-      /* margin: auto;   quitar si quiero que quede hacia el lado izquierdo */
-
-
 
     }
   }

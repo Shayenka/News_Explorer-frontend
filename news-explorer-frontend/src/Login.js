@@ -87,7 +87,7 @@ function Login({ loggedIn, isOpen, onClose, handleRegisterPopUp }) {
   }
 
   return (
-    <main className="main">
+    <>
       <SearchBanner handleSearch={handleSearch} setQuery={setQuery} query={query} />
       {isLoginPopupVisible && (
         <ModalWithForm
@@ -151,7 +151,7 @@ function Login({ loggedIn, isOpen, onClose, handleRegisterPopUp }) {
         />
       )}
     <About/>
-    </main>
+    </>
   );
 }
 

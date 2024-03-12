@@ -66,6 +66,7 @@ function App() {
             isSavedNewsClicked={isSavedNewsClicked}
             onSavedNewsClick={() => setIsSavedNewsClicked(true)}
           />
+          <main>
           <Routes>
             <Route
               path="/signin"
@@ -110,6 +111,7 @@ function App() {
               }
             />
           </Routes>
+          </main>
           <Footer />
         </div>
       </UserProvider>

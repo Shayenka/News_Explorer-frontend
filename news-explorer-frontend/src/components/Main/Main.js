@@ -88,7 +88,10 @@ function Main() {
   return (
     <>
       <SearchBanner handleSearch={handleSearch} setQuery={setQuery} query={query} />
+      {/* <h3 className="Results__message_Main">Resultados de la búsqueda</h3> */}
       {searchResults.length > 0 ? (
+        <>
+        <h3 className="Results__message_Main">Resultados de la búsqueda</h3>
         <section className="main__cards">
           {isLoading && <Preloader />}
           {/* Mostrar solo las tarjetas visibles */}
@@ -108,10 +111,11 @@ function Main() {
           {/* Botón "Mostrar más" */}
           {visibleCards < searchResults.length && (
             <button className="main__cards_button-ShowMore" onClick={handleShowMore} disabled={isButtonDisabled}>
-              Mostrar más
+              Ver más
             </button>
           )}
         </section>
+        </>
       ):(
         <>
          {/* Mensaje de no resultados */}
