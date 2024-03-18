@@ -142,8 +142,15 @@
     flex-direction: column;
     max-width: 356px;
     align-self: center;
-    margin-top: 200px;
+    margin: 100px auto 0;
   
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .NoResultsFound__container {
+    max-width: 288px;
+
+  }
 }
 
 .NoResultsFound-image {

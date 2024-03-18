@@ -54,14 +54,19 @@ const capitalizeAndLowercase = (word) => {
       <h2 className="saved-news-header__title">Artículos guardados</h2>
       <p className="saved-news-header__count">{`${name}, tienes ${savedCardsCount} artículos guardados`}</p>
       {displayedQueries.length > 0 && (
-        <p className="saved-news-header__queries">
-          Por palabras clave: {displayedQueries.map((query, index) => (
-            <span key={index}>
-              {query}
-              {index < displayedQueries.length - 1 && ", "}
-            </span>
-          ))}
-        </p>
+        <>
+      
+  <span className="saved-news-header__queries">Por palabras clave: </span>
+  <span className="saved-news-header__keywords">
+    {displayedQueries.map((query, index) => (
+      <span key={index}>
+        {query}
+        {index < displayedQueries.length - 1 && ", "}
+      </span>
+    ))}
+  </span>
+
+        </>
       )}
     </div>
   );
