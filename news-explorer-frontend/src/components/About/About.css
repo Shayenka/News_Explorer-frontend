@@ -1,133 +1,102 @@
 .about {
-    display: flex;
-    flex-direction: row;
-    z-index: 2;
-    background-color: white;
-    position: relative;
-    z-index: 2;
+  display: flex;
+  flex-direction: row;
+  z-index: 2;
+  background-color: white;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 624px;
+  padding: 80px 0 104px;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .about {
+    height: 354px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    height: 752px;
     width: 100%;
-    /* height: 100vh; */
-    height: 624px;
-    padding: 80px 0 104px;
-    box-sizing: border-box;
-
   }
-
-  @media screen and (min-width: 768px) and (max-width: 1439px) {
-    .about {
-      height: 354px;
-    }
-  }
-
-  @media screen and (min-width: 320px) and (max-width: 767px) {
-    .about {
-     flex-direction: column;
-     gap: 20px;
-     align-items: center;
-     height: 752px;
-     width: 100%;
-    
-
-    }
-  }
-
+}
 
 .about__author_image {
-    max-width: 464px;
-    height: 464px;
-    padding-top: 0;
-    margin: 0 100px;
-    border-radius: 50%;
-    object-fit: cover;
+  max-width: 464px;
+  height: 464px;
+  padding-top: 0;
+  margin: 0 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .about__author_image {
+    max-width: 232px;
+    height: 232px;
+    margin: 0 50px;
   }
+}
 
-  @media screen and (min-width: 768px) and (max-width: 1439px) {
-    .about__author_image {
-      max-width: 232px;
-       height: 232px;
-       margin: 0 50px;
-
-
-    }
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about__author_image {
+    width: 272px;
+    height: 272px;
+    justify-content: center;
   }
+}
 
-  @media screen and (min-width: 320px) and (max-width: 767px) {
-    .about__author_image {
-      width: 272px;
-      height: 272px;
-      justify-content: center;
+.about__author_container {
+  padding: 0;
+  width: 600px;
+}
 
-    }
-  }
-
+@media screen and (min-width: 768px) and (max-width: 1439px) {
   .about__author_container {
-    /* margin-top: 50px; */
-    padding: 0;
-    width: 600px;
-
+    width: 424px;
   }
+}
 
-
-  @media screen and (min-width: 768px) and (max-width: 1439px) {
-    .about__author_container {
-      /* margin-right: 50px; */
-      width: 424px;
-
-    }
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about__author_container {
+    width: 288px;
   }
+}
 
-  @media screen and (min-width: 320px) and (max-width: 767px) {
-    .about__author_container {
-      /* margin-top: 0;
-      margin-left: 0; */
-      width: 288px;
+.about__author_title {
+  font-family: "Roboto Slab", Arial, sans-serif;
+  font-style: normal;
+  margin-bottom: 50px;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 46px;
+  color: #1A1B22;
+  margin-bottom: 30px;
+}
 
-    }
-  }
-
+@media screen and (min-width: 320px) and (max-width: 1250px) {
   .about__author_title {
-    font-family: "Roboto Slab", Arial, sans-serif;
-    font-style: normal;
-    margin-bottom: 50px;
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 46px;
-    color:#1A1B22;
-    margin-bottom: 30px;
-    /* width: 600px; */
-
+    font-size: 30px;
+    line-height: 40px;
   }
+}
 
-  @media screen and (min-width: 320px) and (max-width: 1250px) {
-    .about__author_title {
-      font-size: 30px;
-      line-height: 40px;
-      /* margin-top: 50px;
-      margin-bottom: 20px; */
-
-    }
-  }
-
-  /* @media screen and (min-width: 320px) and (max-width: 767px) {
-    .about__author_title  {
-      min-width: 288px;
-      height: 40px;
-      font-size: 30px;
-
-    }
-  } */
-
-  .about__author_text {
-    font-family: "Roboto", Arial, sans-serif;
-    font-style: normal;
-    margin-bottom: 50px;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
-    color: #1A1B22;
-
-  }
+.about__author_text {
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  margin-bottom: 50px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #1A1B22;
+}
 
 
 
+  

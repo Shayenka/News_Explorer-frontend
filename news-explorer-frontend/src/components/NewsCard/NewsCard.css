@@ -1,205 +1,165 @@
 .card {
-    border-radius: 10px;
-    display: grid;
-    width: 400px;
-    background: #FFFFFF;
-    grid-gap: 5px;
-    /* height: 576px; */
-    height: auto;
-    position: relative;
-    bottom: 30px;
+  border-radius: 10px;
+  display: grid;
+  width: 400px;
+  background: #FFFFFF;
+  grid-gap: 5px;
+  height: auto;
+  position: relative;
+  bottom: 30px;
 }
 
 @media screen and (min-width: 767px) and (max-width: 1250px) {
   .card {
     width: 300px;
-
   }
 }
 
- @media screen and (min-width: 320px) and (max-width: 767px) {
-    .card {
-      width: 280px;
-  
-    }
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .card {
+    width: 280px;
   }
-
-
-
+}
 
 .card__header {
-    /* position: absolute; */
-    position: relative; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
-  /* @media screen and (min-width: 767px) and (max-width: 1250px) {
-    .card__header {
-  
-    }
-  } */
-
-  .card__icon-container {
-    position: absolute;
-    z-index: 2; 
-    display: flex;
-    right: 10px; 
-      top: 0; 
-    
-   }
-
-   /* @media screen and (min-width: 767px) and (max-width: 1250px) {
-    .card__icon-container {
-  
-    }
-  } */
-
+.card__icon-container {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  right: 10px;
+  top: 0;
+}
 
 .card__icon-saved {
-    margin-left: 350px;
-    margin-top: 8px;
-    padding-top: 0; 
-   }
+  margin-left: 350px;
+  margin-top: 8px;
+  padding-top: 0;
+}
 
-  .card__icon-saved:hover {
-    opacity: 0.6;
-  }
+.card__icon-saved:hover {
+  opacity: 0.6;
+}
 
+.card__login-message-container {
+  z-index: 2;
+  background-color: white;
+  max-width: 210px;
+  width: 182px;
+  height: 40px;
+  border-radius: 10px;
+  margin-left: 160px;
+  top: 0;
+  position: absolute;
+  margin-top: 10px;
+}
+
+@media screen and (min-width: 767px) and (max-width: 1250px) {
   .card__login-message-container {
-    z-index: 2;
-    background-color: white;
-    max-width: 210px;
-    /* width: auto; */
-    width: 182px;
-    /* height: auto; */
-    height: 40px;
-    border-radius: 10px;
-    margin-left: 160px;
-    top: 0;
-    position: absolute;
-    margin-top: 10px;
-    
+    margin-left: 60px;
   }
+}
 
-  @media screen and (min-width: 767px) and (max-width: 1250px) {
-    .card__login-message-container {
-      margin-left: 60px;
-    }
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .card__login-message-container {
+    margin-left: 40px;
   }
+}
 
-  @media screen and (min-width: 320px) and (max-width: 767px) {
-    .card__login-message-container {
-      margin-left: 40px;
-      /* margin-right: 60px; */
-  
-    }
-  }
+.card__login-message {
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 11.72px;
+  z-index: 2;
+  margin-left: 8px;
+  margin-right: 8px;
+  text-align: center;
+  padding-top: 5px;
+}
 
-  .card__login-message {
-    font-family: "Roboto", Arial, sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 10px;
-    line-height: 11.72px;
-    z-index: 2;
-    margin-left: 8px;
-    margin-right: 8px;
-    text-align: center;
-    padding-top: 5px;
+.card__image {
+  border-radius: 10px 10px 0px 0px;
+  width: 100%;
+  height: 272px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+}
 
+.card__footer-image {
+  position: relative;
+  margin-top: 260px;
+  max-width: 352px;
+  margin-left: 20px;
+  gap: 10px;
+}
 
-  }
+.card__date {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: rgb(105, 102, 102);
+}
 
-  .card__image {
-    border-radius: 10px 10px 0px 0px;
-    width: 100%;
-    height: 272px;
-    margin: 0;
-    padding: 0;
-    position: absolute;
+.card__title {
+  font-family: "Roboto Slab", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 30px;
+  color: #000000;
+  padding: 0;
+  height: auto;
+  margin-top: 0;
+}
 
-  }
+.card__description {
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: black;
+  height: auto;
+}
 
-
-  .card__footer-image {
-    position: relative;
-    margin-top: 260px;
-    max-width: 352px;
-    margin-left: 20px;
-    gap: 10px;
-
-  }
-
-  .card__date {
-    font-family: "Source Sans Pro", Arial, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
-    color: rgb(105, 102, 102);
-    /* margin-bottom: 20px; */
-
-  }
-
-  .card__title {
-    font-family: "Roboto Slab", Arial, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 26px;
-    line-height: 30px;
-    color: #000000;
-    padding: 0;
-    height: auto;
-    margin-top: 0;
-    /* padding-bottom: 30px; */
-
-
-  }
-
-  .card__description {
-    font-family: "Roboto", Arial, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 22px;
-    color: black;
-    height: auto;
-    /* padding-top: 30px; */
-   
-
-  }
-
-  .card__results {
-    font-family: "Roboto", Arial, sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 200px;
-    color: black;
-    background-color: white;
-    border: none;
-    border-radius: 50px;
-    max-width: 288px;
-    height: 64px;
-    justify-content: center;
-    margin-top: 0;
-    margin-left: 0;
+.card__results {
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  min-width: 200px;
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 50px;
+  max-width: 288px;
+  height: 64px;
+  justify-content: center;
+  margin-top: 0;
+  margin-left: 0;
 }
 
 .card__source {
-    font-family: "Roboto Slab", Arial, sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    color:#B6BCBF;
-  
+  font-family: "Roboto Slab", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #B6BCBF;
 }
 
 

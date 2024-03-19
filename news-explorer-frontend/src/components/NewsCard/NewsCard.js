@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import savedCard from "../../images/iconGuardar.svg";
 import savedCardClick from "../../images/iconGuardarClick.svg";
 import savedCardChangeColor from "../../images/IconGuardarChangeBlue.svg";
@@ -6,41 +6,23 @@ import useNewsContext from "../Hooks/useNewsContext";
 import { formatDate } from "../../utils/validator";
 
 function NewsCard(props) {
-  const { handleCardSaved, handleDeleteCard } = useNewsContext();
+  const { handleCardSaved } = useNewsContext();
   const [showLoginMessage, setShowLoginMessage] = useState(false);
-  const [isSaved , setIsSaved ] = useState(false);
-  const [clickedOnce, setClickedOnce] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const [savedCardSrc, setSavedCardSrc] = useState(savedCard);
 
   function handleSavedCard() {
     if (props.isLoggedIn) {
       setIsSaved(true);
       handleCardSaved(props.card);
-      console.log(props.card)
-      setClickedOnce(true);
+      console.log(props.card);
     } else {
-      setIsSaved(false); 
+      setIsSaved(false);
       setShowLoginMessage(true);
-      setClickedOnce(true);
     }
   }
-  
-  //Funcion para cambiar al boton original si se le da un 2do clic
-  // function handleclickCard() {
-  //   if (!props.isLoggedIn && showLoginMessage && clickedOnce){
-  //     setSavedCardSrc(savedCard);
-  //     setShowLoginMessage(false);
-  //     setClickedOnce(false);
-  //   } else if (props.isLoggedIn && isSaved && clickedOnce) {
-  //     setSavedCardSrc(savedCard);
-  //     handleDeleteCard(props.card);
-  //     console.log(props.card);
-  //     setIsSaved(false);
-  //   }
-  // }
 
   useEffect(() => {
-
     if (props.isLoggedIn && isSaved) {
       setSavedCardSrc(savedCardChangeColor);
     } else if (!props.isLoggedIn && showLoginMessage) {
@@ -48,26 +30,26 @@ function NewsCard(props) {
     } else {
       setSavedCardSrc(savedCard);
     }
-
   }, [isSaved, showLoginMessage, props.isLoggedIn]);
 
   return (
     <div className="card">
       <div className="card__header">
-      <div className="card__icon-container">
-        <img
-          className= "card__icon-saved"
-          src={savedCardSrc}
-          alt={`Icono para guardar tarjeta`}
-          onClick={() => {
-            handleSavedCard();
-            // handleclickCard();
-          }}
-        />
+        <div className="card__icon-container">
+          <img
+            className="card__icon-saved"
+            src={savedCardSrc}
+            alt={`Icono para guardar tarjeta`}
+            onClick={() => {
+              handleSavedCard();
+            }}
+          />
         </div>
         {!props.isLoggedIn && showLoginMessage && (
           <div className="card__login-message-container">
-          <p className="card__login-message">Inicia sesión para guardar artículos</p>
+            <p className="card__login-message">
+              Inicia sesión para guardar artículos
+            </p>
           </div>
         )}
       </div>

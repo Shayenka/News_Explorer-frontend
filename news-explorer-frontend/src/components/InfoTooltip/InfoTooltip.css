@@ -1,85 +1,79 @@
 .popup__info-container {
-    display: flex;
-    position: fixed;
-    min-width: 430px;
-    height: 182px;
-    margin-top: 0;
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border-radius: 8px;
-    flex-direction: column;
-    z-index: 20;
-    justify-content: center;
-    margin: auto;
-   
+  display: flex;
+  position: fixed;
+  min-width: 430px;
+  height: 182px;
+  margin-top: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 8px;
+  flex-direction: column;
+  z-index: 20;
+  justify-content: center;
+  margin: auto;
 }
 
-  @media screen and (min-width: 768px) and (max-width: 1280px) {
-    .popup__info-container {
-      top: 30%; 
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-    }
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+  .popup__info-container {
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
+}
 
-  @media screen and (min-width: 320px) and (max-width: 767px) {
-    .popup__info-container {
-      top: 30%; 
-      left: 50%; 
-      transform: translate(-50%, -50%);
-      min-width: 288px;
-    }
-  } 
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .popup__info-container {
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 288px;
+  }
+}
 
 .popup__info-closed {
-    display: none;
-    
+  display: none;
 }
 
 .popup__info-CloseIcon {
-    max-width: 40px;
-    max-height: 40px;
-    position: absolute;
-    top: -45px;
-    right: -45px; 
-  }
-  
-  .popup__info-CloseIcon:hover {
-    opacity: 0.6;
-  }
+  max-width: 40px;
+  max-height: 40px;
+  position: absolute;
+  top: -45px;
+  right: -45px;
+}
 
+.popup__info-CloseIcon:hover {
+  opacity: 0.6;
+}
 
 .popup__info-text {
-    font-family: "Roboto", Arial, sans-serif;
-    font-style: normal;
-    font-weight: 900;
-    font-size: 24px;
-    line-height: 28px;
-    color: black;
-    margin-left: 30px;
-    margin-top: 50px;
-    max-width: 315px;
-
-} 
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 28px;
+  color: black;
+  margin-left: 30px;
+  margin-top: 50px;
+  max-width: 315px;
+}
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .popup__info-text {
     font-size: 22px;
   }
-} 
+}
 
 .popup__info-link {
-    font-family: "Inter", Arial, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 15px;
-    color:#2F71E5;
-    margin-left: 30px;
-
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 15px;
+  color: #2F71E5;
+  margin-left: 30px;
 }
 
 .popup__info-link:hover {

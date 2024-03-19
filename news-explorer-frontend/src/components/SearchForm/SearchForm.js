@@ -1,31 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 function SearchForm({ onSearch, setQuery, query }) {
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    // Validar si se ingresó una palabra clave
+
     if (!query.trim()) {
-      setError('Por favor, introduzca una palabra clave.');
+      setError("Por favor, introduzca una palabra clave.");
       return;
     }
-  
-    // Limpiar el mensaje de error
-    setError('');
+
+    setError("");
     setIsSubmitting(true);
-  
-    // Pasa la consulta al manejador de búsqueda
-    // setQuery(query);
+
     onSearch();
-  
-    // Resetear el estado del formulario
-    
+
     setIsSubmitting(false);
   };
-  
+
   return (
     <form className="searchForm" onSubmit={handleSubmit}>
       <input
@@ -35,11 +29,15 @@ function SearchForm({ onSearch, setQuery, query }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <button className="searchForm__button" type="submit" disabled={isSubmitting}>
+      <button
+        className="searchForm__button"
+        type="submit"
+        disabled={isSubmitting}
+      >
         Buscar
       </button>
-      <div className ="searchForm_mesageNoInput" >
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <div className="searchForm_mesageNoInput">
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
     </form>
   );

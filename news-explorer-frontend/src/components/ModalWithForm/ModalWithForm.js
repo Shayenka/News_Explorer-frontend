@@ -16,13 +16,11 @@ function ModalWithForm(props) {
       }
     };
 
-    // Agregar event listeners cuando se abre la ventana modal
     if (props.isOpen) {
       document.addEventListener("keydown", handleEscape);
       document.addEventListener("mousedown", handleClickOutside);
     }
 
-    // Limpiar event listeners cuando se desmonta el componente
     return () => {
       document.removeEventListener("keydown", handleEscape);
       document.removeEventListener("mousedown", handleClickOutside);
@@ -49,12 +47,7 @@ function ModalWithForm(props) {
         />
         <h3 className="popup__title">{props.title}</h3>
         {props.children}
-        <button
-          type="submit"
-          className="popup__button"
-          // onSubmit={props.onSubmit}
-          // disabled={!props.isFormValid}
-        >
+        <button type="submit" className="popup__button">
           {props.submitButtonText}
         </button>
         <div className="popup__container-footer">
@@ -77,4 +70,4 @@ function ModalWithForm(props) {
   );
 }
 
-export default ModalWithForm;   
+export default ModalWithForm;
