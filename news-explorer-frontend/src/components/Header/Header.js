@@ -180,7 +180,7 @@ function Header({
           <h2 className="header__text"> NewsExplorer </h2>
           <button
             onClick={handleClick}
-            className="header__button header__button_nav"
+            className="header__button-menu header__button-menu_main header__button-menu_nav"
           >
             <img src={MenuMovile} alt="Menú" />
           </button>
@@ -191,7 +191,7 @@ function Header({
           >
             <div className="header__container_movile">
               <h2 className="header__text_movile"> NewsExplorer </h2>
-              <button onClick={handleClick} className="header__button">
+              <button onClick={handleClick} className="header__button-menu_main header__button-menu">
                 <img
                   src={closeMenu}
                   alt="Icono de una X para cerrar el menú."

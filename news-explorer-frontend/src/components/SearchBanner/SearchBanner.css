@@ -19,6 +19,7 @@
   color: white;
   z-index: 4;
   width: 608px;
+  padding-top: 20px;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1439px) {
@@ -40,7 +41,7 @@
 .searchBanner__subtitle {
   font-family: "Roboto", Arial, sans-serif;
   font-style: normal;
-  margin-bottom: 100px;
+  padding-bottom: 60px;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
@@ -51,7 +52,7 @@
 
 @media screen and (min-width: 768px) and (max-width: 1439px) {
   .searchBanner__subtitle {
-    max-width: 452px;
+    width: 452px;
   }
 }
 

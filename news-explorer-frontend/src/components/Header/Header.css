@@ -92,6 +92,7 @@
   z-index: 5;
   transition: top 0.3s ease;
   box-sizing: border-box;
+  border-bottom: 1px solid #777;
 }
 
 .header__container-texts-movile_open {

@@ -11,10 +11,11 @@
 
 @media screen and (min-width: 767px) and (max-width: 1250px) {
   .saved-news__cards {
+    grid-template-columns: repeat(2, 1fr);
     padding: 50px 20px;
     justify-items: center;
     flex-direction: column;
-    grid-gap: 5px;
+    grid-gap: 10px;
     margin: 0;
   }
 }
@@ -23,6 +24,7 @@
   .saved-news__cards {
     grid-template-columns: 1fr;
     justify-items: center;
+    padding: 50px 20px;
     margin-bottom: 50px;
   }
 }

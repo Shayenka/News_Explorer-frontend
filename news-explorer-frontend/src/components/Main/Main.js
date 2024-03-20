@@ -46,8 +46,11 @@ function Main() {
 
       {searchResults.length > 0 ? (
         <>
+        <div className="container_Results__message_Main">
           <h3 className="Results__message_Main">Resultados de la búsqueda</h3>
-          <section className="main__cards">
+          </div>
+          <section className="container__main__cards">
+          <div className="main__cards">
             {isLoading && <Preloader />}
 
             {searchResults.slice(0, visibleCards).map((article, index) => (
@@ -62,16 +65,18 @@ function Main() {
                 urlToImage={article.urlToImage}
               />
             ))}
-
+            </div>
             {visibleCards < searchResults.length && (
               <button
                 className="main__cards_button-ShowMore"
+                style={{ margin: "0 auto" }}
                 onClick={handleShowMore}
                 disabled={isButtonDisabled}
               >
                 Ver más
               </button>
             )}
+
           </section>
         </>
       ) : (
