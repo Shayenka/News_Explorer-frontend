@@ -54,9 +54,11 @@
 
 @media screen and (min-width: 767px) and (max-width: 1250px) {
   .main__cards {
-    grid-template-columns: repeat(2, 1fr);
+    padding: 50px 20px;
     justify-items: center;
     flex-direction: column;
+    grid-gap: 5px;
+    margin: 0;
   }
 }
 
@@ -69,6 +71,7 @@
 }
 
 .main__cards_button-ShowMore {
+  position: relative; 
   font-family: "Roboto", Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -80,6 +83,8 @@
   border: none;
   border-radius: 50px;
   height: 64px;
+  margin: 0 auto;
+  align-content: center;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {

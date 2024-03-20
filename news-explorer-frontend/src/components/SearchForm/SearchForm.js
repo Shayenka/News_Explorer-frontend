@@ -1,11 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function SearchForm({ onSearch, setQuery, query }) {
+function SearchForm({ onSearch, setQuery, query, isLogin, isRegister }) {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (isLogin || isRegister) {
+      navigate("/");
+    }
 
     if (!query.trim()) {
       setError("Por favor, introduzca una palabra clave.");

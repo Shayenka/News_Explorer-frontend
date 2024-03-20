@@ -14,9 +14,10 @@ import {
 } from "./components/InfoTooltip/InfoTooltip";
 import SearchBanner from "./components/SearchBanner/SearchBanner.js";
 import About from "./components/About/About.js";
+import useSearchContext from "./components/Hooks/useSearchContext.js";
 
 function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
-  const { handleSearch, setQuery, query } = useContext(CurrentUserContext);
+  const { query, setQuery, handleSearch } = useSearchContext();
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -100,6 +101,7 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
         handleSearch={handleSearch}
         setQuery={setQuery}
         query={query}
+        isRegister={true}
       />
       {isOpen && (
         <ModalWithForm

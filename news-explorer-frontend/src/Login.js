@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import { CurrentUserContext } from "./contexts/CurrentUserContext.js"; //VERIFICAR
+import React, { useState } from "react";
 import useUserContext from "./components/Hooks/useUserContext.js";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ValidateEmail, ValidatePassword } from "./utils/validator";
@@ -11,10 +10,11 @@ import {
 } from "./components/InfoTooltip/InfoTooltip";
 import SearchBanner from "./components/SearchBanner/SearchBanner.js";
 import About from "./components/About/About.js";
+import useSearchContext from "./components/Hooks/useSearchContext.js";
 
 function Login({ isOpen, onClose, handleRegisterPopUp }) {
   const { handleLoginUser } = useUserContext();
-  const { handleSearch, setQuery, query } = useContext(CurrentUserContext); //VERIFICAR
+  const { query, setQuery, handleSearch } = useSearchContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -23,6 +23,7 @@ function Login({ isOpen, onClose, handleRegisterPopUp }) {
     useState(false);
   const [showPopupFailedLogin, setShowPopupFailedLogin] = useState(false);
   const [isLoginPopupVisible, setLoginPopupVisible] = useState(true);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -81,6 +82,7 @@ function Login({ isOpen, onClose, handleRegisterPopUp }) {
         handleSearch={handleSearch}
         setQuery={setQuery}
         query={query}
+        isLogin={true}
       />
       {isLoginPopupVisible && (
         <ModalWithForm

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import NewsProvider from "../Providers/NewsProviders";
+import SearchProvider from "../Providers/SearchProviders";
 import UserProvider from "../Providers/UserProviders";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
@@ -45,6 +46,7 @@ function App() {
 
   return (
     <NewsProvider>
+      <SearchProvider>
       <UserProvider>
         <div
           className={`body ${
@@ -101,6 +103,7 @@ function App() {
           <Footer />
         </div>
       </UserProvider>
+      </SearchProvider>
     </NewsProvider>
   );
 }

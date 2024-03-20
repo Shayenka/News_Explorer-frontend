@@ -4,8 +4,10 @@ import useUserContext from "../Hooks/useUserContext";
 import Logout from "../../images/logout.svg";
 import LogoutBlack from "../../images/logout-black.svg";
 import MenuMovile from "../../images/menu-movile.svg";
-import closeMenu from "../../images/closeMenu.svg";
-import MenuMovileSavedNews from "../../images/menu-movile-savedNews.svg";
+import closeMenuSavedNews from "../../images/close_menu.svg";
+import closeMenu from "../../images/closeMenu.svg"; 
+import MenuMovileSavedNews from "../../images/menu_SavedNews.svg";
+
 
 function Header({
   handleLoginPopUp,
@@ -34,7 +36,9 @@ function Header({
           </h2>
           <button
             onClick={handleClick}
-            className="header__button header__button_nav"
+            className={`header__button-menu header__button-menu_nav ${
+              isSavedNewsClicked ? "header__button-menu_SavedNews" : "header__button-menu_main"
+            }`}
           >
             <img
               src={isSavedNewsClicked ? MenuMovileSavedNews : MenuMovile}
@@ -62,9 +66,12 @@ function Header({
               >
                 NewsExplorer
               </h2>
-              <button onClick={handleClick} className="header__button">
+              <button onClick={handleClick} className={`header__button-menu ${
+                  isSavedNewsClicked ? "header__button-menu_SavedNews" : "header__button-menu_main"
+                }`}
+                >
                 <img
-                  src={closeMenu}
+                 src={isSavedNewsClicked ? closeMenuSavedNews : closeMenu}
                   alt="Icono de una X para cerrar el menú."
                 />
               </button>
@@ -216,7 +223,7 @@ function Header({
               </Link>
             </div>
           </div>
-          
+
           <div className="header__container-texts-desktop">
             <Link
               to="/"

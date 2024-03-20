@@ -134,18 +134,27 @@
   color: black;
 }
 
-.header__button {
+.header__button-menu {
   background-color: none;
   top: 0;
   right: 0;
+  border: none;
 }
 
-.header__button_nav {
+.header__button-menu_main {
+  background-color: transparent;
+} 
+
+.header__button-menu_SavedNews {
+  background-color: white;
+}
+
+.header__button-menu_nav {
   display: block;
 }
 
 @media screen and (min-width: 767px) {
-  .header__button_nav {
+  .header__button-menu_nav {
     display: none;
   }
 }
