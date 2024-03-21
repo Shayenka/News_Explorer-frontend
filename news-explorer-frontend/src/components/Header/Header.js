@@ -8,7 +8,6 @@ import closeMenuSavedNews from "../../images/close_menu.svg";
 import closeMenu from "../../images/closeMenu.svg"; 
 import MenuMovileSavedNews from "../../images/menu_SavedNews.svg";
 
-
 function Header({
   handleLoginPopUp,
   onSavedNewsClick,

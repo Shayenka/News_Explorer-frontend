@@ -1,6 +1,3 @@
-const BASE_URL = "http://127.0.0.1:3000";
-const API_KEY = "016f14e7761d4baca1c75b200bde1015";
-
 class Api {
   constructor({ address, apiKey }) {
     this.address = address;

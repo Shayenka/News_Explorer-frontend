@@ -61,7 +61,6 @@
   padding: 0 100px 100px;
   background-color: rgb(238, 244, 247);
   z-index: 1;
-  margin: auto;
 }
 
 @media screen and (min-width: 767px) and (max-width: 1250px) {
@@ -101,6 +100,7 @@
 }
 
 .main__cards_button-ShowMore {
+  display: block;
   font-family: "Roboto", Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -112,8 +112,7 @@
   border: none;
   border-radius: 50px;
   height: 64px;
-  /* margin: 0 auto; */
-  text-align: center;
+  margin: 0 auto;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {

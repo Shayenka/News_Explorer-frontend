@@ -1,5 +1,3 @@
-const BASE_URL = "http://127.0.0.1:3000";
-
 export const registerUserMock = async (email, password, name) => {
   return new Promise((resolve, reject) => {
     const storedUsers =
