@@ -127,8 +127,6 @@
 .header__text_movile_SavedNews {
   font-family: "Roboto Slab", Arial, sans-serif;
   font-style: normal;
-  color: white;
-  font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
@@ -251,7 +249,6 @@
 .header__icon-logout {
   width: 24px;
   height: 24px;
-  top: 5px;
   vertical-align: middle;
 }
 

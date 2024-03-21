@@ -1,24 +1,10 @@
 .card {
   border-radius: 10px;
   display: grid;
-  /* width: 400px; */
   background: #FFFFFF;
   grid-gap: 5px;
   height: auto;
   position: relative;
-  /* bottom: 30px; */
-}
-
-@media screen and (min-width: 767px) and (max-width: 1250px) {
-  .card {
-    /* width: 224px; */
-  }
-}
-
-@media screen and (min-width: 320px) and (max-width: 767px) {
-  .card {
-    /* width: 288px; */
-  }
 }
 
 .card__header {
@@ -102,7 +88,6 @@
   margin-top: 260px;
   max-width: 352px;
   padding: 0 20px;
-  gap: 10px;
 }
 
 .card__date {
