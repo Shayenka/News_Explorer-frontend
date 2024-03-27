@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Footer() {
+function Footer({isSavedNewsClicked, handleSavedNewsClick}) {
   return (
     <footer className="footer">
       <div className="footer__container_movile">
@@ -10,6 +10,11 @@ function Footer() {
               to="/"
               className="footer__link_text_movile"
               style={{ textDecoration: "none" }}
+              onClick={() => {
+                if(isSavedNewsClicked) {
+                  handleSavedNewsClick();
+                }
+              }}
             >
               Inicio
             </Link>
@@ -38,6 +43,11 @@ function Footer() {
             to="/"
             className="footer__link_text"
             style={{ textDecoration: "none" }}
+            onClick={() => {
+              if(isSavedNewsClicked) {
+                handleSavedNewsClick();
+              }
+            }}
           >
             Inicio
           </Link>

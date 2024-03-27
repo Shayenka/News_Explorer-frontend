@@ -100,7 +100,10 @@ function App() {
               <Route path="/" element={<Main />} />
             </Routes>
           </main>
-          <Footer />
+          <Footer 
+          isSavedNewsClicked={isSavedNewsClicked}
+          handleSavedNewsClick={handleSavedNewsClick}
+          />
         </div>
       </UserProvider>
       </SearchProvider>
