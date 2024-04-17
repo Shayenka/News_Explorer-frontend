@@ -12,6 +12,8 @@ import SavedNews from "../SavedNews/SavedNews";
 import Footer from "../Footer/Footer";
 import { registerUserMock } from "../../utils/auth";
 
+//PRUEBA
+
 function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
