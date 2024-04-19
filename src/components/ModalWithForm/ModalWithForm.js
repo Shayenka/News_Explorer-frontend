@@ -47,7 +47,7 @@ function ModalWithForm(props) {
         />
         <h3 className="popup__title">{props.title}</h3>
         {props.children}
-        <button type="submit" className="popup__button">
+        <button type="submit" className="popup__button" disabled={props.isDisabled}>
           {props.submitButtonText}
         </button>
         <div className="popup__container-footer">

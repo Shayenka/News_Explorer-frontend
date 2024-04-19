@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { checkTokenValidityMock } from "../../utils/auth";
+import { checkTokenValidity } from "../../utils/auth";
 
 export default function UserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
@@ -11,36 +11,21 @@ export default function UserProvider({ children }) {
   const navigate = useNavigate();
 
   function loadUserData() {
-    const storedToken = localStorage.getItem("jwt");
-    const storedEmail = localStorage.getItem("email");
-    const storedUsers = JSON.parse(localStorage.getItem("registeredUsers"));
+    const token = localStorage.getItem("jwt");
 
-    if (storedUsers) {
-      const authorizedUser = storedUsers.find(
-        (user) => user.email === storedEmail
-      );
-
-      if (storedToken) {
-        checkTokenValidityMock({ token: storedToken, authorizedUser })
-          .then((userData) => {
-            if (userData) {
-              setToken(storedToken);
-              setIsLoggedIn(true);
-              console.log("currentUser in App in loadUserData:", currentUser);
-              setCurrentUser(userData);
-              navigate("/");
-            } else {
-              console.error(
-                "No se encontró el usuario correspondiente al token."
-              );
-            }
-          })
-          .catch((error) => {
-            console.error("Error de token:", error);
-          });
-      } else {
-        setIsLoggedIn(false);
-      }
+    if (token) {
+      checkTokenValidity(token)
+        .then((userData) => {
+          setToken(token);
+          setIsLoggedIn(true);
+          setCurrentUser(userData);
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Error de token:", error);
+        });
+    } else {
+      setIsLoggedIn(false);
     }
   }
 
@@ -48,15 +33,13 @@ export default function UserProvider({ children }) {
     loadUserData();
   }, []);
 
-  async function handleLoginUser({ token, authorizedUser }) {
+  async function handleLoginUser(data) {
     try {
-      const userData = await checkTokenValidityMock({ token, authorizedUser });
+      const userData = await checkTokenValidity(data.token);
 
-      localStorage.setItem("jwt", token);
-      localStorage.setItem("email", userData.email);
-
-      setCurrentUser(userData);
-      setToken(token);
+      localStorage.setItem("jwt", data.token);
+      setCurrentUser(data);
+      setToken(data.token);
       setIsLoggedIn(true);
     } catch (error) {
       console.error("Error al obtener la información del usuario:", error);

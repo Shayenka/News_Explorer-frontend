@@ -10,9 +10,7 @@ import Register from "../../Register";
 import Login from "../../Login";
 import SavedNews from "../SavedNews/SavedNews";
 import Footer from "../Footer/Footer";
-import { registerUserMock } from "../../utils/auth";
-
-//PRUEBA
+import { registerUser } from "../../utils/auth";
 
 function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
@@ -34,7 +32,7 @@ function App() {
 
   async function handleRegisterUser(email, password, name) {
     try {
-      const response = await registerUserMock(email, password, name);
+      const response = await registerUser(email, password, name);
       return response;
     } catch (error) {
       console.error("Error in the registration process:", error);

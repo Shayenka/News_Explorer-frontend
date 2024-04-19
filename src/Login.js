@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useUserContext from "./components/Hooks/useUserContext.js";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ValidateEmail, ValidatePassword } from "./utils/validator";
-import { authorizeMock } from "./utils/auth";
+import { authorize } from "./utils/auth";
 import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js";
 import {
   PopUpFailedInput,
@@ -55,7 +55,7 @@ function Login({ isOpen, onClose, handleRegisterPopUp }) {
       }, 2000);
       return;
     }
-    authorizeMock(email, password)
+    authorize(email, password)
       .then((data) => {
         console.log(data);
         if (data.token) {

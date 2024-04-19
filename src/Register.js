@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
@@ -30,6 +30,7 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
   const [showPopupFailedRegister, setShowPopupFailedRegister] = useState(false);
   const [showPopUpUserRegistered, setShowPopUpUserRegistered] = useState(false);
   const [isRegisterPopupVisible, setRegisterPopupVisible] = useState(true);
+  const [isRegisterButtonDisabled, setIsRegisterButtonDisabled] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,36 +40,46 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
     setName(currentUser.name);
   }, [currentUser]);
 
-  function handleEmailChange(evt) {
+  const handleEmailChange = useCallback((evt) => {
     const newEmail = evt.target.value;
     setEmail(newEmail);
     const error = ValidateEmail(newEmail);
     setEmailError(error);
-  }
+    setIsRegisterButtonDisabled(error || !newEmail || !password || !name);
+  }, [email, password, name]);
 
-  function handlePasswordChange(evt) {
+  // const handleEmailChange = useCallback((evt) => {
+  //   const newEmail = evt.target.value;
+  //   setEmail(newEmail);
+  //   // No es necesario validar manualmente aquí, ya que el navegador realizará la validación automáticamente con type="email"
+  //   setIsRegisterButtonDisabled(!newEmail || !password || !name);
+  // }, [password, name]); NO FUNCIONA LA VALIDACION DEL NAVEGADOR
+
+  const handlePasswordChange = useCallback((evt) => {
     const newPassword = evt.target.value;
     setPassword(newPassword);
     const error = ValidatePassword(newPassword);
     setPasswordError(error);
-  }
+    setIsRegisterButtonDisabled(error || !email || !newPassword || !name);
+  }, [email, password, name]);
 
-  function handleNameChange(evt) {
+  const handleNameChange = useCallback((evt) => {
     const newName = evt.target.value;
     setName(newName);
-
     const error = ValidateName(newName);
     setNameError(error);
-  }
+    setIsRegisterButtonDisabled(error || !email || !password || !newName);
+  }, [email, password, name]);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
 
     try {
-      if (!email.trim() || !password.trim() || !name.trim()) {
+      if (!email?.trim() || !password?.trim() || !name?.trim()) {
         setShowPopupFailedRegister(true);
         setShowPopupSuccessfulRegister(false);
         setShowPopUpUserRegistered(false);
+        setIsRegisterButtonDisabled(true);
         return;
       }
 
@@ -78,6 +89,7 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
         setShowPopUpUserRegistered(true);
         setShowPopupFailedRegister(false);
         setShowPopupSuccessfulRegister(false);
+        setIsRegisterButtonDisabled(true);
       } else {
         setShowPopupSuccessfulRegister(true);
         setShowPopupFailedRegister(false);
@@ -92,6 +104,7 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
       setShowPopupFailedRegister(true);
       setShowPopupSuccessfulRegister(false);
       setShowPopUpUserRegistered(false);
+      setIsRegisterButtonDisabled(true);
     }
   };
 
@@ -113,11 +126,12 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
           onSubmit={handleSubmit}
           handleLoginPopUp={handleLoginPopUp}
           isLoginPopUp={false}
+          isDisabled={isRegisterButtonDisabled}
         >
           <div>
             <h3 className="popup__subtitle-input">Correo eléctronico</h3>
             <input
-              type="text"
+              type="email"
               id="email"
               placeholder="Introduce tu correo eléctronico"
               className="popup__text-input"
