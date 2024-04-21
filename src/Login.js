@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import useUserContext from "./components/Hooks/useUserContext.js";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ValidateEmail, ValidatePassword } from "./utils/validator";
@@ -23,58 +23,63 @@ function Login({ isOpen, onClose, handleRegisterPopUp }) {
     useState(false);
   const [showPopupFailedLogin, setShowPopupFailedLogin] = useState(false);
   const [isLoginPopupVisible, setLoginPopupVisible] = useState(true);
+  const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(true);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  function handleEmailChange(evt) {
+  const handleEmailChange = useCallback((evt) =>  {
     const newEmail = evt.target.value;
     setEmail(newEmail);
     const error = ValidateEmail(newEmail);
     setEmailError(error);
-  }
+    setIsLoginButtonDisabled(error || !newEmail || !password);
+  }, [email, password]);
 
-  function handlePasswordChange(evt) {
+  const handlePasswordChange = useCallback((evt) => {
     const newPassword = evt.target.value;
     setPassword(newPassword);
     const error = ValidatePassword(newPassword);
     setPasswordError(error);
-  }
+    setIsLoginButtonDisabled(error || !email || !newPassword);
+  }, [email, password]);
 
-  function handleSubmit(evt) {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
-    if (!email || !password) {
-      setShowPopupFailedInputLogin(true);
-      console.log(
-        () => showPopupFailedInputLogin,
-        "prueba setShowPopupFailedInputLogin"
-      );
-      setLoginPopupVisible(false);
-      setTimeout(() => {
-        navigate("/signin");
-      }, 2000);
-      return;
+
+    try {
+        if (!email?.trim() || !password?.trim()) {
+            setShowPopupFailedInputLogin(true);
+            setIsLoginButtonDisabled(true);
+            setLoginPopupVisible(false);
+            setTimeout(() => {
+                navigate("/signin");
+            }, 2000);
+            return;
+        }  
+        authorize(email, password)
+            .then((data) => {
+                console.log(data);
+                if (data.token) {
+                    handleLoginUser(data);
+                    navigate("/");
+                } else {
+                    setShowPopupFailedLogin(true);
+                    setLoginPopupVisible(false);
+                    setTimeout(() => {
+                        navigate("/signup");
+                    }, 2000);
+                }
+            })
+            .catch((err) => {
+                setLoginPopupVisible(false);
+                setShowPopupFailedLogin(true);
+                console.log(err);
+            });
+    } catch (error) {
+        console.error("Error en el inicio de sesión:", error);
     }
-    authorize(email, password)
-      .then((data) => {
-        console.log(data);
-        if (data.token) {
-          handleLoginUser(data);
-          navigate("/");
-        } else {
-          setShowPopupFailedLogin(true);
-          setLoginPopupVisible(false);
-          setTimeout(() => {
-            navigate("/signup");
-          }, 2000);
-        }
-      })
-      .catch((err) => {
-        setLoginPopupVisible(false);
-        setShowPopupFailedLogin(true);
-        console.log(err);
-      });
-  }
+}
 
   return (
     <>
@@ -94,11 +99,12 @@ function Login({ isOpen, onClose, handleRegisterPopUp }) {
           onSubmit={handleSubmit}
           handleRegisterPopUp={handleRegisterPopUp}
           isLoginPopUp={true}
+          isDisabled={isLoginButtonDisabled}
         >
           <div>
             <h3 className="popup__subtitle-input">Correo eléctronico</h3>
             <input
-              type="text"
+              type="email"
               id="email"
               placeholder="Introduce tu correo eléctronico"
               className="popup__text-input"
