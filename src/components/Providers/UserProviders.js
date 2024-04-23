@@ -4,8 +4,8 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { checkTokenValidity } from "../../utils/auth";
 
 export default function UserProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  const [token, setToken] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
@@ -36,9 +36,7 @@ export default function UserProvider({ children }) {
   async function handleLoginUser(data) {
     try {
       const userData = await checkTokenValidity(data.token);
-
-      localStorage.setItem("jwt", data.token);
-      setCurrentUser(data);
+      setCurrentUser(userData);
       setToken(data.token);
       setIsLoggedIn(true);
     } catch (error) {
@@ -49,9 +47,9 @@ export default function UserProvider({ children }) {
   function handleLogout() {
     console.log("Logging out...");
     localStorage.removeItem("jwt");
-    setToken(null);
+    setToken("");
     setIsLoggedIn(false);
-    setCurrentUser(null);
+    setCurrentUser({});
     navigate("/signin");
   }
 

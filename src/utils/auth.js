@@ -1,5 +1,5 @@
-const BASE_URL = "https://api.shayenkalvarado.com";
-
+// const BASE_URL = "https://api.shayenkalvarado.com";
+const BASE_URL = "http://localhost:3001";
 
 export const registerUser = async (email, password, name) => {
   return fetch(`${BASE_URL}/signup`, {

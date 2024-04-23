@@ -177,6 +177,11 @@
   }
 }
 
+.popup__button--disabled {
+  opacity: 0.5; 
+  cursor: not-allowed;
+}
+
 .popup__container-footer {
   display: flex;
   align-items: center;
