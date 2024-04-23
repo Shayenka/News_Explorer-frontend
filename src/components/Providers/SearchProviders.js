@@ -28,9 +28,6 @@ export default function SearchProvider({ children }) {
 
       const response = await api.get("/v2/everything", {
         q: query,
-        // qInTitle: "title", // Búsqueda de término en el título de las noticias
-        // sources: "bbc-news", // Fuente de las noticias (puedes especificar múltiples fuentes separadas por comas)
-        // domains: "bbc.co.uk", // Dominio de las noticias
         apiKey: api.apiKey,
         from: fromDate,
         to: toDate,

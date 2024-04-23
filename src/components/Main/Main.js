@@ -29,7 +29,7 @@ function Main() {
       try {
         setVisibleCards((prev) => prev + 3);
 
-        await handleSearch();
+        // await handleSearch();
       } finally {
         setIsButtonDisabled(false);
       }
