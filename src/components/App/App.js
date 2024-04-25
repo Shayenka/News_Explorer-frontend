@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import NewsProvider from "../Providers/NewsProviders";
 import SearchProvider from "../Providers/SearchProviders";
@@ -11,11 +11,14 @@ import Login from "../../Login";
 import SavedNews from "../SavedNews/SavedNews";
 import Footer from "../Footer/Footer";
 import { registerUser } from "../../utils/auth";
+import PublicOnlyRoute from "../PublicRoute"; 
 
 function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
   const [isSavedNewsClicked, setIsSavedNewsClicked] = useState(false);
+
+  const location = useLocation();
 
   function handleLoginPopUp() {
     setIsLoginPopupOpen(true);
@@ -50,7 +53,7 @@ function App() {
       <UserProvider>
         <div
           className={`body ${
-            isSavedNewsClicked ? "app-container_savedNews" : "app-container"
+            location.pathname === "/saved-news" ? "app-container_savedNews" : "app-container"
           }`}
         >
           <Header
@@ -64,11 +67,16 @@ function App() {
               <Route
                 path="/signin"
                 element={
+                  <PublicOnlyRoute
+                  isSavedNewsClicked={isSavedNewsClicked}
+                  >
                   <Login
                     isOpen={isLoginPopupOpen}
                     onClose={closeAllPopups}
                     handleRegisterPopUp={handleRegisterPopUp}
+                    setIsLoginPopupOpen={setIsLoginPopupOpen}
                   />
+                  </PublicOnlyRoute>
                 }
               />
 
@@ -83,7 +91,7 @@ function App() {
                   />
                 }
               />
-              {isSavedNewsClicked && (
+              {/* {isSavedNewsClicked && ( */}
                 <Route
                   path="/saved-news"
                   element={
@@ -95,7 +103,7 @@ function App() {
                     </div>
                   }
                 />
-              )}
+              {/* )} */}
 
               <Route path="/" element={<Main />} />
             </Routes>

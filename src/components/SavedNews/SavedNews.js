@@ -10,7 +10,7 @@ function SavedNews({ isSavedNewsClicked }) {
   
   const savedCardsCount = savedCards ? savedCards.length : 0;
 
-  if (isLoggedIn && isSavedNewsClicked) {
+  if (isLoggedIn) {
     return (
       <section>
         <SavedNewsHeader

@@ -19,7 +19,7 @@ export default function UserProvider({ children }) {
           setToken(token);
           setIsLoggedIn(true);
           setCurrentUser(userData);
-          navigate("/");
+          // navigate("/");
         })
         .catch((error) => {
           console.error("Error de token:", error);
@@ -50,6 +50,7 @@ export default function UserProvider({ children }) {
     setToken("");
     setIsLoggedIn(false);
     setCurrentUser({});
+    console.log("navigate");
     navigate("/signin");
   }
 

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import useUserContext from "./components/Hooks/useUserContext.js";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ValidateEmail, ValidatePassword } from "./utils/validator";
@@ -12,7 +12,7 @@ import SearchBanner from "./components/SearchBanner/SearchBanner.js";
 import About from "./components/About/About.js";
 import useSearchContext from "./components/Hooks/useSearchContext.js";
 
-function Login({ isOpen, onClose, handleRegisterPopUp }) {
+function Login({ isOpen, onClose, handleRegisterPopUp, setIsLoginPopupOpen }) {
   const { handleLoginUser } = useUserContext();
   const { query, setQuery, handleSearch } = useSearchContext();
   const [email, setEmail] = useState("");
@@ -27,6 +27,10 @@ function Login({ isOpen, onClose, handleRegisterPopUp }) {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    setIsLoginPopupOpen(true);
+  }, []);
 
   const handleEmailChange = useCallback((evt) =>  {
     const newEmail = evt.target.value;

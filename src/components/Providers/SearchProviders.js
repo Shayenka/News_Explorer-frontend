@@ -3,6 +3,11 @@ import { SearchContext } from "../../contexts/SearchContext";
 import Api from "../../utils/api";
 import useNewsContext from "../Hooks/useNewsContext";
 
+const api = new Api({
+  address: "https://newsapi.org",
+  apiKey: "016f14e7761d4baca1c75b200bde1015",
+});
+
 export default function SearchProvider({ children }) {
   const { setSearchQueries } = useNewsContext();
   const [query, setQuery] = useState("");
@@ -10,11 +15,6 @@ export default function SearchProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [searchProcess, setSearchProcess] = useState(false);
-
-  const api = new Api({
-    address: "https://newsapi.org",
-    apiKey: "016f14e7761d4baca1c75b200bde1015",
-  });
 
   const handleSearch = async () => {
     setError("");
