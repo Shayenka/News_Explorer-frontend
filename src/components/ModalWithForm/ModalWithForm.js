@@ -1,18 +1,22 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import closePopUp from "../../images/close.svg";
 
 function ModalWithForm(props) {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === "Escape") {
         props.onClose();
+        navigate("/");
       }
     };
 
     const handleClickOutside = (event) => {
       if (event.target.classList.contains("popup_opened")) {
         props.onClose();
+        navigate("/");
       }
     };
 

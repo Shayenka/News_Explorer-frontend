@@ -1,16 +1,18 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import useNewsContext from "../Hooks/useNewsContext";
 import useUserContext from "../Hooks/useUserContext";
 
-function SavedNews({ isSavedNewsClicked }) {
+function SavedNews() {
   const { isLoggedIn } = useUserContext();
   const { savedCards, allSearchQueries, handleDeleteCard } = useNewsContext();
   
   const savedCardsCount = savedCards ? savedCards.length : 0;
+  const location = useLocation();
 
-  if (isLoggedIn) {
+  if (isLoggedIn && location.pathname === "/saved-news") {
     return (
       <section>
         <SavedNewsHeader

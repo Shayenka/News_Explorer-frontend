@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import NewsProvider from "../Providers/NewsProviders";
 import SearchProvider from "../Providers/SearchProviders";
@@ -18,6 +18,7 @@ function App() {
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
   const [isSavedNewsClicked, setIsSavedNewsClicked] = useState(false);
 
+  const navigate = useNavigate();
   const location = useLocation();
 
   function handleLoginPopUp() {
@@ -31,6 +32,7 @@ function App() {
   function closeAllPopups() {
     setIsLoginPopupOpen(false);
     setIsRegisterPopupOpen(false);
+    navigate("/");
   }
 
   async function handleRegisterUser(email, password, name) {
@@ -88,6 +90,7 @@ function App() {
                     isOpen={isRegisterPopupOpen}
                     onClose={closeAllPopups}
                     handleLoginPopUp={handleLoginPopUp}
+                    setIsRegisterPopupOpen={setIsRegisterPopupOpen}
                   />
                 }
               />

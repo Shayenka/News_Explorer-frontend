@@ -16,7 +16,7 @@ import SearchBanner from "./components/SearchBanner/SearchBanner.js";
 import About from "./components/About/About.js";
 import useSearchContext from "./components/Hooks/useSearchContext.js";
 
-function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
+function Register({ onRegister, isOpen, onClose, handleLoginPopUp, setIsRegisterPopupOpen }) {
   const { query, setQuery, handleSearch } = useSearchContext();
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
@@ -35,6 +35,7 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
   const location = useLocation();
 
   useEffect(() => {
+    setIsRegisterPopupOpen(true);
     setEmail(currentUser.email);
     setPassword(currentUser.password);
     setName(currentUser.name);
@@ -47,13 +48,6 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
     setEmailError(error);
     setIsRegisterButtonDisabled(error || !newEmail || !password || !name);
   }, [email, password, name]);
-
-  // const handleEmailChange = useCallback((evt) => {
-  //   const newEmail = evt.target.value;
-  //   setEmail(newEmail);
-  //   // No es necesario validar manualmente aquí, ya que el navegador realizará la validación automáticamente con type="email"
-  //   setIsRegisterButtonDisabled(!newEmail || !password || !name);
-  // }, [password, name]); NO FUNCIONA LA VALIDACION DEL NAVEGADOR
 
   const handlePasswordChange = useCallback((evt) => {
     const newPassword = evt.target.value;
