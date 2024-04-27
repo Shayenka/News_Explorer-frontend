@@ -3,7 +3,7 @@ import deleteCard from "../../images/deleteCard.svg";
 import deleteCardClick from "../../images/deleteCardClick.svg";
 import { formatDate } from "../../utils/validator";
 
-function NewsCardList({ card, onDelete, index }) {
+function NewsCardList({ card, onDelete }) {
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [deleteCardSrc, setDeleteCardSrc] = useState(deleteCard);
@@ -38,7 +38,7 @@ function NewsCardList({ card, onDelete, index }) {
 
   return (
     <div>
-      <div className="card" key={index}>
+      <div className="card">
         <div className="card__header">
           <div className="card__icon-container">
             <img
