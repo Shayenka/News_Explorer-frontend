@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import useUserContext from "./Hooks/useUserContext";
+import useUserContext from "../Hooks/useUserContext";
 
 const PublicOnlyRoute = ({ path, children, ...props }) => {
   const { isLoggedIn } = useUserContext();

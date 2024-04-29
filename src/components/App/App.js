@@ -11,7 +11,7 @@ import Login from "../../Login";
 import SavedNews from "../SavedNews/SavedNews";
 import Footer from "../Footer/Footer";
 import { registerUser } from "../../utils/auth";
-import PublicOnlyRoute from "../PublicRoute"; 
+import PublicOnlyRoute from "../PublicOnlyRoute/PublicOnlyRoute"; 
 
 function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
