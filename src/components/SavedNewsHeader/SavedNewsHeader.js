@@ -9,57 +9,64 @@ function SavedNewsHeader({ savedCards, savedCardsCount, allSearchQueries }) {
 
   const capitalizeAndLowercase = (word) => {
     const str = String(word);
-
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
 
-  const capitalizedQueries = allSearchQueries
-    ? allSearchQueries.map((query) => capitalizeAndLowercase(query))
-    : [];
-
-  let displayedQueries = [];
-
-  if (savedCards.length > 0) {
-    const uniqueQueriesSet = new Set(capitalizedQueries);
-    const uniqueQueriesArray = Array.from(uniqueQueriesSet);
-
-    if (showAllQueries) {
-      displayedQueries = uniqueQueriesArray;
-    } else {
-      displayedQueries = uniqueQueriesArray.slice(0, 2);
-
-      if (uniqueQueriesArray.length > 2) {
-        const remainingCount =
-          uniqueQueriesArray.length - displayedQueries.length;
-        displayedQueries.push(
-          <span
-            className="show-more-link"
-            onClick={() => setShowAllQueries(true)}
-            key="show-more"
-          >
-            {` y ${remainingCount} más`}
-          </span>
-        );
-      }
-    }
+  function countKeywords(savedCards) {
+    const keywordCounts = {};
+    savedCards.forEach((card) => {
+      const searchQueries = card.searchQueries;
+      searchQueries.forEach((keyword) => {
+        const normalizedKeyword = capitalizeAndLowercase(keyword);
+        if (keywordCounts[normalizedKeyword]) {
+          keywordCounts[normalizedKeyword]++;
+        } else {
+          keywordCounts[normalizedKeyword] = 1;
+        }
+      });
+    });
+    return keywordCounts;
   }
+
+  function sortKeywordsByFrequency(keywordCounts) {
+    const keywordArray = Object.entries(keywordCounts);
+    keywordArray.sort((a, b) => b[1] - a[1]);
+    const sortedKeywords = keywordArray.map(([keyword, _]) => keyword);
+    return sortedKeywords;
+  }
+
+  const keywordCounts = countKeywords(savedCards);
+  const sortedKeywords = sortKeywordsByFrequency(keywordCounts);
+  const displayedKeywords = showAllQueries
+    ? sortedKeywords
+    : sortedKeywords.slice(0, 2);
+  const remainingKeywords = showAllQueries ? [] : sortedKeywords.slice(2);
 
   return (
     <div className="saved-news-header">
       <h2 className="saved-news-header__title">Artículos guardados</h2>
       <p className="saved-news-header__count">{`${name}, tienes ${savedCardsCount} artículos guardados`}</p>
-      {displayedQueries.length > 0 && (
+      {displayedKeywords.length > 0 && (
         <>
           <span className="saved-news-header__queries">
             Por palabras clave:{" "}
           </span>
           <span className="saved-news-header__keywords">
-            {displayedQueries.map((query, index) => (
+            {displayedKeywords.map((keyword, index) => (
               <span key={index}>
-                {query}
-                {index < displayedQueries.length - 1 && ", "}
+                {keyword}
+                {index < displayedKeywords.length - 1 && ", "}
               </span>
             ))}
+            {remainingKeywords.length > 0 ? (
+              <span
+                className="show-more-link"
+                onClick={() => setShowAllQueries(true)}
+              >
+                {" "}
+                y {remainingKeywords.length} más
+              </span>
+            ) : null}
           </span>
         </>
       )}
