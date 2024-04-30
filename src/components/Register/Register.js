@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
-import { CurrentUserContext } from "./contexts/CurrentUserContext";
 import { useNavigate, useLocation } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import {
   ValidateEmail,
   ValidatePassword,
   ValidateName,
-} from "./utils/validator";
-import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js";
+} from "../../utils/validator.js";
+import ModalWithForm from "../ModalWithForm/ModalWithForm.js";
 import {
   PopUpSuccessfulRegister,
   PopUpFailedRegister,
   PopUpUserRegistered,
-} from "./components/InfoTooltip/InfoTooltip";
-import SearchBanner from "./components/SearchBanner/SearchBanner.js";
-import About from "./components/About/About.js";
-import useSearchContext from "./components/Hooks/useSearchContext.js";
+} from "../InfoTooltip/InfoTooltip.js";
+import SearchBanner from "../SearchBanner/SearchBanner.js";
+import About from "../About/About.js";
+import useSearchContext from "../Hooks/useSearchContext.js";
 
 function Register({ onRegister, isOpen, onClose, handleLoginPopUp, setIsRegisterPopupOpen }) {
   const { query, setQuery, handleSearch } = useSearchContext();

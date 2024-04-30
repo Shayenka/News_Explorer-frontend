@@ -33,12 +33,14 @@ class Api {
     }
   }
 
-  async delete(url) {
+  async deleteArticle(articleId) {
     try {
-      const fullUrl = `${this.address}${url}`;
+      const fullUrl = `${this.address}/articles/${articleId}`;
 
       const response = await fetch(fullUrl, {
-        headers: {},
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
         method: "DELETE",
       });
 
@@ -56,7 +58,9 @@ class Api {
   async getSavedArticles() {
     try {
       const response = await fetch(`${this.address}/articles`, {
-        headers: {},
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
         method: "GET",
       });
   

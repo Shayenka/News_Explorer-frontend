@@ -1,16 +1,16 @@
 import React, { useState, useCallback, useEffect } from "react";
-import useUserContext from "./components/Hooks/useUserContext.js";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ValidateEmail, ValidatePassword } from "./utils/validator";
-import { authorize } from "./utils/auth";
-import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js";
+import useUserContext from "../Hooks/useUserContext.js";
+import { ValidateEmail, ValidatePassword } from "../../utils/validator.js";
+import { authorize } from "../../utils/auth.js";
+import ModalWithForm from "../ModalWithForm/ModalWithForm.js";
 import {
   PopUpFailedInput,
   PopUpFailedLogin,
-} from "./components/InfoTooltip/InfoTooltip";
-import SearchBanner from "./components/SearchBanner/SearchBanner.js";
-import About from "./components/About/About.js";
-import useSearchContext from "./components/Hooks/useSearchContext.js";
+} from "../InfoTooltip/InfoTooltip.js";
+import SearchBanner from "../SearchBanner/SearchBanner.js";
+import About from "../About/About.js";
+import useSearchContext from "../Hooks/useSearchContext.js";
 
 function Login({ isOpen, onClose, handleRegisterPopUp, setIsLoginPopupOpen }) {
   const { handleLoginUser } = useUserContext();

@@ -13,9 +13,7 @@ export default function NewsProvider({ children }) {
 
   const fetchSavedCards = async () => {
     try {
-      // Realizar la solicitud GET para obtener las tarjetas guardadas
       const response = await api.getSavedArticles();
-      // Verificar si la respuesta contiene datos
       if (response && response.length > 0) {
         setSavedCards(response);
       } else {
@@ -67,12 +65,10 @@ export default function NewsProvider({ children }) {
     });
 
     try {
-      // Envía la solicitud DELETE a la API para eliminar la tarjeta
-      console.log(deletedCard);
-      await api.delete(`/articles/${deletedCard.id}`);
+      console.log(deletedCard._id);
+      await api.deleteArticle(`/articles/${deletedCard._id}`);
       console.log("Tarjeta eliminada en la API con éxito");
     } catch (error) {
-      // Maneja los errores de la solicitud DELETE y revierte los cambios en el estado local
       console.error("Error al eliminar la tarjeta en la API:", error);
       setSavedCards([...updatedCards, deletedCard]);
       setAllSearchQueries((prevQueries) => [...prevQueries, ...deletedCardSearchQueries]);
