@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import NewsCard from "../NewsCard/NewsCard";
 import NoResultsFound from "../../images/not-found_image.svg";
 import Preloader from "../Preloader/Preloader";
@@ -11,7 +12,7 @@ import useSearchContext from "../Hooks/useSearchContext";
 
 function Main() {
   const { isLoggedIn } = useUserContext();
-  const { savedCards } = useNewsContext();
+  const { savedCards, fetchSavedCards, isSavedCardsFetched } = useNewsContext();
   const {
     query,
     setQuery,
@@ -22,6 +23,17 @@ function Main() {
   } = useSearchContext();
   const [visibleCards, setVisibleCards] = useState(3);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(isSavedCardsFetched);
+    // Llama a fetchSavedCards solo si no se ha llamado previamente
+    // y estamos en la página de "Artículos guardados"
+    if (!isSavedCardsFetched && location.pathname === "/saved-news") {
+      fetchSavedCards();
+    }
+  }, [fetchSavedCards, isSavedCardsFetched, location.pathname]);
+
 
   const handleShowMore = async () => {
     if (!isLoading) {

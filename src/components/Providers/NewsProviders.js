@@ -10,12 +10,16 @@ export default function NewsProvider({ children }) {
   const [savedCards, setSavedCards] = useState([]);
   const [searchQueries, setSearchQueries] = useState([]);
   const [allSearchQueries, setAllSearchQueries] = useState([]);
+  const [isSavedCardsFetched, setIsSavedCardsFetched] = useState(false);
 
   const fetchSavedCards = async () => {
+    setIsSavedCardsFetched(true);
+    console.log(isSavedCardsFetched);
     try {
       const response = await api.getSavedArticles();
       if (response && response.length > 0) {
         setSavedCards(response);
+        setIsSavedCardsFetched(true);
       } else {
         console.log("No se encontraron tarjetas guardadas.");
       }
@@ -90,6 +94,7 @@ export default function NewsProvider({ children }) {
     <NewsContext.Provider
       value={{
         fetchSavedCards,
+        isSavedCardsFetched,
         handleCardSaved,
         savedCards,
         setSearchQueries,

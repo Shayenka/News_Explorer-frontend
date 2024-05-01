@@ -46,7 +46,8 @@ function App() {
   }
 
   function handleSavedNewsClick() {
-    setIsSavedNewsClicked(false);
+    setIsSavedNewsClicked(!isSavedNewsClicked); 
+    // setIsSavedNewsClicked(false);
   }
 
   return (
