@@ -24,28 +24,39 @@ export default function NewsProvider({ children }) {
     }
   };
 
-  const handleCardSaved = (card) => {
+  const handleCardSaved = async (card) => {
     const isCardAlreadySaved = savedCards.some(
-      (savedCard) => savedCard.title === card.title
+      (savedCard) => savedCard.id === card.id
     );
-
+  
     if (!isCardAlreadySaved) {
       const cardWithQueries = {
         ...card,
         searchQueries: [...searchQueries],
       };
-
-      setSavedCards((prevSavedCards) => {
-        const updatedCards = [...prevSavedCards, cardWithQueries];
-        console.log("Cards in main:", updatedCards);
-
+  
+      try {
+        await api.saveArticle(cardWithQueries);
+  
+        const storedCards = JSON.parse(localStorage.getItem("savedCards")) || [];
+  
+        const updatedCards = [...storedCards, cardWithQueries];
+  
+        localStorage.setItem("savedCards", JSON.stringify(updatedCards));
+  
+        setSavedCards((prevSavedCards) => {
+          const updatedCards = [...prevSavedCards, cardWithQueries];
+          return updatedCards;
+        });
+  
+        // Actualizar las consultas de búsqueda
         setAllSearchQueries((prevQueries) => {
           const updatedQueries = [...prevQueries, ...searchQueries];
           return updatedQueries;
         });
-
-        return updatedCards;
-      });
+      } catch (error) {
+        console.error("Error al guardar la tarjeta en la API:", error);
+      }
     }
   };
 
@@ -65,8 +76,8 @@ export default function NewsProvider({ children }) {
     });
 
     try {
-      console.log(deletedCard._id);
-      await api.deleteArticle(`/articles/${deletedCard._id}`);
+      console.log(deletedCard.id);
+      await api.deleteArticle(`${deletedCard.id}`);
       console.log("Tarjeta eliminada en la API con éxito");
     } catch (error) {
       console.error("Error al eliminar la tarjeta en la API:", error);

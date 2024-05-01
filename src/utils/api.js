@@ -33,33 +33,12 @@ class Api {
     }
   }
 
-  async deleteArticle(articleId) {
-    try {
-      const fullUrl = `${this.address}/articles/${articleId}`;
-
-      const response = await fetch(fullUrl, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-        method: "DELETE",
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(`API Error: ${error.message || "Unknown error"}`);
-      }
-
-      return response.json();
-    } catch (error) {
-      throw new Error(`Network Error: ${error.message || "Unknown error"}`);
-    }
-  }
-
   async getSavedArticles() {
     try {
       const response = await fetch(`${this.address}/articles`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          "Content-Type": "application/json",
         },
         method: "GET",
       });
@@ -69,6 +48,51 @@ class Api {
         throw new Error(`API Error: ${error.message || "Unknown error"}`);
       }
   
+      return response.json();
+    } catch (error) {
+      throw new Error(`Network Error: ${error.message || "Unknown error"}`);
+    }
+  }
+
+  async saveArticle(articleData) {
+    try {
+      const response = await fetch(`${this.address}/articles/save`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          "Content-Type": "application/json", 
+        },
+        method: "POST",
+        body: JSON.stringify(articleData),
+      });
+  
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(`API Error: ${error.message || "Unknown error"}`);
+      }
+  
+      return response.json();
+    } catch (error) {
+      throw new Error(`Network Error: ${error.message || "Unknown error"}`);
+    }
+  }
+  
+  async deleteArticle(articleId) {
+    try {
+      const fullUrl = `${this.address}/articles/${articleId}`;
+
+      const response = await fetch(fullUrl, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          "Content-Type": "application/json", 
+        },
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(`API Error: ${error.message || "Unknown error"}`);
+      }
+
       return response.json();
     } catch (error) {
       throw new Error(`Network Error: ${error.message || "Unknown error"}`);

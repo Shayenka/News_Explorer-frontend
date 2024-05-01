@@ -4,6 +4,7 @@ import savedCardClick from "../../images/iconGuardarClick.svg";
 import savedCardChangeColor from "../../images/IconGuardarChangeBlue.svg";
 import useNewsContext from "../Hooks/useNewsContext";
 import { formatDate } from "../../utils/validator";
+import randomstring from "randomstring";
 
 function NewsCard(props) {
   const { handleCardSaved } = useNewsContext();
@@ -14,8 +15,10 @@ function NewsCard(props) {
   function handleSavedCard() {
     if (props.isLoggedIn) {
       setIsSaved(true);
-      handleCardSaved(props.card);
-      console.log(props.card);
+      const NewIdCard = randomstring.generate(10);
+      const CardWithId = {...props.card, id:NewIdCard}
+      handleCardSaved(CardWithId);
+      console.log(CardWithId);
     } else {
       setIsSaved(false);
       setShowLoginMessage(true);
