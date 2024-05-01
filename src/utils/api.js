@@ -9,7 +9,7 @@ class Api {
     
     return fetch(url, {
       headers: {
-        authorization: `Bearer ${this.token}`, 
+        authorization: this.token, 
         "Content-Type": "application/json",
       },
       method,
@@ -61,6 +61,29 @@ class Api {
     });
   }
 
+  async saveArticle(articleData) {
+    return this._useFetch(
+      `${this.address}/articles/save`,
+      `POST`,
+      articleData
+    ).then((result) => {
+      return result;
+    });
+  }
+
+  async deleteArticle(articleId) {
+    return this._useFetch(
+      `${this.address}/articles/${articleId}`,
+      `DELETE`,
+      articleId
+    ).then((result) => {
+      return result;
+    });
+  }
+}
+
+export default Api;
+
   // async getSavedArticles() {
   //   try {
   //     const response = await fetch(`${this.address}/articles`, {
@@ -81,71 +104,3 @@ class Api {
   //     throw new Error(`Network Error: ${error.message || "Unknown error"}`);
   //   }
   // }
-
-  async getSavedArticles(articleData) {
-    return this._useFetch(
-      `${this.address}/articles/save`,
-      `POST`,
-      articleData
-    ).then((result) => {
-      return result;
-    });
-  }
-
-  // async saveArticle(articleData) {
-  //   try {
-  //     const response = await fetch(`${this.address}/articles/save`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-  //         "Content-Type": "application/json", 
-  //       },
-  //       method: "POST",
-  //       body: JSON.stringify(articleData),
-  //     });
-  
-  //     if (!response.ok) {
-  //       // const error = await response.json();
-  //       throw new Error(`API Error: "Unknown error"}`);
-  //     }
-  
-  //     return response.json();
-  //   } catch (error) {
-  //     throw new Error(`Network Error: ${error.message || "Unknown error"}`);
-  //   }
-  // }
-
-  async deleteArticle(articleId) {
-    return this._useFetch(
-      `${this.address}/articles/${articleId}`,
-      `DELETE`,
-      articleId
-    ).then((result) => {
-      return result;
-    });
-  }
-  
-  // async deleteArticle(articleId) {
-  //   try {
-  //     const fullUrl = `${this.address}/articles/${articleId}`;
-
-  //     const response = await fetch(fullUrl, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-  //         "Content-Type": "application/json", 
-  //       },
-  //       method: "DELETE",
-  //     });
-
-  //     if (!response.ok) {
-  //       const error = await response.json();
-  //       throw new Error(`API Error: ${error.message || "Unknown error"}`);
-  //     }
-
-  //     return response.json();
-  //   } catch (error) {
-  //     throw new Error(`Network Error: ${error.message || "Unknown error"}`);
-  //   }
-  // }
-}
-
-export default Api;
