@@ -12,7 +12,7 @@ import useSearchContext from "../Hooks/useSearchContext";
 
 function Main() {
   const { isLoggedIn } = useUserContext();
-  const { savedCards, fetchSavedCards, isSavedCardsFetched } = useNewsContext();
+  const { savedCards } = useNewsContext();
   const {
     query,
     setQuery,
@@ -23,16 +23,15 @@ function Main() {
   } = useSearchContext();
   const [visibleCards, setVisibleCards] = useState(3);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const location = useLocation();
 
-  useEffect(() => {
-    console.log(isSavedCardsFetched);
-    // Llama a fetchSavedCards solo si no se ha llamado previamente
-    // y estamos en la página de "Artículos guardados"
-    if (!isSavedCardsFetched && location.pathname === "/saved-news") {
-      fetchSavedCards();
-    }
-  }, [fetchSavedCards, isSavedCardsFetched, location.pathname]);
+  // useEffect(() => {
+  //   console.log(isSavedCardsFetched);
+  //   // Llama a fetchSavedCards solo si no se ha llamado previamente
+  //   // y estamos en la página de "Artículos guardados"
+  //   if (!isSavedCardsFetched && location.pathname === "/saved-news") {
+  //     fetchSavedCards();
+  //   }
+  // }, [fetchSavedCards, isSavedCardsFetched, location.pathname]);
 
 
   const handleShowMore = async () => {
@@ -110,14 +109,8 @@ function Main() {
         </>
       )}
 
-      {savedCards.length > 0 ? (
+      {savedCards.length > 0 ?? (
         <SavedNews />
-      ) : (
-        <SavedNews
-          savedCards={[]}
-          handleDeleteCard={() => {}}
-          searchQueries={[]}
-        />
       )}
       <About />
     </>

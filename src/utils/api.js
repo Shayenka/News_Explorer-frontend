@@ -62,10 +62,20 @@ class Api {
   }
 
   async saveArticle(articleData) {
+    const requestBodyArticle = {
+      id: articleData.id,
+      // keyWord: articleData.searchQueries,
+      title: articleData.title,
+      text: articleData.description,
+      date: articleData.publishedAt,
+      source: articleData.source.name,
+      link: articleData.url,
+      image: articleData.urlToImage,
+    };
     return this._useFetch(
       `${this.address}/articles/save`,
       `POST`,
-      articleData
+      requestBodyArticle
     ).then((result) => {
       return result;
     });
@@ -75,7 +85,6 @@ class Api {
     return this._useFetch(
       `${this.address}/articles/${articleId}`,
       `DELETE`,
-      articleId
     ).then((result) => {
       return result;
     });

@@ -16,25 +16,17 @@ function NewsCardList({ card, onDelete }) {
 
   const capitalizeSearchQueries = capitalizeAndLowercase(card.searchQueries);
 
-  function handleDeleteNewsCard() {
-    if (showDeleteMessage) {
-      onDelete();
-      setIsDelete(false);
-      setShowDeleteMessage(false);
-    } else {
-      setDeleteCardSrc(deleteCardClick);
-      setShowDeleteMessage(true);
-      setIsDelete(true);
-    }
+  function handleMouseEnter() {
+    setIsDelete(true);
   }
 
-  useEffect(() => {
-    if (showDeleteMessage && isDelete) {
-      setDeleteCardSrc(deleteCardClick);
-    } else {
-      setDeleteCardSrc(deleteCard);
-    }
-  }, [isDelete, showDeleteMessage]);
+  function handleMouseLeave() {
+    setIsDelete(false);
+  }
+
+  function handleDeleteNewsCard() {
+    onDelete();
+  }
 
   return (
     <div>
@@ -43,14 +35,14 @@ function NewsCardList({ card, onDelete }) {
           <div className="card__icon-container">
             <img
               className="cardList__icon-delete"
-              src={deleteCardSrc}
+              src={isDelete ? deleteCardClick : deleteCard}
               alt={`Icono para eliminar tarjeta`}
-              onClick={() => {
-                handleDeleteNewsCard();
-              }}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={handleDeleteNewsCard}
             />
           </div>
-          {showDeleteMessage && (
+          {isDelete && (
             <div className="cardList__delete-message-container">
               <p className="cardList__delete-message">Remove from saved</p>
             </div>

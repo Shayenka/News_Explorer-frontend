@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function SavedNewsHeader({ savedCards, savedCardsCount, allSearchQueries }) {
+function SavedNewsHeader({ savedCards, savedCardsCount }) {
   const {
     user: { name },
   } = useContext(CurrentUserContext);
@@ -14,17 +14,21 @@ function SavedNewsHeader({ savedCards, savedCardsCount, allSearchQueries }) {
 
   function countKeywords(savedCards) {
     const keywordCounts = {};
-    savedCards.forEach((card) => {
-      const searchQueries = card.searchQueries;
-      searchQueries.forEach((keyword) => {
-        const normalizedKeyword = capitalizeAndLowercase(keyword);
-        if (keywordCounts[normalizedKeyword]) {
-          keywordCounts[normalizedKeyword]++;
-        } else {
-          keywordCounts[normalizedKeyword] = 1;
+    if (savedCards && savedCards.length > 0) {
+      savedCards.forEach((card) => {
+        const searchQueries = card.searchQueries;
+        if (searchQueries && searchQueries.length > 0) {
+          searchQueries.forEach((keyword) => {
+            const normalizedKeyword = capitalizeAndLowercase(keyword);
+            if (keywordCounts[normalizedKeyword]) {
+              keywordCounts[normalizedKeyword]++;
+            } else {
+              keywordCounts[normalizedKeyword] = 1;
+            }
+          });
         }
       });
-    });
+    }
     return keywordCounts;
   }
 

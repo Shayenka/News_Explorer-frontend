@@ -7,15 +7,18 @@ import useUserContext from "../Hooks/useUserContext";
 
 function SavedNews() {
   const { isLoggedIn } = useUserContext();
-  const { fetchSavedCards, savedCards, allSearchQueries, handleDeleteCard } = useNewsContext();
+  const { fetchSavedCards, isSavedCardsFetched, savedCards, handleDeleteCard } = useNewsContext();
   
   const savedCardsCount = savedCards ? savedCards.length : 0;
   const location = useLocation();
 
   useEffect(() => {
-    // Llamar a la función para obtener las tarjetas guardadas cuando el componente se monta
-    fetchSavedCards();
-  }, []); 
+    console.log(isSavedCardsFetched);
+    // Llama a fetchSavedCards solo si no se ha llamado previamente
+    if (!isSavedCardsFetched) {
+      fetchSavedCards();
+    }
+  }, [fetchSavedCards, isSavedCardsFetched]);
 
   if (isLoggedIn && location.pathname === "/saved-news") {
     return (
@@ -23,7 +26,7 @@ function SavedNews() {
         <SavedNewsHeader
           savedCards={savedCards}
           savedCardsCount={savedCardsCount}
-          allSearchQueries={allSearchQueries}
+          // allSearchQueries={allSearchQueries}
         />
         <div className="saved-news__cards">
           {savedCards.length > 0 ? (

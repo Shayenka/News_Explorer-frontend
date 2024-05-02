@@ -34,10 +34,14 @@ export default function NewsProvider({ children }) {
     );
   
     if (!isCardAlreadySaved) {
+      const updatedSearchQueries = [...searchQueries]; // Copiar el estado de searchQueries
       const cardWithQueries = {
         ...card,
-        searchQueries: [...searchQueries],
+        searchQueries: updatedSearchQueries, // Usar el estado actualizado
       };
+
+      console.log("Card with searchQueries:", cardWithQueries.searchQueries); 
+      console.log("Card with searchQueries:", cardWithQueries); 
   
       try {
         await api.saveArticle(cardWithQueries);
@@ -79,6 +83,7 @@ export default function NewsProvider({ children }) {
       return updatedQueries;
     });
 
+    console.log(deletedCard.id);
     try {
       console.log(deletedCard.id);
       await api.deleteArticle(`${deletedCard.id}`);

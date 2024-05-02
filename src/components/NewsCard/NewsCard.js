@@ -7,24 +7,32 @@ import { formatDate } from "../../utils/validator";
 import randomstring from "randomstring";
 
 function NewsCard(props) {
-  const { handleCardSaved } = useNewsContext();
+  const { handleCardSaved, savedCards } = useNewsContext();
   const [showLoginMessage, setShowLoginMessage] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [savedCardSrc, setSavedCardSrc] = useState(savedCard);
 
   function handleSavedCard() {
     if (props.isLoggedIn) {
-      setIsSaved(true);
-      const NewIdCard = randomstring.generate(10);
-      const CardWithId = {...props.card, id:NewIdCard}
-      handleCardSaved(CardWithId);
-      console.log(CardWithId);
+      const isCardAlreadySaved = savedCards.some(
+        (savedCard) => savedCard.url === props.card.url // Comparar por URL u otra propiedad única
+      );
+  
+      if (isCardAlreadySaved) {
+        setIsSaved(true);
+        setShowLoginMessage(false);
+      } else {
+        setIsSaved(true);
+        const NewIdCard = randomstring.generate(10);
+        const CardWithId = { ...props.card, id: NewIdCard };
+        handleCardSaved(CardWithId);
+        console.log(CardWithId);
+      }
     } else {
       setIsSaved(false);
       setShowLoginMessage(true);
     }
   }
-
   useEffect(() => {
     if (props.isLoggedIn && isSaved) {
       setSavedCardSrc(savedCardChangeColor);
