@@ -32,7 +32,7 @@ function SavedNews() {
           {savedCards.length > 0 ? (
             savedCards.map((card, index) => (
               <NewsCardList
-                key={card.url}
+                key={card.id}
                 card={card}
                 onDelete={() => handleDeleteCard(index)}
               />

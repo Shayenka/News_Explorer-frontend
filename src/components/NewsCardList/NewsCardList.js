@@ -4,9 +4,9 @@ import deleteCardClick from "../../images/deleteCardClick.svg";
 import { formatDate } from "../../utils/validator";
 
 function NewsCardList({ card, onDelete }) {
-  const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  // const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
-  const [deleteCardSrc, setDeleteCardSrc] = useState(deleteCard);
+  // const [deleteCardSrc, setDeleteCardSrc] = useState(deleteCard);
 
   const capitalizeAndLowercase = (word) => {
     const str = String(word);
@@ -14,7 +14,9 @@ function NewsCardList({ card, onDelete }) {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
 
-  const capitalizeSearchQueries = capitalizeAndLowercase(card.searchQueries);
+  if (card.keyWord) {
+    card.searchQueries = card.keyWord.split(", ").map(word => capitalizeAndLowercase(word));
+  }
 
   function handleMouseEnter() {
     setIsDelete(true);
@@ -48,20 +50,20 @@ function NewsCardList({ card, onDelete }) {
             </div>
           )}
           <div className="cardList__query-container">
-            <p className="cardList__query-text">{capitalizeSearchQueries}</p>
+            <p className="cardList__query-text">{card.searchQueries}</p>
           </div>
         </div>
         <img
           className="card__image"
-          src={card.urlToImage}
+          src={card.urlToImage || card.image}
           alt={card.title}
-          style={{ backgroundImage: `url(${card.urlToImage})` }}
+          style={{ backgroundImage: `url(${card.urlToImage || card.image})` }}
         />
         <div className="card__footer-image">
-          <h4 className="card__date">{formatDate(card.publishedAt)}</h4>
+          <h4 className="card__date">{formatDate(card.publishedAt || card.date)}</h4>
           <h3 className="card__title">{card.title}</h3>
-          <p className="card__description">{card.description}</p>
-          <p className="card__source">{card.sourceName}</p>
+          <p className="card__description">{card.description || card.text}</p>
+          <p className="card__source">{card.sourceName || card.source}</p>
         </div>
       </div>
     </div>

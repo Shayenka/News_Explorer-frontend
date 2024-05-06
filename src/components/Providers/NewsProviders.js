@@ -83,7 +83,7 @@ export default function NewsProvider({ children }) {
       return updatedQueries;
     });
 
-    console.log(deletedCard.id);
+    console.log(deletedCard._id); // id de la base de datos undefined
     try {
       console.log(deletedCard.id);
       await api.deleteArticle(`${deletedCard.id}`);

@@ -64,7 +64,7 @@ class Api {
   async saveArticle(articleData) {
     const requestBodyArticle = {
       id: articleData.id,
-      // keyWord: articleData.searchQueries,
+      keyWord: articleData.searchQueries.join(", "),
       title: articleData.title,
       text: articleData.description,
       date: articleData.publishedAt,
@@ -92,24 +92,3 @@ class Api {
 }
 
 export default Api;
-
-  // async getSavedArticles() {
-  //   try {
-  //     const response = await fetch(`${this.address}/articles`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //       method: "GET",
-  //     });
-  
-  //     if (!response.ok) {
-  //       const error = await response.json();
-  //       throw new Error(`API Error: ${error.message || "Unknown error"}`);
-  //     }
-  
-  //     return response.json();
-  //   } catch (error) {
-  //     throw new Error(`Network Error: ${error.message || "Unknown error"}`);
-  //   }
-  // }
