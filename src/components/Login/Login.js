@@ -70,6 +70,7 @@ function Login({ isOpen, onClose, handleRegisterPopUp, setIsLoginPopupOpen }) {
                 } else {
                     setShowPopupFailedLogin(true);
                     setLoginPopupVisible(false);
+                    // setLoginPopupVisible(true);
                     setTimeout(() => {
                         navigate("/signup");
                     }, 2000);
@@ -77,6 +78,7 @@ function Login({ isOpen, onClose, handleRegisterPopUp, setIsLoginPopupOpen }) {
             })
             .catch((err) => {
                 setLoginPopupVisible(false);
+                // setLoginPopupVisible(true);
                 setShowPopupFailedLogin(true);
                 console.log(err);
             });

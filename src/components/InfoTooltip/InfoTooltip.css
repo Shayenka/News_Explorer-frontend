@@ -9,6 +9,8 @@
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   flex-direction: column;
   z-index: 20;
   justify-content: center;
@@ -44,6 +46,13 @@
   right: -45px;
 }
 
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .popup__info-CloseIcon {
+    top: -35px;
+    right: -3px;
+  }
+}
+
 .popup__info-CloseIcon:hover {
   opacity: 0.6;
 }
@@ -56,13 +65,14 @@
   line-height: 28px;
   color: black;
   margin-left: 30px;
-  margin-top: 50px;
+  margin-top: 0;
   max-width: 315px;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .popup__info-text {
-    font-size: 22px;
+    font-size: 20px;
+    padding-right: 30px;
   }
 }
 
