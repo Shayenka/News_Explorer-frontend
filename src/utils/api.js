@@ -2,11 +2,12 @@ class Api {
   constructor({ address, apiKey }) {
     this.address = address;
     this.apiKey = apiKey;
-    this.token = `Bearer ${localStorage.getItem("jwt")}`
+    // this.token = `Bearer ${localStorage.getItem("jwt")}`
   }
 
   _useFetch(url, method, body) {
     
+    this.token = this.token || `Bearer ${localStorage.getItem("jwt")}`
     return fetch(url, {
       headers: {
         authorization: this.token, 

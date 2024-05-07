@@ -10,8 +10,8 @@ import MenuMovileSavedNews from "../../images/menu_SavedNews.svg";
 
 function Header({
   handleLoginPopUp,
-  onSavedNewsClick,
-  handleSavedNewsClick,
+  // onSavedNewsClick,
+  // handleSavedNewsClick,
   // isSavedNewsClicked,
 }) {
   const { user: currentUser, isLoggedIn, handleLogout } = useUserContext();
@@ -87,9 +87,9 @@ function Header({
                   isSavedNewsRoute ? "header__link_text_SavedNews" : ""
                 }`}
                 style={{ textDecoration: "none" }}
-                onClick={() => {
-                  handleSavedNewsClick();
-                }}
+                // onClick={() => {
+                //   handleSavedNewsClick();
+                // }}
               >
                 Inicio
               </Link>
@@ -99,9 +99,9 @@ function Header({
                   isSavedNewsRoute ? "header__link_text_SavedNews" : ""
                 }`}
                 style={{ textDecoration: "none" }}
-                onClick={() => {
-                  onSavedNewsClick();
-                }}
+                // onClick={() => {
+                //   onSavedNewsClick();
+                // }}
               >
                 Artículos guardados
               </Link>
@@ -117,7 +117,7 @@ function Header({
                 }}
                 onClick={() => {
                   handleLogout();
-                  handleSavedNewsClick();
+                  // handleSavedNewsClick();
                 }}
               >
                 {currentUser && currentUser.name && <>{currentUser.name}</>}
@@ -137,9 +137,9 @@ function Header({
                 isSavedNewsRoute ? "header__link_text_SavedNews" : ""
               }`}
               style={{ textDecoration: "none" }}
-              onClick={() => {
-                handleSavedNewsClick();
-              }}
+              // onClick={() => {
+              //   handleSavedNewsClick();
+              // }}
             >
               Inicio
             </Link>
@@ -149,9 +149,9 @@ function Header({
                 isSavedNewsRoute ? "header__link_text_SavedNews" : ""
               }`}
               style={{ textDecoration: "none" }}
-              onClick={() => {
-                onSavedNewsClick();
-              }}
+              // onClick={() => {
+              //   onSavedNewsClick();
+              // }}
             >
               Artículos guardados
             </Link>
@@ -167,7 +167,7 @@ function Header({
               }}
               onClick={() => {
                 handleLogout();
-                handleSavedNewsClick();
+                // handleSavedNewsClick();
               }}
             >
               {currentUser && currentUser.name && <>{currentUser.name}</>}

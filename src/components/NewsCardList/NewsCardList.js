@@ -30,6 +30,10 @@ function NewsCardList({ card, onDelete }) {
     onDelete();
   }
 
+  console.log(card.text);
+  console.log(card.source.name);
+  console.log(card.searchQueries);
+
   return (
     <div>
       <div className="card">
@@ -63,7 +67,7 @@ function NewsCardList({ card, onDelete }) {
           <h4 className="card__date">{formatDate(card.publishedAt || card.date)}</h4>
           <h3 className="card__title">{card.title}</h3>
           <p className="card__description">{card.description || card.text}</p>
-          <p className="card__source">{card.sourceName || card.source}</p>
+          <p className="card__source">{card.sourceName || card.source.name}</p>
         </div>
       </div>
     </div>

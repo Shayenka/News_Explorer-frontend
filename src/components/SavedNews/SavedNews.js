@@ -8,7 +8,7 @@ import useUserContext from "../Hooks/useUserContext";
 function SavedNews() {
   const { isLoggedIn } = useUserContext();
   const { fetchSavedCards, isSavedCardsFetched, savedCards, handleDeleteCard } = useNewsContext();
-  
+
   const savedCardsCount = savedCards ? savedCards.length : 0;
   const location = useLocation();
 

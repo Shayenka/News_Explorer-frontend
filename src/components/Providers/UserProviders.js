@@ -50,8 +50,8 @@ export default function UserProvider({ children }) {
     setToken("");
     setIsLoggedIn(false);
     setCurrentUser({});
+    navigate("/");
     console.log("navigate");
-    navigate("/signin");
   }
 
   return (

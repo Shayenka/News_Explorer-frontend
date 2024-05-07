@@ -16,7 +16,7 @@ import PublicOnlyRoute from "../PublicOnlyRoute/PublicOnlyRoute";
 function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
-  const [isSavedNewsClicked, setIsSavedNewsClicked] = useState(false);
+  // const [isSavedNewsClicked, setIsSavedNewsClicked] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,10 +45,10 @@ function App() {
     }
   }
 
-  function handleSavedNewsClick() {
-    setIsSavedNewsClicked(!isSavedNewsClicked); 
-    // setIsSavedNewsClicked(false);
-  }
+  // function handleSavedNewsClick() {
+  //   // setIsSavedNewsClicked(!isSavedNewsClicked); 
+  //   setIsSavedNewsClicked(false);
+  // }
 
   return (
     <NewsProvider>
@@ -61,9 +61,9 @@ function App() {
         >
           <Header
             handleLoginPopUp={handleLoginPopUp}
-            handleSavedNewsClick={handleSavedNewsClick}
-            isSavedNewsClicked={isSavedNewsClicked}
-            onSavedNewsClick={() => setIsSavedNewsClicked(true)}
+            // handleSavedNewsClick={handleSavedNewsClick}
+            // isSavedNewsClicked={isSavedNewsClicked}
+            // onSavedNewsClick={() => setIsSavedNewsClicked(true)}
           />
           <main>
             <Routes>
@@ -71,7 +71,7 @@ function App() {
                 path="/signin"
                 element={
                   <PublicOnlyRoute
-                  isSavedNewsClicked={isSavedNewsClicked}
+                  // isSavedNewsClicked={isSavedNewsClicked}
                   >
                   <Login
                     isOpen={isLoginPopupOpen}
@@ -102,7 +102,7 @@ function App() {
                     <div className="saved-news-container">
                       <ProtectedRoute
                         component={SavedNews}
-                        isSavedNewsClicked={isSavedNewsClicked}
+                        // isSavedNewsClicked={isSavedNewsClicked}
                       />
                     </div>
                   }
@@ -113,8 +113,8 @@ function App() {
             </Routes>
           </main>
           <Footer 
-          isSavedNewsClicked={isSavedNewsClicked}
-          handleSavedNewsClick={handleSavedNewsClick}
+          // isSavedNewsClicked={isSavedNewsClicked}
+          // handleSavedNewsClick={handleSavedNewsClick}
           />
         </div>
       </UserProvider>
