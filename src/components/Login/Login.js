@@ -68,7 +68,6 @@ function Login({ isOpen, onClose, handleRegisterPopUp, setIsLoginPopupOpen }) {
       }
       authorize(email, password)
         .then((data) => {
-          console.log(data);
           if (data.token) {
             handleLoginUser(data);
             navigate("/");

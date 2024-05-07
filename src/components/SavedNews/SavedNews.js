@@ -14,7 +14,6 @@ function SavedNews() {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(isSavedCardsFetched);
     if (!isSavedCardsFetched) {
       fetchSavedCards();
     }
