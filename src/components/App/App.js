@@ -11,12 +11,11 @@ import Login from "../Login/Login";
 import SavedNews from "../SavedNews/SavedNews";
 import Footer from "../Footer/Footer";
 import { registerUser } from "../../utils/auth";
-import PublicOnlyRoute from "../PublicOnlyRoute/PublicOnlyRoute"; 
+import PublicOnlyRoute from "../PublicOnlyRoute/PublicOnlyRoute";
 
 function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
-  // const [isSavedNewsClicked, setIsSavedNewsClicked] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,79 +44,60 @@ function App() {
     }
   }
 
-  // function handleSavedNewsClick() {
-  //   // setIsSavedNewsClicked(!isSavedNewsClicked); 
-  //   setIsSavedNewsClicked(false);
-  // }
-
   return (
     <NewsProvider>
       <SearchProvider>
-      <UserProvider>
-        <div
-          className={`body ${
-            location.pathname === "/saved-news" ? "app-container_savedNews" : "app-container"
-          }`}
-        >
-          <Header
-            handleLoginPopUp={handleLoginPopUp}
-            // handleSavedNewsClick={handleSavedNewsClick}
-            // isSavedNewsClicked={isSavedNewsClicked}
-            // onSavedNewsClick={() => setIsSavedNewsClicked(true)}
-          />
-          <main>
-            <Routes>
-              <Route
-                path="/signin"
-                element={
-                  <PublicOnlyRoute
-                  // isSavedNewsClicked={isSavedNewsClicked}
-                  >
-                  <Login
-                    isOpen={isLoginPopupOpen}
-                    onClose={closeAllPopups}
-                    handleRegisterPopUp={handleRegisterPopUp}
-                    setIsLoginPopupOpen={setIsLoginPopupOpen}
-                  />
-                  </PublicOnlyRoute>
-                }
-              />
+        <UserProvider>
+          <div
+            className={`body ${
+              location.pathname === "/saved-news"
+                ? "app-container_savedNews"
+                : "app-container"
+            }`}
+          >
+            <Header handleLoginPopUp={handleLoginPopUp} />
+            <main>
+              <Routes>
+                <Route
+                  path="/signin"
+                  element={
+                    <PublicOnlyRoute>
+                      <Login
+                        isOpen={isLoginPopupOpen}
+                        onClose={closeAllPopups}
+                        handleRegisterPopUp={handleRegisterPopUp}
+                        setIsLoginPopupOpen={setIsLoginPopupOpen}
+                      />
+                    </PublicOnlyRoute>
+                  }
+                />
 
-              <Route
-                path="/signup"
-                element={
-                  <Register
-                    onRegister={handleRegisterUser}
-                    isOpen={isRegisterPopupOpen}
-                    onClose={closeAllPopups}
-                    handleLoginPopUp={handleLoginPopUp}
-                    setIsRegisterPopupOpen={setIsRegisterPopupOpen}
-                  />
-                }
-              />
-              {/* {isSavedNewsClicked && ( */}
+                <Route
+                  path="/signup"
+                  element={
+                    <Register
+                      onRegister={handleRegisterUser}
+                      isOpen={isRegisterPopupOpen}
+                      onClose={closeAllPopups}
+                      handleLoginPopUp={handleLoginPopUp}
+                      setIsRegisterPopupOpen={setIsRegisterPopupOpen}
+                    />
+                  }
+                />
                 <Route
                   path="/saved-news"
                   element={
                     <div className="saved-news-container">
-                      <ProtectedRoute
-                        component={SavedNews}
-                        // isSavedNewsClicked={isSavedNewsClicked}
-                      />
+                      <ProtectedRoute component={SavedNews} />
                     </div>
                   }
                 />
-              {/* )} */}
-
-              <Route path="/" element={<Main />} />
-            </Routes>
-          </main>
-          <Footer 
-          // isSavedNewsClicked={isSavedNewsClicked}
-          // handleSavedNewsClick={handleSavedNewsClick}
-          />
-        </div>
-      </UserProvider>
+                <Route path="/" element={<Main />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </UserProvider>
       </SearchProvider>
     </NewsProvider>
   );

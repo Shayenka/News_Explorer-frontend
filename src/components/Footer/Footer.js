@@ -10,11 +10,6 @@ function Footer() {
               to="/"
               className="footer__link_text_movile"
               style={{ textDecoration: "none" }}
-              // onClick={() => {
-              //   if(isSavedNewsClicked) {
-              //     handleSavedNewsClick();
-              //   }
-              // }}
             >
               Inicio
             </Link>
@@ -43,11 +38,6 @@ function Footer() {
             to="/"
             className="footer__link_text"
             style={{ textDecoration: "none" }}
-            // onClick={() => {
-            //   if(isSavedNewsClicked) {
-            //     handleSavedNewsClick();
-            //   }
-            // }}
           >
             Inicio
           </Link>

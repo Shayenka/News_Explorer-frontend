@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import deleteCard from "../../images/deleteCard.svg";
 import deleteCardClick from "../../images/deleteCardClick.svg";
 import { formatDate } from "../../utils/validator";
 
 function NewsCardList({ card, onDelete }) {
-  // const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
-  // const [deleteCardSrc, setDeleteCardSrc] = useState(deleteCard);
 
   const capitalizeAndLowercase = (word) => {
     const str = String(word);
@@ -15,7 +13,9 @@ function NewsCardList({ card, onDelete }) {
   };
 
   if (card.keyWord) {
-    card.searchQueries = card.keyWord.split(", ").map(word => capitalizeAndLowercase(word));
+    card.searchQueries = card.keyWord
+      .split(", ")
+      .map((word) => capitalizeAndLowercase(word));
   }
 
   function handleMouseEnter() {
@@ -29,10 +29,6 @@ function NewsCardList({ card, onDelete }) {
   function handleDeleteNewsCard() {
     onDelete();
   }
-
-  console.log(card.text);
-  console.log(card.source.name);
-  console.log(card.searchQueries);
 
   return (
     <div>
@@ -64,7 +60,9 @@ function NewsCardList({ card, onDelete }) {
           style={{ backgroundImage: `url(${card.urlToImage || card.image})` }}
         />
         <div className="card__footer-image">
-          <h4 className="card__date">{formatDate(card.publishedAt || card.date)}</h4>
+          <h4 className="card__date">
+            {formatDate(card.publishedAt || card.date)}
+          </h4>
           <h3 className="card__title">{card.title}</h3>
           <p className="card__description">{card.description || card.text}</p>
           <p className="card__source">{card.sourceName || card.source.name}</p>

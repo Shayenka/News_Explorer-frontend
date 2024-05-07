@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useUserContext from "../Hooks/useUserContext.js";
 import { ValidateEmail, ValidatePassword } from "../../utils/validator.js";
 import { authorize } from "../../utils/auth.js";
@@ -26,66 +26,69 @@ function Login({ isOpen, onClose, handleRegisterPopUp, setIsLoginPopupOpen }) {
   const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(true);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     setIsLoginPopupOpen(true);
   }, []);
 
-  const handleEmailChange = useCallback((evt) =>  {
-    const newEmail = evt.target.value;
-    setEmail(newEmail);
-    const error = ValidateEmail(newEmail);
-    setEmailError(error);
-    setIsLoginButtonDisabled(error || !newEmail || !password);
-  }, [email, password]);
+  const handleEmailChange = useCallback(
+    (evt) => {
+      const newEmail = evt.target.value;
+      setEmail(newEmail);
+      const error = ValidateEmail(newEmail);
+      setEmailError(error);
+      setIsLoginButtonDisabled(error || !newEmail || !password);
+    },
+    [email, password]
+  );
 
-  const handlePasswordChange = useCallback((evt) => {
-    const newPassword = evt.target.value;
-    setPassword(newPassword);
-    const error = ValidatePassword(newPassword);
-    setPasswordError(error);
-    setIsLoginButtonDisabled(error || !email || !newPassword);
-  }, [email, password]);
+  const handlePasswordChange = useCallback(
+    (evt) => {
+      const newPassword = evt.target.value;
+      setPassword(newPassword);
+      const error = ValidatePassword(newPassword);
+      setPasswordError(error);
+      setIsLoginButtonDisabled(error || !email || !newPassword);
+    },
+    [email, password]
+  );
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
 
     try {
-        if (!email?.trim() || !password?.trim()) {
-            setShowPopupFailedInputLogin(true);
-            setIsLoginButtonDisabled(true);
+      if (!email?.trim() || !password?.trim()) {
+        setShowPopupFailedInputLogin(true);
+        setIsLoginButtonDisabled(true);
+        setLoginPopupVisible(false);
+        setTimeout(() => {
+          navigate("/signin");
+        }, 2000);
+        return;
+      }
+      authorize(email, password)
+        .then((data) => {
+          console.log(data);
+          if (data.token) {
+            handleLoginUser(data);
+            navigate("/");
+          } else {
+            setShowPopupFailedLogin(true);
             setLoginPopupVisible(false);
             setTimeout(() => {
-                navigate("/signin");
+              navigate("/signup");
             }, 2000);
-            return;
-        }  
-        authorize(email, password)
-            .then((data) => {
-                console.log(data);
-                if (data.token) {
-                    handleLoginUser(data);
-                    navigate("/");
-                } else {
-                    setShowPopupFailedLogin(true);
-                    setLoginPopupVisible(false);
-                    // setLoginPopupVisible(true);
-                    setTimeout(() => {
-                        navigate("/signup");
-                    }, 2000);
-                }
-            })
-            .catch((err) => {
-                setLoginPopupVisible(false);
-                // setLoginPopupVisible(true);
-                setShowPopupFailedLogin(true);
-                console.log(err);
-            });
+          }
+        })
+        .catch((err) => {
+          setLoginPopupVisible(false);
+          setShowPopupFailedLogin(true);
+          console.log(err);
+        });
     } catch (error) {
-        console.error("Error en el inicio de sesión:", error);
+      console.error("Error en el inicio de sesión:", error);
     }
-}
+  };
 
   return (
     <>

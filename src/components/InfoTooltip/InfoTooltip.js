@@ -1,9 +1,8 @@
 import React from "react";
-import { Link,  useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import closePopUp from "../../images/close.svg";
 
 export function PopUpSuccessfulRegister(props) {
-
   return (
     <section
       className={`popup__info-container ${
@@ -24,7 +23,7 @@ export function PopUpSuccessfulRegister(props) {
         className="popup__info-link"
         style={{ textDecoration: "none" }}
         onClick={() => {
-          props.onClose(); 
+          props.onClose();
           props.onOpenLogin();
         }}
       >
@@ -55,8 +54,8 @@ export function PopUpFailedRegister(props) {
         className="popup__info-link"
         style={{ textDecoration: "none" }}
         onClick={() => {
-          props.onClose(); 
-          props.onOpenRegister(); 
+          props.onClose();
+          props.onOpenRegister();
         }}
       >
         Inscribirse
@@ -66,12 +65,6 @@ export function PopUpFailedRegister(props) {
 }
 
 export function PopUpUserRegistered(props) {
-  // const navigate = useNavigate();
-
-  // const handleClosePopup = () => {
-  //   props.onClose();
-  //   navigate("/"); 
-  // };
   return (
     <section
       className={`popup__info-container ${
@@ -90,8 +83,8 @@ export function PopUpUserRegistered(props) {
         className="popup__info-link"
         style={{ textDecoration: "none" }}
         onClick={() => {
-          props.onClose(); 
-          props.onOpenRegister(); 
+          props.onClose();
+          props.onOpenRegister();
         }}
       >
         Inscribirse
@@ -119,7 +112,7 @@ export function PopUpFailedInput(props) {
         className="popup__info-link"
         style={{ textDecoration: "none" }}
         onClick={() => {
-          props.onClose(); 
+          props.onClose();
           props.onOpenLogin();
         }}
       >
@@ -134,7 +127,7 @@ export function PopUpFailedLogin(props) {
 
   const handleClosePopup = () => {
     props.onClose();
-    navigate("/"); 
+    navigate("/");
   };
 
   return (
@@ -148,7 +141,6 @@ export function PopUpFailedLogin(props) {
         src={closePopUp}
         alt="Icono de una X para cerrar ventana emergente."
         onClick={handleClosePopup}
-        
       />
       <h3 className="popup__info-text">¡Usuario no registrado!</h3>
       <Link
@@ -156,9 +148,9 @@ export function PopUpFailedLogin(props) {
         className="popup__info-link"
         style={{ textDecoration: "none" }}
         onClick={() => {
-          props.onClose(); 
+          props.onClose();
           props.onOpenLogin();
-        }} 
+        }}
       >
         Inscribirse
       </Link>

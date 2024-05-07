@@ -5,22 +5,14 @@ import Logout from "../../images/logout.svg";
 import LogoutBlack from "../../images/logout-black.svg";
 import MenuMovile from "../../images/menu-movile.svg";
 import closeMenuSavedNews from "../../images/close_menu.svg";
-import closeMenu from "../../images/closeMenu.svg"; 
+import closeMenu from "../../images/closeMenu.svg";
 import MenuMovileSavedNews from "../../images/menu_SavedNews.svg";
 
-function Header({
-  handleLoginPopUp,
-  // onSavedNewsClick,
-  // handleSavedNewsClick,
-  // isSavedNewsClicked,
-}) {
+function Header({ handleLoginPopUp }) {
   const { user: currentUser, isLoggedIn, handleLogout } = useUserContext();
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const isSavedNewsRoute = location.pathname === "/saved-news";
-
-  console.log(currentUser);
-  console.log(currentUser.name);
 
   const handleClick = () => {
     setOpen(!open);
@@ -32,7 +24,7 @@ function Header({
         <>
           <h2
             className={`header__text ${
-              isSavedNewsRoute? "header__text_movile_SavedNews" : ""
+              isSavedNewsRoute ? "header__text_movile_SavedNews" : ""
             }`}
           >
             {" "}
@@ -41,7 +33,9 @@ function Header({
           <button
             onClick={handleClick}
             className={`header__button-menu header__button-menu_nav ${
-              isSavedNewsRoute ? "header__button-menu_SavedNews" : "header__button-menu_main"
+              isSavedNewsRoute
+                ? "header__button-menu_SavedNews"
+                : "header__button-menu_main"
             }`}
           >
             <img
@@ -51,9 +45,7 @@ function Header({
           </button>
           <div
             className={`header__container-texts-movile ${
-              isSavedNewsRoute
-                ? "header__container-texts-movile-savedNews"
-                : ""
+              isSavedNewsRoute ? "header__container-texts-movile-savedNews" : ""
             } ${
               open
                 ? isSavedNewsRoute
@@ -70,12 +62,16 @@ function Header({
               >
                 NewsExplorer
               </h2>
-              <button onClick={handleClick} className={`header__button-menu ${
-                  isSavedNewsRoute ? "header__button-menu_SavedNews" : "header__button-menu_main"
+              <button
+                onClick={handleClick}
+                className={`header__button-menu ${
+                  isSavedNewsRoute
+                    ? "header__button-menu_SavedNews"
+                    : "header__button-menu_main"
                 }`}
-                >
+              >
                 <img
-                 src={isSavedNewsRoute? closeMenuSavedNews : closeMenu}
+                  src={isSavedNewsRoute ? closeMenuSavedNews : closeMenu}
                   alt="Icono de una X para cerrar el menú."
                 />
               </button>
@@ -87,9 +83,6 @@ function Header({
                   isSavedNewsRoute ? "header__link_text_SavedNews" : ""
                 }`}
                 style={{ textDecoration: "none" }}
-                // onClick={() => {
-                //   handleSavedNewsClick();
-                // }}
               >
                 Inicio
               </Link>
@@ -99,16 +92,13 @@ function Header({
                   isSavedNewsRoute ? "header__link_text_SavedNews" : ""
                 }`}
                 style={{ textDecoration: "none" }}
-                // onClick={() => {
-                //   onSavedNewsClick();
-                // }}
               >
                 Artículos guardados
               </Link>
               <Link
                 to="/"
                 className={`header__link_text-border ${
-                  isSavedNewsRoute? "header__link_text-border_SavedNews" : ""
+                  isSavedNewsRoute ? "header__link_text-border_SavedNews" : ""
                 }`}
                 style={{
                   textDecoration: "none",
@@ -117,13 +107,12 @@ function Header({
                 }}
                 onClick={() => {
                   handleLogout();
-                  // handleSavedNewsClick();
                 }}
               >
                 {currentUser && currentUser.name && <>{currentUser.name}</>}
                 <img
                   className="header__icon-logout"
-                  src={ isSavedNewsRoute ? LogoutBlack : Logout}
+                  src={isSavedNewsRoute ? LogoutBlack : Logout}
                   alt="Icono de logout"
                 />
               </Link>
@@ -137,9 +126,6 @@ function Header({
                 isSavedNewsRoute ? "header__link_text_SavedNews" : ""
               }`}
               style={{ textDecoration: "none" }}
-              // onClick={() => {
-              //   handleSavedNewsClick();
-              // }}
             >
               Inicio
             </Link>
@@ -149,9 +135,6 @@ function Header({
                 isSavedNewsRoute ? "header__link_text_SavedNews" : ""
               }`}
               style={{ textDecoration: "none" }}
-              // onClick={() => {
-              //   onSavedNewsClick();
-              // }}
             >
               Artículos guardados
             </Link>
@@ -167,7 +150,6 @@ function Header({
               }}
               onClick={() => {
                 handleLogout();
-                // handleSavedNewsClick();
               }}
             >
               {currentUser && currentUser.name && <>{currentUser.name}</>}
@@ -195,7 +177,10 @@ function Header({
           >
             <div className="header__container_movile">
               <h2 className="header__text_movile"> NewsExplorer </h2>
-              <button onClick={handleClick} className="header__button-menu_main header__button-menu">
+              <button
+                onClick={handleClick}
+                className="header__button-menu_main header__button-menu"
+              >
                 <img
                   src={closeMenu}
                   alt="Icono de una X para cerrar el menú."

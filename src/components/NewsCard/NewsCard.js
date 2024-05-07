@@ -15,9 +15,9 @@ function NewsCard(props) {
   function handleSavedCard() {
     if (props.isLoggedIn) {
       const isCardAlreadySaved = savedCards.some(
-        (savedCard) => savedCard.url === props.card.url // Comparar por URL u otra propiedad única
+        (savedCard) => savedCard.url === props.card.url
       );
-  
+
       if (isCardAlreadySaved) {
         setIsSaved(true);
         setShowLoginMessage(false);
@@ -26,7 +26,6 @@ function NewsCard(props) {
         const NewIdCard = randomstring.generate(10);
         const CardWithId = { ...props.card, id: NewIdCard };
         handleCardSaved(CardWithId);
-        console.log(CardWithId);
       }
     } else {
       setIsSaved(false);

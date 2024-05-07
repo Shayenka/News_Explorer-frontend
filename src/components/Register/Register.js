@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import {
   ValidateEmail,
@@ -16,7 +16,13 @@ import SearchBanner from "../SearchBanner/SearchBanner.js";
 import About from "../About/About.js";
 import useSearchContext from "../Hooks/useSearchContext.js";
 
-function Register({ onRegister, isOpen, onClose, handleLoginPopUp, setIsRegisterPopupOpen }) {
+function Register({
+  onRegister,
+  isOpen,
+  onClose,
+  handleLoginPopUp,
+  setIsRegisterPopupOpen,
+}) {
   const { query, setQuery, handleSearch } = useSearchContext();
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
@@ -30,9 +36,9 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp, setIsRegister
   const [showPopupFailedRegister, setShowPopupFailedRegister] = useState(false);
   const [showPopUpUserRegistered, setShowPopUpUserRegistered] = useState(false);
   const [isRegisterPopupVisible, setRegisterPopupVisible] = useState(true);
-  const [isRegisterButtonDisabled, setIsRegisterButtonDisabled] = useState(true);
+  const [isRegisterButtonDisabled, setIsRegisterButtonDisabled] =
+    useState(true);
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     setIsRegisterPopupOpen(true);
@@ -41,29 +47,38 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp, setIsRegister
     setName(currentUser.name);
   }, [currentUser]);
 
-  const handleEmailChange = useCallback((evt) => {
-    const newEmail = evt.target.value;
-    setEmail(newEmail);
-    const error = ValidateEmail(newEmail);
-    setEmailError(error);
-    setIsRegisterButtonDisabled(error || !newEmail || !password || !name);
-  }, [email, password, name]);
+  const handleEmailChange = useCallback(
+    (evt) => {
+      const newEmail = evt.target.value;
+      setEmail(newEmail);
+      const error = ValidateEmail(newEmail);
+      setEmailError(error);
+      setIsRegisterButtonDisabled(error || !newEmail || !password || !name);
+    },
+    [email, password, name]
+  );
 
-  const handlePasswordChange = useCallback((evt) => {
-    const newPassword = evt.target.value;
-    setPassword(newPassword);
-    const error = ValidatePassword(newPassword);
-    setPasswordError(error);
-    setIsRegisterButtonDisabled(error || !email || !newPassword || !name);
-  }, [email, password, name]);
+  const handlePasswordChange = useCallback(
+    (evt) => {
+      const newPassword = evt.target.value;
+      setPassword(newPassword);
+      const error = ValidatePassword(newPassword);
+      setPasswordError(error);
+      setIsRegisterButtonDisabled(error || !email || !newPassword || !name);
+    },
+    [email, password, name]
+  );
 
-  const handleNameChange = useCallback((evt) => {
-    const newName = evt.target.value;
-    setName(newName);
-    const error = ValidateName(newName);
-    setNameError(error);
-    setIsRegisterButtonDisabled(error || !email || !password || !newName);
-  }, [email, password, name]);
+  const handleNameChange = useCallback(
+    (evt) => {
+      const newName = evt.target.value;
+      setName(newName);
+      const error = ValidateName(newName);
+      setNameError(error);
+      setIsRegisterButtonDisabled(error || !email || !password || !newName);
+    },
+    [email, password, name]
+  );
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import NewsCard from "../NewsCard/NewsCard";
 import NoResultsFound from "../../images/not-found_image.svg";
 import Preloader from "../Preloader/Preloader";
@@ -24,23 +23,11 @@ function Main() {
   const [visibleCards, setVisibleCards] = useState(3);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  // useEffect(() => {
-  //   console.log(isSavedCardsFetched);
-  //   // Llama a fetchSavedCards solo si no se ha llamado previamente
-  //   // y estamos en la página de "Artículos guardados"
-  //   if (!isSavedCardsFetched && location.pathname === "/saved-news") {
-  //     fetchSavedCards();
-  //   }
-  // }, [fetchSavedCards, isSavedCardsFetched, location.pathname]);
-
-
   const handleShowMore = async () => {
     if (!isLoading) {
       setIsButtonDisabled(true);
       try {
         setVisibleCards((prev) => prev + 3);
-
-        // await handleSearch();
       } finally {
         setIsButtonDisabled(false);
       }
@@ -57,25 +44,25 @@ function Main() {
 
       {searchResults.length > 0 ? (
         <>
-        <div className="container_Results__message_Main">
-          <h3 className="Results__message_Main">Resultados de la búsqueda</h3>
+          <div className="container_Results__message_Main">
+            <h3 className="Results__message_Main">Resultados de la búsqueda</h3>
           </div>
           <section className="container__main__cards">
-          <div className="main__cards">
-            {isLoading && <Preloader />}
+            <div className="main__cards">
+              {isLoading && <Preloader />}
 
-            {searchResults.slice(0, visibleCards).map((article, index) => (
-              <NewsCard
-                key={index}
-                isLoggedIn={isLoggedIn}
-                card={article}
-                sourceName={article.source.name}
-                title={article.title}
-                publishedAt={article.publishedAt}
-                description={article.description}
-                urlToImage={article.urlToImage}
-              />
-            ))}
+              {searchResults.slice(0, visibleCards).map((article, index) => (
+                <NewsCard
+                  key={index}
+                  isLoggedIn={isLoggedIn}
+                  card={article}
+                  sourceName={article.source.name}
+                  title={article.title}
+                  publishedAt={article.publishedAt}
+                  description={article.description}
+                  urlToImage={article.urlToImage}
+                />
+              ))}
             </div>
             {visibleCards < searchResults.length && (
               <button
@@ -87,7 +74,6 @@ function Main() {
                 Ver más
               </button>
             )}
-
           </section>
         </>
       ) : (
@@ -109,9 +95,7 @@ function Main() {
         </>
       )}
 
-      {savedCards.length > 0 ?? (
-        <SavedNews />
-      )}
+      {savedCards.length > 0 ?? <SavedNews />}
       <About />
     </>
   );

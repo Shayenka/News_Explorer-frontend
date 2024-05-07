@@ -2,15 +2,13 @@ class Api {
   constructor({ address, apiKey }) {
     this.address = address;
     this.apiKey = apiKey;
-    // this.token = `Bearer ${localStorage.getItem("jwt")}`
   }
 
   _useFetch(url, method, body) {
-    
-    this.token = this.token || `Bearer ${localStorage.getItem("jwt")}`
+    this.token = this.token || `Bearer ${localStorage.getItem("jwt")}`;
     return fetch(url, {
       headers: {
-        authorization: this.token, 
+        authorization: this.token,
         "Content-Type": "application/json",
       },
       method,
@@ -22,7 +20,6 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
-
 
   async get(url, params = {}) {
     try {
@@ -54,10 +51,7 @@ class Api {
   }
 
   async getSavedArticles() {
-    return this._useFetch(
-      `${this.address}/articles`,
-      `GET`
-    ).then((result) => {
+    return this._useFetch(`${this.address}/articles`, `GET`).then((result) => {
       return result;
     });
   }
@@ -85,7 +79,7 @@ class Api {
   async deleteArticle(articleId) {
     return this._useFetch(
       `${this.address}/articles/${articleId}`,
-      `DELETE`,
+      `DELETE`
     ).then((result) => {
       return result;
     });

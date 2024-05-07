@@ -19,7 +19,6 @@ export default function UserProvider({ children }) {
           setToken(token);
           setIsLoggedIn(true);
           setCurrentUser(userData);
-          // navigate("/");
         })
         .catch((error) => {
           console.error("Error de token:", error);
@@ -45,13 +44,11 @@ export default function UserProvider({ children }) {
   }
 
   function handleLogout() {
-    console.log("Logging out...");
     localStorage.removeItem("jwt");
     setToken("");
     setIsLoggedIn(false);
     setCurrentUser({});
     navigate("/");
-    console.log("navigate");
   }
 
   return (
