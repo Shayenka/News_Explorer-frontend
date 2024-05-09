@@ -84,7 +84,15 @@ function Register({
     evt.preventDefault();
 
     try {
-      if (!email?.trim() || !password?.trim() || !name?.trim()) {
+      if (!email.trim() || !password.trim() || !name.trim()) {
+        setShowPopupFailedRegister(true);
+        setShowPopupSuccessfulRegister(false);
+        setShowPopUpUserRegistered(false);
+        setIsRegisterButtonDisabled(true);
+        return;
+      }
+  
+      if (emailError || passwordError || nameError) {
         setShowPopupFailedRegister(true);
         setShowPopupSuccessfulRegister(false);
         setShowPopUpUserRegistered(false);
@@ -146,7 +154,7 @@ function Register({
               className="popup__text-input"
               required
               minLength="2"
-              maxLength="20"
+              maxLength="50"
               value={email || ""}
               onChange={handleEmailChange}
             />
@@ -161,7 +169,7 @@ function Register({
               className="popup__text-input"
               required
               minLength="2"
-              maxLength="20"
+              maxLength="50"
               value={password || ""}
               onChange={handlePasswordChange}
             />
@@ -176,7 +184,7 @@ function Register({
               className="popup__text-input"
               required
               minLength="2"
-              maxLength="20"
+              maxLength="50"
               value={name || ""}
               onChange={handleNameChange}
             />

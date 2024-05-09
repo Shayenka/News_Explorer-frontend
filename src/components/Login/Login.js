@@ -118,7 +118,7 @@ function Login({ isOpen, onClose, handleRegisterPopUp, setIsLoginPopupOpen }) {
               className="popup__text-input"
               required
               minLength="2"
-              maxLength="20"
+              maxLength="50"
               value={email || ""}
               onChange={handleEmailChange}
             />
@@ -133,7 +133,7 @@ function Login({ isOpen, onClose, handleRegisterPopUp, setIsLoginPopupOpen }) {
               className="popup__text-input"
               required
               minLength="2"
-              maxLength="20"
+              maxLength="50"
               value={password || ""}
               onChange={handlePasswordChange}
             />
