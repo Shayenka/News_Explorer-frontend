@@ -42,22 +42,9 @@
   width: 182px;
   height: 40px;
   border-radius: 10px;
-  margin-left: 160px;
-  top: 0;
+  right: 60px;
   position: absolute;
-  margin-top: 10px;
-}
-
-@media screen and (min-width: 767px) and (max-width: 1250px) {
-  .card__login-message-container {
-    margin-left: 60px;
-  }
-}
-
-@media screen and (min-width: 320px) and (max-width: 767px) {
-  .card__login-message-container {
-    margin-left: 40px;
-  }
+  top: 8px;
 }
 
 .card__login-message {

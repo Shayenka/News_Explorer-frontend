@@ -1,28 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import useNewsContext from "../Hooks/useNewsContext";
 import useUserContext from "../Hooks/useUserContext";
 
-function SavedNews({ isSavedNewsClicked }) {
+function SavedNews() {
   const { isLoggedIn } = useUserContext();
-  const { savedCards, allSearchQueries, handleDeleteCard } = useNewsContext();
-  
-  const savedCardsCount = savedCards ? savedCards.length : 0;
+  const { fetchSavedCards, isSavedCardsFetched, savedCards, handleDeleteCard } =
+    useNewsContext();
 
-  if (isLoggedIn && isSavedNewsClicked) {
+  const savedCardsCount = savedCards ? savedCards.length : 0;
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!isSavedCardsFetched) {
+      fetchSavedCards();
+    }
+  }, [fetchSavedCards, isSavedCardsFetched]);
+
+  if (isLoggedIn && location.pathname === "/saved-news") {
     return (
       <section>
         <SavedNewsHeader
           savedCards={savedCards}
           savedCardsCount={savedCardsCount}
-          allSearchQueries={allSearchQueries}
         />
         <div className="saved-news__cards">
           {savedCards.length > 0 ? (
             savedCards.map((card, index) => (
               <NewsCardList
-                key={index}
+                key={card.id}
                 card={card}
                 onDelete={() => handleDeleteCard(index)}
               />

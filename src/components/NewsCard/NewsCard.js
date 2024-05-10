@@ -4,24 +4,34 @@ import savedCardClick from "../../images/iconGuardarClick.svg";
 import savedCardChangeColor from "../../images/IconGuardarChangeBlue.svg";
 import useNewsContext from "../Hooks/useNewsContext";
 import { formatDate } from "../../utils/validator";
+import randomstring from "randomstring";
 
 function NewsCard(props) {
-  const { handleCardSaved } = useNewsContext();
+  const { handleCardSaved, savedCards } = useNewsContext();
   const [showLoginMessage, setShowLoginMessage] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [savedCardSrc, setSavedCardSrc] = useState(savedCard);
 
   function handleSavedCard() {
     if (props.isLoggedIn) {
-      setIsSaved(true);
-      handleCardSaved(props.card);
-      console.log(props.card);
+      const isCardAlreadySaved = savedCards.some(
+        (savedCard) => savedCard.url === props.card.url
+      );
+
+      if (isCardAlreadySaved) {
+        setIsSaved(true);
+        setShowLoginMessage(false);
+      } else {
+        setIsSaved(true);
+        const NewIdCard = randomstring.generate(10);
+        const CardWithId = { ...props.card, id: NewIdCard };
+        handleCardSaved(CardWithId);
+      }
     } else {
       setIsSaved(false);
       setShowLoginMessage(true);
     }
   }
-
   useEffect(() => {
     if (props.isLoggedIn && isSaved) {
       setSavedCardSrc(savedCardChangeColor);

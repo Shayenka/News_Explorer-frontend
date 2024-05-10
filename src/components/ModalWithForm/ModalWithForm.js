@@ -1,18 +1,22 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import closePopUp from "../../images/close.svg";
 
 function ModalWithForm(props) {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === "Escape") {
         props.onClose();
+        navigate("/");
       }
     };
 
     const handleClickOutside = (event) => {
       if (event.target.classList.contains("popup_opened")) {
         props.onClose();
+        navigate("/");
       }
     };
 
@@ -47,7 +51,13 @@ function ModalWithForm(props) {
         />
         <h3 className="popup__title">{props.title}</h3>
         {props.children}
-        <button type="submit" className="popup__button">
+        <button
+          type="submit"
+          className={`popup__button ${
+            props.isDisabled ? "popup__button--disabled" : ""
+          }`}
+          disabled={props.isDisabled}
+        >
           {props.submitButtonText}
         </button>
         <div className="popup__container-footer">

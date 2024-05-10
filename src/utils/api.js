@@ -4,6 +4,23 @@ class Api {
     this.apiKey = apiKey;
   }
 
+  _useFetch(url, method, body) {
+    this.token = this.token || `Bearer ${localStorage.getItem("jwt")}`;
+    return fetch(url, {
+      headers: {
+        authorization: this.token,
+        "Content-Type": "application/json",
+      },
+      method,
+      body: JSON.stringify(body),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
   async get(url, params = {}) {
     try {
       const queryString = Object.keys(params)
@@ -31,6 +48,41 @@ class Api {
     } catch (error) {
       throw new Error(`Network Error: ${error.message || "Unknown error"}`);
     }
+  }
+
+  async getSavedArticles() {
+    return this._useFetch(`${this.address}/articles`, `GET`).then((result) => {
+      return result;
+    });
+  }
+
+  async saveArticle(articleData) {
+    const requestBodyArticle = {
+      id: articleData.id,
+      keyWord: articleData.searchQueries.join(", "),
+      title: articleData.title,
+      text: articleData.description,
+      date: articleData.publishedAt,
+      source: articleData.source.name,
+      link: articleData.url,
+      image: articleData.urlToImage,
+    };
+    return this._useFetch(
+      `${this.address}/articles/save`,
+      `POST`,
+      requestBodyArticle
+    ).then((result) => {
+      return result;
+    });
+  }
+
+  async deleteArticle(articleId) {
+    return this._useFetch(
+      `${this.address}/articles/${articleId}`,
+      `DELETE`
+    ).then((result) => {
+      return result;
+    });
   }
 }
 

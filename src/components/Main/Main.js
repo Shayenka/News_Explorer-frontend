@@ -28,8 +28,6 @@ function Main() {
       setIsButtonDisabled(true);
       try {
         setVisibleCards((prev) => prev + 3);
-
-        await handleSearch();
       } finally {
         setIsButtonDisabled(false);
       }
@@ -46,25 +44,25 @@ function Main() {
 
       {searchResults.length > 0 ? (
         <>
-        <div className="container_Results__message_Main">
-          <h3 className="Results__message_Main">Resultados de la búsqueda</h3>
+          <div className="container_Results__message_Main">
+            <h3 className="Results__message_Main">Resultados de la búsqueda</h3>
           </div>
           <section className="container__main__cards">
-          <div className="main__cards">
-            {isLoading && <Preloader />}
+            <div className="main__cards">
+              {isLoading && <Preloader />}
 
-            {searchResults.slice(0, visibleCards).map((article, index) => (
-              <NewsCard
-                key={index}
-                isLoggedIn={isLoggedIn}
-                card={article}
-                sourceName={article.source.name}
-                title={article.title}
-                publishedAt={article.publishedAt}
-                description={article.description}
-                urlToImage={article.urlToImage}
-              />
-            ))}
+              {searchResults.slice(0, visibleCards).map((article, index) => (
+                <NewsCard
+                  key={index}
+                  isLoggedIn={isLoggedIn}
+                  card={article}
+                  sourceName={article.source.name}
+                  title={article.title}
+                  publishedAt={article.publishedAt}
+                  description={article.description}
+                  urlToImage={article.urlToImage}
+                />
+              ))}
             </div>
             {visibleCards < searchResults.length && (
               <button
@@ -76,7 +74,6 @@ function Main() {
                 Ver más
               </button>
             )}
-
           </section>
         </>
       ) : (
@@ -98,15 +95,7 @@ function Main() {
         </>
       )}
 
-      {savedCards.length > 0 ? (
-        <SavedNews />
-      ) : (
-        <SavedNews
-          savedCards={[]}
-          handleDeleteCard={() => {}}
-          searchQueries={[]}
-        />
-      )}
+      {savedCards.length > 0 ?? <SavedNews />}
       <About />
     </>
   );

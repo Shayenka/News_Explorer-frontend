@@ -1,21 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useUserContext from "../Hooks/useUserContext";
 import Logout from "../../images/logout.svg";
 import LogoutBlack from "../../images/logout-black.svg";
 import MenuMovile from "../../images/menu-movile.svg";
 import closeMenuSavedNews from "../../images/close_menu.svg";
-import closeMenu from "../../images/closeMenu.svg"; 
+import closeMenu from "../../images/closeMenu.svg";
 import MenuMovileSavedNews from "../../images/menu_SavedNews.svg";
 
-function Header({
-  handleLoginPopUp,
-  onSavedNewsClick,
-  handleSavedNewsClick,
-  isSavedNewsClicked,
-}) {
+function Header({ handleLoginPopUp }) {
   const { user: currentUser, isLoggedIn, handleLogout } = useUserContext();
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const isSavedNewsRoute = location.pathname === "/saved-news";
 
   const handleClick = () => {
     setOpen(!open);
@@ -27,7 +24,7 @@ function Header({
         <>
           <h2
             className={`header__text ${
-              isSavedNewsClicked ? "header__text_movile_SavedNews" : ""
+              isSavedNewsRoute ? "header__text_movile_SavedNews" : ""
             }`}
           >
             {" "}
@@ -36,22 +33,22 @@ function Header({
           <button
             onClick={handleClick}
             className={`header__button-menu header__button-menu_nav ${
-              isSavedNewsClicked ? "header__button-menu_SavedNews" : "header__button-menu_main"
+              isSavedNewsRoute
+                ? "header__button-menu_SavedNews"
+                : "header__button-menu_main"
             }`}
           >
             <img
-              src={isSavedNewsClicked ? MenuMovileSavedNews : MenuMovile}
+              src={isSavedNewsRoute ? MenuMovileSavedNews : MenuMovile}
               alt="Menú"
             />
           </button>
           <div
             className={`header__container-texts-movile ${
-              isSavedNewsClicked
-                ? "header__container-texts-movile-savedNews"
-                : ""
+              isSavedNewsRoute ? "header__container-texts-movile-savedNews" : ""
             } ${
               open
-                ? isSavedNewsClicked
+                ? isSavedNewsRoute
                   ? "header__container-texts-movile_open-SavedNews"
                   : "header__container-texts-movile_open"
                 : ""
@@ -60,17 +57,21 @@ function Header({
             <div className="header__container_movile">
               <h2
                 className={`header__text_movile ${
-                  isSavedNewsClicked ? "header__text_movile_SavedNews" : ""
+                  isSavedNewsRoute ? "header__text_movile_SavedNews" : ""
                 }`}
               >
                 NewsExplorer
               </h2>
-              <button onClick={handleClick} className={`header__button-menu ${
-                  isSavedNewsClicked ? "header__button-menu_SavedNews" : "header__button-menu_main"
+              <button
+                onClick={handleClick}
+                className={`header__button-menu ${
+                  isSavedNewsRoute
+                    ? "header__button-menu_SavedNews"
+                    : "header__button-menu_main"
                 }`}
-                >
+              >
                 <img
-                 src={isSavedNewsClicked ? closeMenuSavedNews : closeMenu}
+                  src={isSavedNewsRoute ? closeMenuSavedNews : closeMenu}
                   alt="Icono de una X para cerrar el menú."
                 />
               </button>
@@ -79,31 +80,25 @@ function Header({
               <Link
                 to="/"
                 className={`header__link_text ${
-                  isSavedNewsClicked ? "header__link_text_SavedNews" : ""
+                  isSavedNewsRoute ? "header__link_text_SavedNews" : ""
                 }`}
                 style={{ textDecoration: "none" }}
-                onClick={() => {
-                  handleSavedNewsClick();
-                }}
               >
                 Inicio
               </Link>
               <Link
                 to="/saved-news"
                 className={`header__link_text ${
-                  isSavedNewsClicked ? "header__link_text_SavedNews" : ""
+                  isSavedNewsRoute ? "header__link_text_SavedNews" : ""
                 }`}
                 style={{ textDecoration: "none" }}
-                onClick={() => {
-                  onSavedNewsClick();
-                }}
               >
                 Artículos guardados
               </Link>
               <Link
                 to="/"
                 className={`header__link_text-border ${
-                  isSavedNewsClicked ? "header__link_text-border_SavedNews" : ""
+                  isSavedNewsRoute ? "header__link_text-border_SavedNews" : ""
                 }`}
                 style={{
                   textDecoration: "none",
@@ -112,13 +107,12 @@ function Header({
                 }}
                 onClick={() => {
                   handleLogout();
-                  handleSavedNewsClick();
                 }}
               >
                 {currentUser && currentUser.name && <>{currentUser.name}</>}
                 <img
                   className="header__icon-logout"
-                  src={isSavedNewsClicked ? LogoutBlack : Logout}
+                  src={isSavedNewsRoute ? LogoutBlack : Logout}
                   alt="Icono de logout"
                 />
               </Link>
@@ -129,31 +123,25 @@ function Header({
             <Link
               to="/"
               className={`header__link_text ${
-                isSavedNewsClicked ? "header__link_text_SavedNews" : ""
+                isSavedNewsRoute ? "header__link_text_SavedNews" : ""
               }`}
               style={{ textDecoration: "none" }}
-              onClick={() => {
-                handleSavedNewsClick();
-              }}
             >
               Inicio
             </Link>
             <Link
               to="/saved-news"
               className={`header__link_text ${
-                isSavedNewsClicked ? "header__link_text_SavedNews" : ""
+                isSavedNewsRoute ? "header__link_text_SavedNews" : ""
               }`}
               style={{ textDecoration: "none" }}
-              onClick={() => {
-                onSavedNewsClick();
-              }}
             >
               Artículos guardados
             </Link>
             <Link
               to="/"
               className={`header__link_text-border ${
-                isSavedNewsClicked ? "header__link_text-border_SavedNews" : ""
+                isSavedNewsRoute ? "header__link_text-border_SavedNews" : ""
               }`}
               style={{
                 textDecoration: "none",
@@ -162,13 +150,12 @@ function Header({
               }}
               onClick={() => {
                 handleLogout();
-                handleSavedNewsClick();
               }}
             >
               {currentUser && currentUser.name && <>{currentUser.name}</>}
               <img
                 className="header__icon-logout"
-                src={isSavedNewsClicked ? LogoutBlack : Logout}
+                src={isSavedNewsRoute ? LogoutBlack : Logout}
                 alt="Icono de logout"
               />
             </Link>
@@ -190,7 +177,10 @@ function Header({
           >
             <div className="header__container_movile">
               <h2 className="header__text_movile"> NewsExplorer </h2>
-              <button onClick={handleClick} className="header__button-menu_main header__button-menu">
+              <button
+                onClick={handleClick}
+                className="header__button-menu_main header__button-menu"
+              >
                 <img
                   src={closeMenu}
                   alt="Icono de una X para cerrar el menú."

@@ -1,52 +1,65 @@
-export const registerUserMock = async (email, password, name) => {
-  return new Promise((resolve, reject) => {
-    const storedUsers =
-      JSON.parse(localStorage.getItem("registeredUsers")) || [];
+const BASE_URL = "http://localhost:3001";
 
-    const isUserRegistered = storedUsers.some((user) => user.email === email);
-
-    if (isUserRegistered) {
-      resolve(null);
-    } else {
-      const user = { email, password, name, token: "token" };
-
-      storedUsers.push(user);
-      localStorage.setItem("registeredUsers", JSON.stringify(storedUsers));
-
-      resolve(user);
-    }
-  });
+export const registerUser = async (email, password, name) => {
+  return fetch(`${BASE_URL}/signup`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password, name }),
+  })
+    .then((response) => {
+      if (response.status === 201) {
+        return response.json();
+      }
+    })
+    .then((res) => {
+      return res;
+    });
 };
 
-export const authorizeMock = async (email, password) => {
-  return new Promise((resolve, reject) => {
-    const storedUsers = JSON.parse(localStorage.getItem("registeredUsers"));
+export const authorize = async (email, password) => {
+  try {
+    const response = await fetch(`${BASE_URL}/signin`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-    const authorizedUser = storedUsers.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    if (authorizedUser) {
-      resolve({ token: "token", authorizedUser });
+    if (response.ok) {
+      const data = await response.json();
+      if (data && data.token) {
+        localStorage.setItem("jwt", data.token);
+        return data;
+      } else {
+        console.error("La respuesta del servidor no contiene un token válido.");
+      }
     } else {
-      reject(new Error("Not found"));
+      console.error("Error en la respuesta del servidor:", response.status);
     }
-  });
+  } catch (err) {
+    console.error("Error en la solicitud:", err);
+  }
 };
 
-export const checkTokenValidityMock = async ({ token, authorizedUser }) => {
-  return new Promise((resolve, reject) => {
-    const storedUsers =
-      JSON.parse(localStorage.getItem("registeredUsers")) || [];
-
-    const currentUser = storedUsers.find(
-      (user) => user.email === authorizedUser.email
-    );
-
-    if (currentUser) {
-      resolve(currentUser);
-    } else {
-      reject(new Error("Usuario no encontrado"));
-    }
+export const checkTokenValidity = async (token) => {
+  const response = await fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    throw new Error("Token inválido");
+  }
 };

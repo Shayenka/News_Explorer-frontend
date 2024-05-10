@@ -5,7 +5,7 @@
 }
 
 .cardList__icon-delete:hover {
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .cardList__delete-message-container {
@@ -15,22 +15,9 @@
   width: auto;
   height: 40px;
   border-radius: 10px;
-  left: 225px;
-  top: 0;
+  right: 60px;
   position: absolute;
-  margin-top: 10px;
-}
-
-@media screen and (min-width: 767px) and (max-width: 1250px) {
-  .cardList__delete-message-container {
-    margin-left: 120px;
-  }
-}
-
-@media screen and (min-width: 320px) and (max-width: 767px) {
-  .cardList__delete-message-container {
-    margin-left: 100px;
-  }
+  top: 8px;
 }
 
 .cardList__delete-message {

@@ -1,22 +1,28 @@
-import React, { useState, useEffect, useContext } from "react";
-import { CurrentUserContext } from "./contexts/CurrentUserContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useContext, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import {
   ValidateEmail,
   ValidatePassword,
   ValidateName,
-} from "./utils/validator";
-import ModalWithForm from "./components/ModalWithForm/ModalWithForm.js";
+} from "../../utils/validator.js";
+import ModalWithForm from "../ModalWithForm/ModalWithForm.js";
 import {
   PopUpSuccessfulRegister,
   PopUpFailedRegister,
   PopUpUserRegistered,
-} from "./components/InfoTooltip/InfoTooltip";
-import SearchBanner from "./components/SearchBanner/SearchBanner.js";
-import About from "./components/About/About.js";
-import useSearchContext from "./components/Hooks/useSearchContext.js";
+} from "../InfoTooltip/InfoTooltip.js";
+import SearchBanner from "../SearchBanner/SearchBanner.js";
+import About from "../About/About.js";
+import useSearchContext from "../Hooks/useSearchContext.js";
 
-function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
+function Register({
+  onRegister,
+  isOpen,
+  onClose,
+  handleLoginPopUp,
+  setIsRegisterPopupOpen,
+}) {
   const { query, setQuery, handleSearch } = useSearchContext();
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
@@ -30,36 +36,49 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
   const [showPopupFailedRegister, setShowPopupFailedRegister] = useState(false);
   const [showPopUpUserRegistered, setShowPopUpUserRegistered] = useState(false);
   const [isRegisterPopupVisible, setRegisterPopupVisible] = useState(true);
+  const [isRegisterButtonDisabled, setIsRegisterButtonDisabled] =
+    useState(true);
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
+    setIsRegisterPopupOpen(true);
     setEmail(currentUser.email);
     setPassword(currentUser.password);
     setName(currentUser.name);
   }, [currentUser]);
 
-  function handleEmailChange(evt) {
-    const newEmail = evt.target.value;
-    setEmail(newEmail);
-    const error = ValidateEmail(newEmail);
-    setEmailError(error);
-  }
+  const handleEmailChange = useCallback(
+    (evt) => {
+      const newEmail = evt.target.value;
+      setEmail(newEmail);
+      const error = ValidateEmail(newEmail);
+      setEmailError(error);
+      setIsRegisterButtonDisabled(error || !newEmail || !password || !name);
+    },
+    [email, password, name]
+  );
 
-  function handlePasswordChange(evt) {
-    const newPassword = evt.target.value;
-    setPassword(newPassword);
-    const error = ValidatePassword(newPassword);
-    setPasswordError(error);
-  }
+  const handlePasswordChange = useCallback(
+    (evt) => {
+      const newPassword = evt.target.value;
+      setPassword(newPassword);
+      const error = ValidatePassword(newPassword);
+      setPasswordError(error);
+      setIsRegisterButtonDisabled(error || !email || !newPassword || !name);
+    },
+    [email, password, name]
+  );
 
-  function handleNameChange(evt) {
-    const newName = evt.target.value;
-    setName(newName);
-
-    const error = ValidateName(newName);
-    setNameError(error);
-  }
+  const handleNameChange = useCallback(
+    (evt) => {
+      const newName = evt.target.value;
+      setName(newName);
+      const error = ValidateName(newName);
+      setNameError(error);
+      setIsRegisterButtonDisabled(error || !email || !password || !newName);
+    },
+    [email, password, name]
+  );
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -69,6 +88,15 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
         setShowPopupFailedRegister(true);
         setShowPopupSuccessfulRegister(false);
         setShowPopUpUserRegistered(false);
+        setIsRegisterButtonDisabled(true);
+        return;
+      }
+  
+      if (emailError || passwordError || nameError) {
+        setShowPopupFailedRegister(true);
+        setShowPopupSuccessfulRegister(false);
+        setShowPopUpUserRegistered(false);
+        setIsRegisterButtonDisabled(true);
         return;
       }
 
@@ -78,6 +106,7 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
         setShowPopUpUserRegistered(true);
         setShowPopupFailedRegister(false);
         setShowPopupSuccessfulRegister(false);
+        setIsRegisterButtonDisabled(true);
       } else {
         setShowPopupSuccessfulRegister(true);
         setShowPopupFailedRegister(false);
@@ -92,6 +121,7 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
       setShowPopupFailedRegister(true);
       setShowPopupSuccessfulRegister(false);
       setShowPopUpUserRegistered(false);
+      setIsRegisterButtonDisabled(true);
     }
   };
 
@@ -113,17 +143,18 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
           onSubmit={handleSubmit}
           handleLoginPopUp={handleLoginPopUp}
           isLoginPopUp={false}
+          isDisabled={isRegisterButtonDisabled}
         >
           <div>
             <h3 className="popup__subtitle-input">Correo eléctronico</h3>
             <input
-              type="text"
+              type="email"
               id="email"
               placeholder="Introduce tu correo eléctronico"
               className="popup__text-input"
               required
               minLength="2"
-              maxLength="20"
+              maxLength="50"
               value={email || ""}
               onChange={handleEmailChange}
             />
@@ -138,7 +169,7 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
               className="popup__text-input"
               required
               minLength="2"
-              maxLength="20"
+              maxLength="50"
               value={password || ""}
               onChange={handlePasswordChange}
             />
@@ -153,7 +184,7 @@ function Register({ onRegister, isOpen, onClose, handleLoginPopUp }) {
               className="popup__text-input"
               required
               minLength="2"
-              maxLength="20"
+              maxLength="50"
               value={name || ""}
               onChange={handleNameChange}
             />

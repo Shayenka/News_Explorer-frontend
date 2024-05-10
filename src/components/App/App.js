@@ -1,21 +1,24 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import NewsProvider from "../Providers/NewsProviders";
 import SearchProvider from "../Providers/SearchProviders";
 import UserProvider from "../Providers/UserProviders";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
-import Register from "../../Register";
-import Login from "../../Login";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 import SavedNews from "../SavedNews/SavedNews";
 import Footer from "../Footer/Footer";
-import { registerUserMock } from "../../utils/auth";
+import { registerUser } from "../../utils/auth";
+import PublicOnlyRoute from "../PublicOnlyRoute/PublicOnlyRoute";
 
 function App() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
-  const [isSavedNewsClicked, setIsSavedNewsClicked] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   function handleLoginPopUp() {
     setIsLoginPopupOpen(true);
@@ -28,11 +31,12 @@ function App() {
   function closeAllPopups() {
     setIsLoginPopupOpen(false);
     setIsRegisterPopupOpen(false);
+    navigate("/");
   }
 
   async function handleRegisterUser(email, password, name) {
     try {
-      const response = await registerUserMock(email, password, name);
+      const response = await registerUser(email, password, name);
       return response;
     } catch (error) {
       console.error("Error in the registration process:", error);
@@ -40,72 +44,60 @@ function App() {
     }
   }
 
-  function handleSavedNewsClick() {
-    setIsSavedNewsClicked(false);
-  }
-
   return (
     <NewsProvider>
       <SearchProvider>
-      <UserProvider>
-        <div
-          className={`body ${
-            isSavedNewsClicked ? "app-container_savedNews" : "app-container"
-          }`}
-        >
-          <Header
-            handleLoginPopUp={handleLoginPopUp}
-            handleSavedNewsClick={handleSavedNewsClick}
-            isSavedNewsClicked={isSavedNewsClicked}
-            onSavedNewsClick={() => setIsSavedNewsClicked(true)}
-          />
-          <main>
-            <Routes>
-              <Route
-                path="/signin"
-                element={
-                  <Login
-                    isOpen={isLoginPopupOpen}
-                    onClose={closeAllPopups}
-                    handleRegisterPopUp={handleRegisterPopUp}
-                  />
-                }
-              />
+        <UserProvider>
+          <div
+            className={`body ${
+              location.pathname === "/saved-news"
+                ? "app-container_savedNews"
+                : "app-container"
+            }`}
+          >
+            <Header handleLoginPopUp={handleLoginPopUp} />
+            <main>
+              <Routes>
+                <Route
+                  path="/signin"
+                  element={
+                    <PublicOnlyRoute>
+                      <Login
+                        isOpen={isLoginPopupOpen}
+                        onClose={closeAllPopups}
+                        handleRegisterPopUp={handleRegisterPopUp}
+                        setIsLoginPopupOpen={setIsLoginPopupOpen}
+                      />
+                    </PublicOnlyRoute>
+                  }
+                />
 
-              <Route
-                path="/signup"
-                element={
-                  <Register
-                    onRegister={handleRegisterUser}
-                    isOpen={isRegisterPopupOpen}
-                    onClose={closeAllPopups}
-                    handleLoginPopUp={handleLoginPopUp}
-                  />
-                }
-              />
-              {isSavedNewsClicked && (
+                <Route
+                  path="/signup"
+                  element={
+                    <Register
+                      onRegister={handleRegisterUser}
+                      isOpen={isRegisterPopupOpen}
+                      onClose={closeAllPopups}
+                      handleLoginPopUp={handleLoginPopUp}
+                      setIsRegisterPopupOpen={setIsRegisterPopupOpen}
+                    />
+                  }
+                />
                 <Route
                   path="/saved-news"
                   element={
                     <div className="saved-news-container">
-                      <ProtectedRoute
-                        component={SavedNews}
-                        isSavedNewsClicked={isSavedNewsClicked}
-                      />
+                      <ProtectedRoute component={SavedNews} />
                     </div>
                   }
                 />
-              )}
-
-              <Route path="/" element={<Main />} />
-            </Routes>
-          </main>
-          <Footer 
-          isSavedNewsClicked={isSavedNewsClicked}
-          handleSavedNewsClick={handleSavedNewsClick}
-          />
-        </div>
-      </UserProvider>
+                <Route path="/" element={<Main />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </UserProvider>
       </SearchProvider>
     </NewsProvider>
   );
